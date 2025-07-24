@@ -6,7 +6,7 @@
             <fieldset class="mb-3">
                 <legend class="border-bottom mb-4">join today</legend> 
                 <div class="mb-3">
-                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username.label(class="form-label") }}
 
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
@@ -20,7 +20,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    {{ form.email.label(class="form-control-label") }}
+                    {{ form.email.label(class="form-label") }}
 
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -34,7 +34,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    {{ form.password.label(class="form-control-label") }}
+                    {{ form.password.label(class="form-label") }}
                     
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -45,6 +45,20 @@
                         </div>
                     {% else %}
                         {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    {{ form.confirm_password.label(class="form-label") }}
+                    
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirm_password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>
