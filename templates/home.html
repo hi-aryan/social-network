@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for data in PASSdummydata %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="me-2 author-link" href="#">{{ data.author }}</a>
+                </div>
+                <h2><a class="article-title" href="#">{{ data.title }}</a></h2>
+                <p class="article-content">{{ data.content }}</p>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
