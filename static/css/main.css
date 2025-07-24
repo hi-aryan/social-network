@@ -30,6 +30,8 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+  box-shadow: -1px 1px 7px 0 rgba(86, 3, 150, 0.25), 
+              1px -1px 7px 0 rgba(201, 12, 12, 0.25);
 }
 
 a.article-title, a.author-link {
@@ -80,4 +82,11 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.form-control:focus {
+  box-shadow:
+    -2px 2px 10px 0 rgba(86, 3, 150, 0.25),
+    2px -2px 10px 0 rgba(201, 12, 12, 0.25);
+  border: none;
 }
