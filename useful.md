@@ -1,7 +1,8 @@
 # useful stuff
 
 ## always do this first
-from app import app, db, Post, User
+from flasknetwork import app, db, Post, User
+from flasknetwork.models import User ???
 
 
 ## when starting a shell
