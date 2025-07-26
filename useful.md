@@ -38,3 +38,10 @@ User.query.all()
 ## get and update email specific
 user.email = 'newemail@example.com'
 db.session.commit()
+
+
+
+
+# todo
+1. avoid names that are only differently capitalized
+2. clean up unused profile pictures
