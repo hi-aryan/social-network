@@ -10,7 +10,7 @@
         <div class="flex-grow-1">
             <div class="article-metadata">
                 <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="{{ post.author.username }}'s profile picture">
-                <a class="me-2 author-link" href="#">{{ post.author.username }}</a>
+                <a class="me-2 author-link" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
                 <small class="text-muted">{{ post.date_posted.strftime('%b %d, %Y') }}</small>
             </div>
             <h2 class="article-title">{{ post.title }}</h2>
