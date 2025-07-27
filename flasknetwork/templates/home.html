@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for data in PASSdummydata %}
+    {% for post in posts %}
         <article class="d-flex align-items-center content-section">
             <div>
                 <div class="article-metadata">
-                    <a class="me-2 author-link" href="#">{{ data.author }}</a>
+                    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="{{ post.author.username }}'s profile picture">
+                    <a class="me-2 author-link" href="#">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date_posted.strftime('%b %d, %Y') }}</small>
                 </div>
-                <h2><a class="article-title" href="#">{{ data.title }}</a></h2>
-                <p class="article-content">{{ data.content }}</p>
+                <h2>
+                    <a class="article-title" href="#">{{ post.title }}</a>
+                </h2>
+                <p class="article-content">{{ post.content }}</p>
             </div>
         </article>
     {% endfor %}

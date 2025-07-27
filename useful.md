@@ -1,8 +1,8 @@
 # useful stuff
 
 ## always do this first
-from flasknetwork import app, db, Post, User
-from flasknetwork.models import User ???
+from flasknetwork import app, db
+from flasknetwork.models import User, Post
 
 
 ## when starting a shell
@@ -35,10 +35,13 @@ db.session.commit()
 User.query.all()
 
 
-## get and update email specific
+## get user by username
+user = User.query.filter_by(username='aryan').first()
+
+
+## update email
 user.email = 'newemail@example.com'
 db.session.commit()
-
 
 
 
