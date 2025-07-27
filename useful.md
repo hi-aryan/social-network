@@ -46,5 +46,7 @@ db.session.commit()
 
 
 # todo
-1. avoid names that are only differently capitalized
-2. clean up unused profile pictures
+1. long blogpost titles go outside of the window lol (fixed?)
+2. avoid names that are only differently capitalized
+3. clean up unused profile pictures
+4. change "create_post" to "manage_post" or something since now it also edits the posts
