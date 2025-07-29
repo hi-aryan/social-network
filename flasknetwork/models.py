@@ -1,5 +1,6 @@
-from flasknetwork import db, login_manager, app
+from flasknetwork import db, login_manager
 from itsdangerous import URLSafeTimedSerializer as Serializer
+from flask import current_app
 from datetime import datetime
 from flask_login import UserMixin # 4 default methods for user authentication
 
@@ -18,12 +19,12 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def get_reset_token(self):
-        s = Serializer(app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'])
         return s.dumps({'user_id': self.id})
     
     @staticmethod
     def verify_reset_token(token, expires_sec=1800):
-        s = Serializer(app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token, max_age=expires_sec)['user_id']
         except:

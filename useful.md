@@ -1,5 +1,7 @@
 # useful stuff
 
+** OUTDATED "app" grejer! **
+
 ## always do this first
 from flasknetwork import app, db
 from flasknetwork.models import User, Post
