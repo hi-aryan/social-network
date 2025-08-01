@@ -2,3 +2,4 @@ social_network-venv/
 
 flasknetwork/static/profile_pics/
 flasknetwork/__pycache__/
+__pycache__/
