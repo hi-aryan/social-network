@@ -17,16 +17,35 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    email_verified = db.Column(db.Boolean, nullable=False, default=False)
+
+    def get_verification_token(self):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id, 'action': 'verify_email'})
+    
+    @staticmethod
+    def verify_email_token(token, expires_sec=3600):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token, max_age=expires_sec)
+            if data.get('action') != 'verify_email':
+                return None
+        except:
+            return None
+        return User.query.get(data['user_id'])
 
     def get_reset_token(self):
         s = Serializer(current_app.config['SECRET_KEY'])
-        return s.dumps({'user_id': self.id})
+        return s.dumps({'user_id': self.id, 'action': 'reset_password'})
     
     @staticmethod
     def verify_reset_token(token, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            user_id = s.loads(token, max_age=expires_sec)['user_id']
+            data = s.loads(token, max_age=expires_sec)
+            if data.get('action') != 'reset_password':
+                return None
+            user_id = data['user_id']
         except:
             return None
         return User.query.get(user_id)

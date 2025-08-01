@@ -30,3 +30,14 @@ def send_reset_email(user):
 If you did not make this request then ignore this email and no changes will be made :)
 '''
     mail.send(msg)
+
+
+def send_verification_email(user):
+    token = user.get_verification_token()
+    msg = Message('Email Verification', sender='ratekth@noreply.com', recipients=[user.email])
+    msg.body = f'''To verify your email, visit the following link:
+{ url_for('users.verify_email', token=token, _external=True) }
+
+If you did not make this request, ignore this email.
+'''
+    mail.send(msg)

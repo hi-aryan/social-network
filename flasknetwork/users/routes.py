@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flasknetwork import db, bcrypt
 from flasknetwork.models import User, Post
 from flasknetwork.users.forms import RegistrationForm, LoginForm, UpdateAccountForm,RequestResetForm, ResetPasswordForm
-from flasknetwork.users.utils import save_picture, send_reset_email
+from flasknetwork.users.utils import save_picture, send_reset_email, send_verification_email
 
 users = Blueprint('users', __name__)
 
@@ -18,8 +18,9 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash(f'Account created for {form.username.data}! You can now login.', 'success')
-        return redirect(url_for('users.login')) # home is home() METHOD!
+        send_verification_email(user)
+        flash('Verification email sent! Check your KTH email to activate your account.', 'info')
+        return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -31,6 +32,9 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
+            if not user.email_verified:
+                flash('Please verify your email before logging in.', 'warning')
+                return redirect(url_for('users.login'))
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
@@ -105,3 +109,18 @@ def reset_token(token):
         flash('Your password has been updated! You can now log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form, user=user)
+
+
+@users.route('/verify_email/<token>')
+def verify_email(token):
+    user = User.verify_email_token(token)
+    if user is None:
+        flash('That is an invalid or expired verification link.', 'warning')
+        return redirect(url_for('users.login'))
+    if user.email_verified:
+        flash('Account already verified. Please log in.', 'info')
+        return redirect(url_for('users.login'))
+    user.email_verified = True
+    db.session.commit()
+    flash('Your account has been verified! You can now log in.', 'success')
+    return redirect(url_for('users.login'))

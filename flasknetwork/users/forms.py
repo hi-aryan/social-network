@@ -22,6 +22,10 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('That email is taken. Please choose a different one.')
+        
+        allowed_domains = ['@kth.se', '@ug.kth.se']
+        if not any(email.data.lower().endswith(domain) for domain in allowed_domains):
+            raise ValidationError('Only KTH students (@kth.se or @ug.kth.se) can register.')
 
 
 class LoginForm(FlaskForm):
