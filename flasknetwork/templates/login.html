@@ -45,6 +45,13 @@
                         Forgot Password?
                     </a>
                 </small>
+                {% if request.args.get('show_verification') == 'true' %}
+                <small class="text-muted ms-2">
+                    <a href="{{ url_for('users.request_verification') }}">
+                        Didn't get the verification email? (-_-)
+                    </a>
+                </small>
+                {% endif %}
             </div>
         </form>
     </div>

@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flasknetwork import db, bcrypt
 from flasknetwork.models import User, Post
-from flasknetwork.users.forms import RegistrationForm, LoginForm, UpdateAccountForm,RequestResetForm, ResetPasswordForm
+from flasknetwork.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, RequestVerificationForm
 from flasknetwork.users.utils import save_picture, send_reset_email, send_verification_email
 
 users = Blueprint('users', __name__)
@@ -34,7 +34,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             if not user.email_verified:
                 flash('Please verify your email before logging in.', 'warning')
-                return redirect(url_for('users.login'))
+                return redirect(url_for('users.login', show_verification='true'))
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
@@ -124,3 +124,16 @@ def verify_email(token):
     db.session.commit()
     flash('Your account has been verified! You can now log in.', 'success')
     return redirect(url_for('users.login'))
+
+
+@users.route('/request_verification', methods=['GET', 'POST'])
+def request_verification():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+    form = RequestVerificationForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_verification_email(user)
+        flash('Verification email sent! Check your email.', 'info')
+        return redirect(url_for('users.login'))
+    return render_template('request_verification.html', title='Request Verification', form=form)
