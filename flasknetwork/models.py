@@ -18,7 +18,7 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
     email_verified = db.Column(db.Boolean, nullable=False, default=False)
-    # if ForeignKey is the “many” side of that relationship, why isn't there a course_id?
+    # update any code that creates a user to set program_id??
     program_id = db.Column(db.Integer, db.ForeignKey('program.id'), nullable=False)
     program = db.relationship('Program', backref='students')
 
@@ -86,9 +86,11 @@ class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??
     name = db.Column(db.String(100), nullable=False)
     code = db.Column(db.String(20), unique=True, nullable=False)
+    # restrict program_type to either 'bachelor' or 'master'
+    program_type = db.Column(db.Enum('bachelor', 'master', name='program_type'), nullable=False)
 
     def __repr__(self):
-        return f"Program('{self.id}', '{self.name}', '{self.code}')"
+        return f"Program('{self.id}', '{self.name}', '{self.code}', '{self.program_type}')"
     
 
 class Course(db.Model):

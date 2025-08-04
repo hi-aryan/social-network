@@ -10,12 +10,14 @@ app.app_context().push()
 
 
 ## PROGRAM CRUD & RELATIONSHIPS
-program1 = Program(name='Teknisk Fysik', code='TF') 
+program1 = Program(name='Teknisk Fysik', code='TF', program_type='bachelor')  # include program_type
 db.session.add(program1); db.session.commit()       # create
 Program.query.all()                                 # list all
 Program.query.get(program1.id)                      # get by PK
-Program.query.filter_by(code='TF').first()          # filter
-program1.name                                       # read field
+Program.query.filter_by(code='TF').first()          # filter by code
+Program.query.filter_by(program_type='bachelor').all()  # filter by program_type
+program1.name                                       # read name
+program1.program_type                               # read program type
 program1.students                                   # all User in this program
 program1.course_programs                            # all Course_Program links
 [p.course for p in program1.course_programs]        # all Courses in this program
