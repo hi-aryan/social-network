@@ -56,6 +56,7 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
     def __repr__(self):
         return f"User properties: ('{self.username}', '{self.email}', '{self.image_file}')"
 
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -79,7 +80,8 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
-    
+
+
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??
     name = db.Column(db.String(100), nullable=False)
@@ -94,9 +96,6 @@ class Course(db.Model):
     name = db.Column(db.String(100), nullable=False)
     code = db.Column(db.String(20), unique=True, nullable=False)
     
-    programs = db.relationship('Program', secondary='course_program', backref='courses')
-    professors = db.relationship('Professor', secondary='course_professor', backref='courses')
-
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.code}')"
     
@@ -126,7 +125,7 @@ class Course_Professor(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     professor_id = db.Column(db.Integer, db.ForeignKey('professor.id'), nullable=False)
 
-    semester_taught = db.Column(db.String(10))  # e.g., "HT2023"
+    semester_taught = db.Column(db.String(10), nullable=False)  # e.g., "HT2023"
     is_current = db.Column(db.Boolean, default=False)
     
     # is this to get WHEN a professor taught a course?
@@ -134,4 +133,4 @@ class Course_Professor(db.Model):
     professor = db.relationship('Professor', backref='course_professors')
 
     def __repr__(self):
-        return f"Course_Professor('{self.id}', '{self.course_id}', '{self.professor_id}')"
+        return f"Course_Professor('{self.id}', '{self.course_id}', '{self.professor_id}', '{self.semester_taught}', '{self.is_current}')"
