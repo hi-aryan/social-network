@@ -137,8 +137,6 @@ Post.query.filter_by(user_id=user1.id).all()         # all posts by user1
 
 course1.reviews                                      # all posts for course1
 
-prof1.reviews                                        # all posts for prof1
-
 
 ## UPDATES
 

@@ -54,7 +54,7 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User properties: ('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User properties: ('{self.username}', '{self.email}', '{self.image_file}', '{self.email_verified}', program ID: '{self.program_id}')"
 
 
 class Post(db.Model):
@@ -73,8 +73,9 @@ class Post(db.Model):
     course = db.relationship('Course', backref='reviews')
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
-
+        author = self.author.username if self.author else "None"
+        course = self.course.name if self.course else "None"
+        return f"Post('{self.id}', '{self.title}', '{self.date_posted}', author='{author}', course='{course}')"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??
