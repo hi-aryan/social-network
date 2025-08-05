@@ -65,18 +65,12 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    professor_id = db.Column(db.Integer, db.ForeignKey('professor.id'), nullable=False)
-    # why is this connection necessary?^
-    # This connection is necessary to establish a relationship between the Post and Course/Professor entities.
-    # It allows us to associate a specific post with the course it belongs to and the professor who created it.
-    # i wanna see concretely how professor_id is used in the app. it looks weird to me, cause "one professor has many posts" doesn't sound right???
 
     # what is this for?
     __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='_user_course_uc'),)
     
     # are these needed? what are they for?
     course = db.relationship('Course', backref='reviews')
-    professor = db.relationship('Professor', backref='reviews')
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -102,14 +96,6 @@ class Course(db.Model):
         return f"Course('{self.id}', '{self.name}', '{self.code}')"
     
 
-class Professor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-
-    def __repr__(self):
-        return f"Professor('{self.id}', '{self.name}')"
-
-
 class Course_Program(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
@@ -120,19 +106,3 @@ class Course_Program(db.Model):
 
     def __repr__(self):
         return f"Course_Program('{self.id}', '{self.course_id}', '{self.program_id}')"
-    
-
-class Course_Professor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    professor_id = db.Column(db.Integer, db.ForeignKey('professor.id'), nullable=False)
-
-    semester_taught = db.Column(db.String(10), nullable=False)  # e.g., "HT2023"
-    is_current = db.Column(db.Boolean, default=False)
-    
-    # is this to get WHEN a professor taught a course?
-    course = db.relationship('Course', backref='course_professors')
-    professor = db.relationship('Professor', backref='course_professors')
-
-    def __repr__(self):
-        return f"Course_Professor('{self.id}', '{self.course_id}', '{self.professor_id}', '{self.semester_taught}', '{self.is_current}')"
