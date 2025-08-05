@@ -6,6 +6,7 @@
             <div>
                 <h2 class="account-heading">{{ current_user.username }}</h2>
                 <p class="text-secondary">{{ current_user.email }}</p>
+                <p class="text-secondary">Program: {{ current_user.program.name }} ({{ current_user.program.program_type.title() }})</p>
             </div>
         </div>
         <form method="POST" action="" autocomplete="off" enctype="multipart/form-data">

@@ -34,6 +34,19 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
+                    {{ form.program.label(class="form-label") }}
+                    {% if form.program.errors %}
+                        {{ form.program(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.program.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.program(class="form-select form-select-lg") }}
+                    {% endif %}
+                </div>
+                <div class="mb-3">
                     {{ form.password.label(class="form-label") }}
                     
                     {% if form.password.errors %}

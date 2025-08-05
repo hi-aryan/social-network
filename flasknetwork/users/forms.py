@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
-from flasknetwork.models import User
+from flasknetwork.models import User, Program
 from flasknetwork.users.utils import is_kth_domain
 
 
@@ -12,7 +12,15 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=30)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    program = SelectField('Program', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Sign Up')
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        # Populate program choices from database
+        self.program.choices = [(p.id, f"{p.name} ({p.program_type.title()})") 
+                               for p in Program.query.order_by(Program.name).all()]
+
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -38,6 +46,7 @@ class LoginForm(FlaskForm):
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    # TODO: perhaps add a SelectField for program, but user shouldn't be able to change program just to review more courses! maybe delete all reviews if they change program?
     submit = SubmitField('Update')
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
 
