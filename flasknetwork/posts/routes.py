@@ -11,27 +11,33 @@ posts = Blueprint('posts', __name__)
 @login_required
 def new_post():
     form = PostForm()
+    existing_review_id = None
+    
     if form.validate_on_submit():
         existing_review = Post.query.filter_by(user_id=current_user.id, course_id=form.course.data).first()
         if existing_review:
-            flash("You've already reviewed this course! Please edit your existing review instead.", 'warning')
-            return redirect(url_for('posts.update_post', post_id=existing_review.id))
-
-        post = Post(
-            title=form.title.data, 
-            content=form.content.data, 
-            author=current_user, 
-            course_id=form.course.data,
-            year_taken=form.year_taken.data,
-            rating=form.rating.data,
-            answer_q1=form.answer_q1.data,
-            answer_q2=form.answer_q2.data
-        )
-        db.session.add(post)
-        db.session.commit()
-        flash('Your post has been created!', 'success')
-        return redirect(url_for('main.home'))
-    return render_template('create_post.html', title='New Course Review', form=form, legend='New Course Review')
+            # Add error to form instead of redirecting (preserves user input)
+            form.course.errors.append("You've already reviewed this course! You can edit your existing review instead.")
+            existing_review_id = existing_review.id
+        else:
+            # Create new post (follows PRG pattern)
+            post = Post(
+                title=form.title.data, 
+                content=form.content.data, 
+                author=current_user, 
+                course_id=form.course.data,
+                year_taken=form.year_taken.data,
+                rating=form.rating.data,
+                answer_q1=form.answer_q1.data,
+                answer_q2=form.answer_q2.data
+            )
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post has been created!', 'success')
+            return redirect(url_for('main.home'))
+    
+    return render_template('create_post.html', title='New Course Review', form=form, 
+                         legend='New Course Review', existing_review_id=existing_review_id)
 
 
 @posts.route('/post/<int:post_id>')

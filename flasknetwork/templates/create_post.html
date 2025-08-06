@@ -5,7 +5,7 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4">{{ legend }}</legend>
+                <legend class="border-bottom mb-4 text-shadow fw-bold">{{ legend }}</legend>
 
                 <div class="mb-3">
                     {{ form.course.label(class="form-label") }}
@@ -14,6 +14,14 @@
                         <div class="invalid-feedback">
                             {% for error in form.course.errors %}
                                 <span>{{ error }}</span>
+                                {% if existing_review_id and "already reviewed" in error %}
+                                    <div class="mt-2">
+                                        <a href="{{ url_for('posts.update_post', post_id=existing_review_id) }}" 
+                                           class="btn btn-sm btn-outline-danger">
+                                            Edit Existing Review
+                                        </a>
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     {% else %}
