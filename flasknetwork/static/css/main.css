@@ -114,3 +114,46 @@ a.article-title:hover {
   opacity: 0.8;
   transform: scale(1.05);
 }
+
+/* for rating button */
+
+/* hide the native radio */
+.form-check-input {
+  position: absolute;
+  clip: rect(0 0 0 0);
+}
+
+/* default star look */
+.rating-box {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  margin: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  background: #f8f9fa;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+.rating-box .star {
+  font-size: 1.5rem;
+  color: #ccc;
+  line-height: 2.5rem;
+}
+
+/* when the radio is checked, style its label */
+.form-check-input:checked + .rating-box {
+  box-shadow: 0 0 8px rgba(255,193,7,0.6);
+}
+.form-check-input:checked + .rating-box .star {
+  color: #ffc107;
+}
+
+.rating-box .rating-number {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.2rem;
+}

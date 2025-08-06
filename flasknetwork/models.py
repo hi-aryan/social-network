@@ -61,21 +61,27 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    # TODO: remove content (rating and questions are the content)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    year_taken = db.Column(db.Integer, nullable=False)  # e.g., 2023
+    rating = db.Column(db.Integer, nullable=False)  # e.g., 1-
+    answer_q1 = db.Column(db.Text, nullable=False)  # e.g., "Yes, I would recommend this course."
+    answer_q2 = db.Column(db.Text, nullable=True)
     
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
 
     # what is this for?
-    __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='_user_course_uc'),)
+    __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='one_review_per_course'),)
     
-    # are these needed? what are they for?
+    # TODO: are these needed? what are they for?
     course = db.relationship('Course', backref='reviews')
+    #author = db.relationship('User', backref='reviews')
 
     def __repr__(self):
         author = self.author.username if self.author else "None"
         course = self.course.name if self.course else "None"
-        return f"Post('{self.id}', '{self.title}', '{self.date_posted}', author='{author}', course='{course}')"
+        return f"\n\nPost('{self.id}', '{self.title}', '{self.date_posted}', author='{author}', course='{course}', year_taken='{self.year_taken}', rating='{self.rating}', q1='{'None' if self.answer_q1 is None else 'present'}', q2='{'None' if self.answer_q2 is None else 'present'}')\n\n"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??

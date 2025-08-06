@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, TextAreaField, SubmitField, SelectField, IntegerField, RadioField
+from wtforms.validators import DataRequired, Length, NumberRange
 from flasknetwork.models import Course_Program
 from flask_login import current_user
 
@@ -9,6 +9,12 @@ class PostForm(FlaskForm):
     course = SelectField('Course', coerce=int, validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])
+    year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=1980, max=2100)])
+    rating = RadioField('Course Rating', coerce=int, choices=[(i, str(i)) for i in range(1,6)], validators=[DataRequired()])
+    answer_q1 = TextAreaField('What did you like most?', validators=[DataRequired(), Length(max=200)])
+    answer_q2 = TextAreaField('What could be improved?', validators=[DataRequired(), Length(max=200)])
+
+
     submit = SubmitField('Post')
 
     def __init__(self, *args, **kwargs):

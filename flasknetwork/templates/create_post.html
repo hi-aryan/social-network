@@ -1,3 +1,4 @@
+<!-- TODO: it doesn't display an error when switching to a course one has already reviewed?! but it accurately doesn't update it... also, it should display a warning here when changing course (the popup, there is one implemented somewehre already)-->
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
@@ -47,9 +48,64 @@
                         {{ form.content(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <div class="mb-3">
+                    {{ form.year_taken.label(class="form-label") }}
+
+                    {% if form.year_taken.errors %}
+                        {{ form.year_taken(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.year_taken(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    {{ form.rating.label(class="form-label d-block") }}
+                    <div class="rating-group">
+                        {% for sub in form.rating %}
+                            {{ sub(class="form-check-input") }}
+                            <label for="{{ sub.id }}" class="rating-box">
+                                <span class="star">&#9733;</span>
+                                <div class="rating-number">{{ sub.label.text }}</div>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    {% if form.rating.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for e in form.rating.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    {{ form.answer_q1.label(class="form-label") }}
+                    {% if form.answer_q1.errors %}
+                        {{ form.answer_q1(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for e in form.answer_q1.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.answer_q1(class="form-control") }}
+                    {% endif %}
+                    </div>
+                    <div class="mb-3">
+                    {{ form.answer_q2.label(class="form-label") }}
+                    {% if form.answer_q2.errors %}
+                        {{ form.answer_q2(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for e in form.answer_q2.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.answer_q2(class="form-control") }}
+                    {% endif %}
+                </div>
             </fieldset>
             <div class="mb-3">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {% if legend.startswith('Update') %}
+                    <button type="submit" class="btn btn-outline-info">Update</button>
+                {% else %}
+                    {{ form.submit(class="btn btn-outline-info") }}
+                {% endif %}
             </div>
         </form>
     </div>
