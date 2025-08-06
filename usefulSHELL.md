@@ -13,6 +13,12 @@
 [course for course in Course.query.all() if not course.course_programs]
 
 
+### print all courses
+
+for c in Course.query.all():
+    c
+
+
 ## always do this first
 from flasknetwork import create_app, db
 

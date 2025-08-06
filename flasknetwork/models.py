@@ -54,7 +54,7 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User properties: ('{self.username}', '{self.email}', '{self.image_file}', '{self.email_verified}', program ID: '{self.program_id}')"
+        return f"User properties: (ID: '{self.id}', '{self.username}', '{self.email}', '{self.image_file}', '{self.email_verified}', program ID: '{self.program_id}')"
 
 
 class Post(db.Model):
