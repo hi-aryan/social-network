@@ -53,6 +53,21 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
             return None
         return User.query.get(user_id)
 
+    def can_review(self, course):
+        """
+        Return True if this user
+        1) has verified their email,
+        2) hasn’t already reviewed this course, and
+        3) the course is in their program.
+        """
+        if not self.email_verified:
+            return False
+
+        if course.is_reviewed_by(self):
+            return False
+
+        return course.course_is_available_for_program(self.program_id)
+
     def __repr__(self):
         return f"User properties: (ID: '{self.id}', '{self.username}', '{self.email}', '{self.image_file}', '{self.email_verified}', program ID: '{self.program_id}')"
 
@@ -150,6 +165,12 @@ class Course(db.Model):
         if not user or user.is_anonymous:
             return False
         return any(r.user_id == user.id for r in self.reviews)
+
+    def course_is_available_for_program(self, program_id):
+        """
+        Return True if this course is available for the given program_id.
+        """
+        return any(cp.program_id == program_id for cp in self.course_programs)
 
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.code}')"

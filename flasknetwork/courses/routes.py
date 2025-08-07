@@ -109,20 +109,25 @@ def course_detail(course_id):
     """
     try:
         course = Course.query.get_or_404(course_id)
-        
         # Get all reviews for this course, ordered by date
         # TODO: how/why/WHERE is it ordered by date??
         reviews = course.reviews
-        # is the "current_user.is_authenticated" really needed? since it already checks "if current_user.is_authenticated" in detail.htl??
-        has_reviewed = course.is_reviewed_by(current_user)
-        show_write_review_button = current_user.is_authenticated and not has_reviewed
+
+        auth_can_review = ( 
+            current_user.is_authenticated and current_user.can_review(course)
+        )
+
+        auth_but_cannot_review = (
+            current_user.is_authenticated and not current_user.can_review(course)
+        )
 
         return render_template('courses/detail.html', 
                              title=f'{course.code} - {course.name}',
                              course=course,
                              reviews=reviews,
-                             show_write_review_button=show_write_review_button)
-                             
+                             auth_can_review=auth_can_review,
+                             auth_but_cannot_review=auth_but_cannot_review)
+
     except SQLAlchemyError as e:
         current_app.logger.error(f"Database error loading course {course_id}: {str(e)}")
         return render_template('errors/500.html'), 500

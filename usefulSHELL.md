@@ -232,6 +232,7 @@ db.session.commit()
 
 # TODO:
 *new*
+* why isn't it redirecting back to where i was after i press "login" in /courses/course/id !?!?! (from a not-logged-in state)
 * don't need TWO buttons to write a new review?? either keep "Add your Review" or "Write Review"
 * margin or spacing or whatever for "Back to Search" and "Write Review" in courses/course/id for those with no reviews are very ugly.
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
