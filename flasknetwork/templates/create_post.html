@@ -68,23 +68,25 @@
                         {{ form.year_taken(class="form-control") }}
                     {% endif %}
                 </div>
-                <div class="mb-3">
-                    {{ form.rating.label(class="form-label d-block") }}
+                <fieldset class="mb-3" role="group" aria-labelledby="ratingGroupLabel">
+                    <div id="ratingGroupLabel" class="form-label mb-2">
+                        {{ form.rating.label.text }}
+                    </div>
                     <div class="rating-group">
                         {% for sub in form.rating %}
                             {{ sub(class="form-check-input") }}
                             <label for="{{ sub.id }}" class="rating-box">
                                 <span class="star">&#9733;</span>
                                 <div class="rating-number">{{ sub.label.text }}</div>
-                            </label>
+                        </label>
                         {% endfor %}
                     </div>
                     {% if form.rating.errors %}
                         <div class="invalid-feedback d-block">
-                            {% for e in form.rating.errors %}{{ e }}{% endfor %}
+                        {% for e in form.rating.errors %}{{ e }}{% endfor %}
                         </div>
                     {% endif %}
-                </div>
+                </fieldset>
                 <div class="mb-3">
                     {{ form.answer_q1.label(class="form-label") }}
                     {% if form.answer_q1.errors %}

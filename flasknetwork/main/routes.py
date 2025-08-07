@@ -12,6 +12,4 @@ def home():
     return render_template('home.html', title='Home Page', posts=posts)
 
 
-@main.route('/about')
-def about():
-    return render_template('about.html', title='About Page',)
+# About page removed - replaced with course search functionality in courses blueprint

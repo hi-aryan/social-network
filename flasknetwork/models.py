@@ -96,8 +96,54 @@ class Program(db.Model):
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    code = db.Column(db.String(20), unique=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False, index=True)
+    code = db.Column(db.String(20), unique=True, nullable=False, index=True)
+    
+    @classmethod
+    def search(cls, query, limit=50):
+        """
+        Search courses by name or code with case-insensitive matching.
+        
+        Args:
+            query (str): Search term to match against course name or code
+            limit (int): Maximum number of results to return
+            
+        Returns:
+            List[Course]: List of matching courses
+            
+        Raises:
+            ValueError: If query is invalid
+        """
+        if not query or not isinstance(query, str):
+            raise ValueError("Search query must be a non-empty string")
+            
+        # Sanitize input - remove extra whitespace and limit length
+        sanitized_query = query.strip()[:100]  # Limit to 100 chars
+        
+        if len(sanitized_query) < 2:
+            raise ValueError("Search query must be at least 2 characters long")
+        
+        # Use ilike for case-insensitive search with wildcards
+        search_filter = db.or_(
+            cls.name.ilike(f'%{sanitized_query}%'),
+            cls.code.ilike(f'%{sanitized_query}%')
+        )
+        
+        return cls.query.filter(search_filter).limit(max(1, min(limit, 100))).all()
+    
+    def to_dict(self):
+        """
+        Convert Course instance to dictionary for JSON serialization.
+        
+        Returns:
+            dict: Course data as dictionary
+        """
+        return {
+            'id': self.id,
+            'name': self.name,
+            'code': self.code,
+            'review_count': len(self.reviews) if hasattr(self, 'reviews') else 0
+        }
     
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.code}')"

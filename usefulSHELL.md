@@ -2,6 +2,20 @@
 
 ** OUTDATED "app" grejer! **
 
+#### db stuff
+
+set FLASK_APP=run.py
+flask db init
+flask db migrate -m "initial schema"
+flask db upgrade
+
+rmdir /s /q migrations
+
+*import and push app first!!*
+from sqlalchemy import text
+db.session.execute(text('DROP TABLE IF EXISTS alembic_version'))
+db.session.execute(text('DROP TABLE IF EXISTS _alembic_tmp_post'))
+db.session.commit()
 
 ### listing all user-defined variables in the session
 
@@ -216,7 +230,13 @@ db.session.delete(user)
 db.session.commit()
 
 
-# todo
+# TODO:
+*new*
+1. write review in courses/course/id should check if the user has already reviewed that course. if so, don't display "Write review".
+2. make "Back to Search" prettier in courses/course/id
+3. perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
+4. fix the autocomplete
+
 1. long blogpost titles go outside of the window lol (fixed?)
 2. avoid names that are only differently capitalized
 3. clean up unused profile pictures

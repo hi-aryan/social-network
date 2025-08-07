@@ -1,0 +1,291 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="content-section">
+            <h2 class="mb-4">Search Courses</h2>
+            <p class="text-muted mb-4">Find courses and read reviews from fellow students</p>
+            
+            <!-- Search Form -->
+            <div class="mb-4">
+                <div class="input-group input-group-lg">
+                    <input type="text" 
+                           class="form-control" 
+                           id="courseSearchInput" 
+                           placeholder="Search by course name or code (e.g., 'DD1341' or 'Introduction to Computer Science')"
+                           autocomplete="off">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                        <!-- TODO: still can't see this fa icon?! -->
+                        <i class="fas fa-times" style="color: #333;"></i>
+                    </button>
+                </div>
+                <div class="form-text">
+                    <small class="text-muted">Enter at least 2 characters to search</small>
+                </div>
+            </div>
+            
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="text-center d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 text-muted">Searching courses...</p>
+            </div>
+            
+            <!-- Error Message -->
+            <div id="errorMessage" class="alert alert-danger d-none" role="alert">
+                <strong>Error:</strong> <span id="errorText"></span>
+            </div>
+            
+            <!-- Search Results -->
+            <div id="searchResults">
+                <div id="noResults" class="text-center text-muted d-none">
+                    <i class="fas fa-search fa-3x mb-3"></i>
+                    <h5>No courses found</h5>
+                    <p>Try adjusting your search terms</p>
+                </div>
+                
+                <div id="resultsContainer" class="d-none">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 id="resultsCount" class="mb-0"></h5>
+                        <small class="text-muted" id="searchQuery"></small>
+                    </div>
+                    <div id="coursesList"></div>
+                </div>
+            </div>
+            
+            <!-- Initial Help Text -->
+            <div id="initialHelp" class="text-center text-muted">
+                <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                <h5>Find Your Course</h5>
+                <p>Start typing a course name or code to see available courses and their reviews</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Course Item Template (Hidden) TODO: what is this?! -->
+<template id="courseItemTemplate">
+    <div class="card mb-3 course-item">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5 class="card-title mb-1">
+                        <a href="#" class="course-link text-decoration-none">
+                            <span class="course-code fw-bold text-primary"></span> - 
+                            <span class="course-name"></span>
+                        </a>
+                    </h5>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="review-count"></span>
+                        </small>
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="#" class="btn btn-outline-primary course-detail-btn">
+                        View Reviews
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+class CourseSearch {
+    constructor() {
+        this.searchInput = document.getElementById('courseSearchInput');
+        this.clearButton = document.getElementById('clearSearch');
+        this.loadingIndicator = document.getElementById('loadingIndicator');
+        this.errorMessage = document.getElementById('errorMessage');
+        this.errorText = document.getElementById('errorText');
+        this.noResults = document.getElementById('noResults');
+        this.resultsContainer = document.getElementById('resultsContainer');
+        this.coursesList = document.getElementById('coursesList');
+        this.resultsCount = document.getElementById('resultsCount');
+        this.searchQuery = document.getElementById('searchQuery');
+        this.initialHelp = document.getElementById('initialHelp');
+        this.courseTemplate = document.getElementById('courseItemTemplate');
+        
+        this.searchTimeout = null;
+        this.currentRequest = null;
+        
+        this.init();
+    }
+    
+    init() {
+        // Event listeners
+        this.searchInput.addEventListener('input', (e) => {
+            this.handleSearchInput(e.target.value);
+        });
+        
+        this.clearButton.addEventListener('click', () => {
+            this.clearSearch();
+        });
+        
+        // Focus on search input when page loads
+        this.searchInput.focus();
+    }
+    
+    handleSearchInput(query) {
+        // Cancel previous timeout
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+        
+        // Cancel previous request
+        if (this.currentRequest) {
+            this.currentRequest.abort();
+        }
+        
+        // Clear previous results and errors
+        this.hideAllStates();
+        
+        // Trim query
+        query = query.trim();
+        
+        if (query.length === 0) {
+            this.showInitialState();
+            return;
+        }
+        
+        if (query.length < 2) {
+            this.showError('Please enter at least 2 characters');
+            return;
+        }
+        
+        // Debounce search
+        this.searchTimeout = setTimeout(() => {
+            this.performSearch(query);
+        }, 300);
+    }
+    
+    async performSearch(query) {
+        try {
+            this.showLoading();
+            
+            // Create AbortController for request cancellation
+            const controller = new AbortController();
+            this.currentRequest = controller;
+            
+            const response = await fetch(`/courses/api/search?q=${encodeURIComponent(query)}&limit=50`, {
+                signal: controller.signal
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `HTTP ${response.status}`);
+            }
+            
+            const courses = await response.json();
+            this.displayResults(courses, query);
+            
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                // Request was cancelled, ignore
+                return;
+            }
+            
+            console.error('Search error:', error);
+            this.showError(error.message || 'Failed to search courses');
+        } finally {
+            this.currentRequest = null;
+        }
+    }
+    
+    displayResults(courses, query) {
+        this.hideAllStates();
+        
+        if (courses.length === 0) {
+            this.noResults.classList.remove('d-none');
+            return;
+        }
+        
+        // Clear previous results
+        this.coursesList.innerHTML = '';
+        
+        // Update results info
+        this.resultsCount.textContent = `${courses.length} course${courses.length !== 1 ? 's' : ''} found`;
+        this.searchQuery.textContent = `for "${query}"`;
+        
+        // Create course items
+        courses.forEach(course => {
+            const courseElement = this.createCourseElement(course);
+            this.coursesList.appendChild(courseElement);
+        });
+        
+        this.resultsContainer.classList.remove('d-none');
+    }
+    
+    createCourseElement(course) {
+        const template = this.courseTemplate.content.cloneNode(true);
+        
+        // Set course data
+        template.querySelector('.course-code').textContent = course.code;
+        template.querySelector('.course-name').textContent = course.name;
+        
+        // Set review count
+        const reviewText = course.review_count === 0 ? 'No reviews yet' : 
+                          course.review_count === 1 ? '1 review' : 
+                          `${course.review_count} reviews`;
+        template.querySelector('.review-count').textContent = reviewText;
+        
+        // Set links
+        const courseUrl = `/courses/course/${course.id}`;
+        template.querySelector('.course-link').href = courseUrl;
+        template.querySelector('.course-detail-btn').href = courseUrl;
+        
+        return template;
+    }
+    
+    showLoading() {
+        this.hideAllStates();
+        this.loadingIndicator.classList.remove('d-none');
+    }
+    
+    showError(message) {
+        this.hideAllStates();
+        this.errorText.textContent = message;
+        this.errorMessage.classList.remove('d-none');
+    }
+    
+    showInitialState() {
+        this.hideAllStates();
+        this.initialHelp.classList.remove('d-none');
+    }
+    
+    hideAllStates() {
+        this.loadingIndicator.classList.add('d-none');
+        this.errorMessage.classList.add('d-none');
+        this.noResults.classList.add('d-none');
+        this.resultsContainer.classList.add('d-none');
+        this.initialHelp.classList.add('d-none');
+    }
+    
+    clearSearch() {
+        this.searchInput.value = '';
+        this.searchInput.focus();
+        this.showInitialState();
+        
+        // Cancel any pending operations
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+        if (this.currentRequest) {
+            this.currentRequest.abort();
+        }
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new CourseSearch();
+});
+</script>
+{% endblock scripts %}
