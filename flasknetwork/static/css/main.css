@@ -14,15 +14,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .site-header .navbar-nav .nav-link {
-  color: #292929;
+  color: #111111;
+  transition: color 0.2s ease, transform 0.2s ease; 
 }
 
 .site-header .navbar-nav .nav-link:hover {
-  color: #266296;
-}
-
-.site-header .navbar-nav .nav-link.active {
-  font-weight: 500;
+  color: #111111;
+  transform: scale(1.06);
 }
 
 .content-section {
@@ -109,6 +107,7 @@ a.article-title:hover {
   width: auto;
   display: inline-block;
   vertical-align: middle;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 #navbar-logo:hover {
