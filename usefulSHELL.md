@@ -232,7 +232,7 @@ db.session.commit()
 
 # TODO:
 *new*
-* why isn't it redirecting back to where i was after i press "login" in /courses/course/id !?!?! (from a not-logged-in state)
+* there is no box for "remember me" in the login anymore?!?!
 * don't need TWO buttons to write a new review?? either keep "Add your Review" or "Write Review"
 * margin or spacing or whatever for "Back to Search" and "Write Review" in courses/course/id for those with no reviews are very ugly.
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
@@ -240,6 +240,7 @@ db.session.commit()
 * fix text sizing in create_post (course title and content inputs are bigger than the rest)
 * what does manually changing the id in "/post/new?course_id=2" change? it doesn't update the selected course? and it seems to have no effect on what courses the user can post for. so what does changing the id DO?
 * ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)?? what other issues does this have (where else is this exact functionality used?)
+* fix color hierarchy in posts!! color of questions and stuff should be lighter than title and so on! (check twitter!)
 * fix the autocomplete
 * change questions in post!
 * make the "New Post" (should be New Review maybe) prettier and more popping (add an icon?)
