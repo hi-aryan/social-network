@@ -232,15 +232,16 @@ db.session.commit()
 
 # TODO:
 *new*
-1. write review in courses/course/id should check if the user has already reviewed that course. if so, don't display "Write review".
-2. make "Back to Search" prettier in courses/course/id
-3. perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
-4. fix the autocomplete
-5. change questions in post!
-6. sidebar: override it or edit it on certain subpages? refactor needed? if kept: fix/delete for mobile!
-7. "my reviews" in /account
-8. browse programs/courses
-9. notification system? maybe a bit annoying.
+* write review in courses/course/id should check if the user has already reviewed that course. if so, don't display "Write review".
+* make "Back to Search" prettier in courses/course/id
+* perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
+* fix text sizing in create_post (course title and content inputs are bigger than the rest)
+* fix the autocomplete
+* change questions in post!
+* sidebar: override it or edit it on certain subpages? refactor needed? if kept: fix/delete for mobile!
+* "my reviews" in /account
+* browse programs/courses
+* notification system? maybe a bit annoying.
 
 
 1. long blogpost titles go outside of the window lol (fixed?)
