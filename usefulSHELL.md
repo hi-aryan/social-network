@@ -233,9 +233,13 @@ db.session.commit()
 # TODO:
 *new*
 * write review in courses/course/id should check if the user has already reviewed that course. if so, don't display "Write review".
-* make "Back to Search" prettier in courses/course/id
+* don't need TWO buttons to write a new review?? either keep "Add your Review" or "Write Review"
+* margin or spacing or whatever for "Back to Search" and "Write Review" in course/courses/id for those with no reviews are very ugly.
+* make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
 * perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
 * fix text sizing in create_post (course title and content inputs are bigger than the rest)
+* what does manually changing the id in "/post/new?course_id=2" change? it doesn't update the selected course? and it seems to have no effect on what courses the user can post for. so what does changing the id DO?
+* ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)?? what other issues does this have (where else is this exact functionality used?)
 * fix the autocomplete
 * change questions in post!
 * sidebar: override it or edit it on certain subpages? refactor needed? if kept: fix/delete for mobile!

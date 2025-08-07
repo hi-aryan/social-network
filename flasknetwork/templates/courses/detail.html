@@ -23,7 +23,7 @@
                     <a href="{{ url_for('courses.search') }}" class="btn btn-outline-secondary">
                         <i class="fas fa-arrow-left"></i> Back to Search
                     </a>
-                    {% if current_user.is_authenticated %}
+                    {% if show_write_review_button %}
                         <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary">
                             <i class="fas fa-plus"></i> Write Review
                         </a>
@@ -133,8 +133,8 @@
                     </dd>
                 {% endif %}
             </dl>
-            
-            {% if current_user.is_authenticated %}
+
+            {% if show_write_review_button %}
                 <hr>
                 <div class="text-center">
                     <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary btn-sm">

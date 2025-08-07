@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
 from flasknetwork.models import Course
 from sqlalchemy.exc import SQLAlchemyError
+from flask_login import current_user
 import logging
 
 courses = Blueprint('courses', __name__)
@@ -112,11 +113,15 @@ def course_detail(course_id):
         # Get all reviews for this course, ordered by date
         # TODO: how/why/WHERE is it ordered by date??
         reviews = course.reviews
-        
+        # is the "current_user.is_authenticated" really needed? since it already checks "if current_user.is_authenticated" in detail.htl??
+        has_reviewed = course.is_reviewed_by(current_user)
+        show_write_review_button = current_user.is_authenticated and not has_reviewed
+
         return render_template('courses/detail.html', 
                              title=f'{course.code} - {course.name}',
                              course=course,
-                             reviews=reviews)
+                             reviews=reviews,
+                             show_write_review_button=show_write_review_button)
                              
     except SQLAlchemyError as e:
         current_app.logger.error(f"Database error loading course {course_id}: {str(e)}")

@@ -144,7 +144,13 @@ class Course(db.Model):
             'code': self.code,
             'review_count': len(self.reviews) if hasattr(self, 'reviews') else 0
         }
-    
+
+    def is_reviewed_by(self, user):
+        """Return True if `user` has already reviewed this course."""
+        if not user or user.is_anonymous:
+            return False
+        return any(r.user_id == user.id for r in self.reviews)
+
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.code}')"
     
