@@ -236,6 +236,12 @@ db.session.commit()
 2. make "Back to Search" prettier in courses/course/id
 3. perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
 4. fix the autocomplete
+5. change questions in post!
+6. sidebar: override it or edit it on certain subpages? refactor needed? if kept: fix/delete for mobile!
+7. "my reviews" in /account
+8. browse programs/courses
+9. notification system? maybe a bit annoying.
+
 
 1. long blogpost titles go outside of the window lol (fixed?)
 2. avoid names that are only differently capitalized
