@@ -8,7 +8,6 @@ from flask_login import current_user
 class PostForm(FlaskForm):
     course = SelectField('Course', coerce=int, validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
-    content = TextAreaField('Content', validators=[DataRequired()])
     year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)])
     rating = RadioField('Course Rating', coerce=int, choices=[(i, str(i)) for i in range(1,6)], validators=[DataRequired()])
     answer_q1 = TextAreaField('What did you like most?', validators=[DataRequired(), Length(max=200)])

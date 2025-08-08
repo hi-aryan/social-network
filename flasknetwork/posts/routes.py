@@ -23,7 +23,6 @@ def new_post():
             # Create new post (follows PRG pattern)
             post = Post(
                 title=form.title.data, 
-                content=form.content.data, 
                 author=current_user, 
                 course_id=form.course.data,
                 year_taken=form.year_taken.data,
@@ -60,7 +59,6 @@ def update_post(post_id):
         else:
             post.course_id  = form.course.data
             post.title      = form.title.data
-            post.content    = form.content.data
             post.year_taken = form.year_taken.data
             post.rating     = form.rating.data
             post.answer_q1  = form.answer_q1.data
@@ -71,7 +69,6 @@ def update_post(post_id):
     elif request.method == 'GET':
         form.course.data = post.course_id
         form.title.data = post.title
-        form.content.data = post.content
         form.year_taken.data = post.year_taken
         form.rating.data = post.rating
         form.answer_q1.data = post.answer_q1

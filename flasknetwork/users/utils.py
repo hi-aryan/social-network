@@ -6,7 +6,6 @@ from flask_mail import Message
 from flasknetwork import mail
 
 
-#TODO: @kth.se and @ug.kth.se should be the same! so if aryan@kth.se is used aryan@ug.kth.se shouldn't be allowed
 def is_kth_domain(email):
     """Check if email belongs to KTH domain"""
     allowed_domains = ['@kth.se', '@ug.kth.se']

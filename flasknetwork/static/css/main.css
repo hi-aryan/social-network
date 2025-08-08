@@ -48,7 +48,8 @@ a.review-title:hover {
   color: #428bca;
 }
 
-.review-content {
+/* where is this used?? */
+.review-questions {
   white-space: pre-line;
 }
 

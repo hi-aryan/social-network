@@ -155,19 +155,7 @@ program1.students
 
 post1 = Post(
     title='DD1337 Review',
-    content='Great course!',
     year_taken=2025,
-    rating=4,
-    answer_q1='Yes, I’d recommend.',
-    answer_q2='Challenging but fun.', # NEW (can) omit for None)
-    author=user1,
-    course=course1
-)
-
-post1 = Post(
-    title='programming review!',
-    content='pretty good course',
-    year_taken=2023,
     rating=4,
     answer_q1='Yes, I’d recommend.',
     answer_q2='Challenging but fun.', # NEW (can) omit for None)
@@ -260,20 +248,24 @@ db.session.commit()
 
 # TODO:
 *new*
+* only display the courses in user's program which they haven't reviewed yet, not ALL courses on the program.
 * "avg rating" goes to a new line (below the actual rating line) and it looks ugly (for reviewed courses in /courses/course/id) 
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
-* perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
-* fix text sizing in create_post (course title and content inputs are bigger than the rest)
 * what does manually changing the id in "/post/new?course_id=2" change? it doesn't update the selected course? and it seems to have no effect on what courses the user can post for. so what does changing the id DO?
 * ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)?? what other issues does this have (where else is this exact functionality used?)
 * fix color hierarchy in posts!! color of questions and stuff should be lighter than title and so on! (check twitter! https://x.com/heysatya_/status/1952975293590958444 )
 * fix the autocomplete
+* only allow @kth.se emails! (@ug.kth.se is the same anyways?! just makes for more complications)
+* add a random name generator for username on register (reddit-type names)
+* autofill login (and maybe register? but then maybe it's not as obvious that only @kth.se mails are allowed??) with @kth.se so users only need to type the first part on login
+* fix the 'remember me' or delete it!
 * change questions in post!
 * make the "New Post" (should be New Review maybe) prettier and more popping (add an icon?)
 * "my reviews" in /account
 * browse programs/courses
-* notification system? maybe a bit annoying.
+* LATER: notification system? maybe a bit annoying.
+* LATER: if an auth user makes a search then sort the search in 2 sections "my program" and "all courses"
 
 
 1. long blogpost titles go outside of the window lol (fixed?)

@@ -76,8 +76,6 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    # TODO: remove content (rating and questions are the content)
-    content = db.Column(db.Text, nullable=False)
     year_taken = db.Column(db.Integer, nullable=False)  # e.g., 2023
     rating = db.Column(db.Integer, nullable=False)  # e.g., 1-
     answer_q1 = db.Column(db.Text, nullable=False)  # e.g., "Yes, I would recommend this course."

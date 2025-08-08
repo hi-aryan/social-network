@@ -34,7 +34,7 @@
                 <h2>
                     <a class="review-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
                 </h2>
-                <p class="review-content">{{ post.content }}</p>
+                <!-- TODO: put the other review metadata here -->
             </div>
         </article>
     {% endfor %}

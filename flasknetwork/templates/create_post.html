@@ -43,32 +43,6 @@
                         {{ form.title(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="mb-3">
-                    {{ form.content.label(class="form-label") }}
-                    
-                    {% if form.content.errors %}
-                        {{ form.content(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.content.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.content(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    {{ form.year_taken.label(class="form-label") }}
-
-                    {% if form.year_taken.errors %}
-                        {{ form.year_taken(class="form-control is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.year_taken(class="form-control") }}
-                    {% endif %}
-                </div>
                 <fieldset class="mb-3" role="group" aria-labelledby="ratingGroupLabel">
                     <div id="ratingGroupLabel" class="form-label mb-2">
                         {{ form.rating.label.text }}
@@ -111,6 +85,18 @@
                     {% endif %}
                 </div>
             </fieldset>
+            <div class="mb-3">
+                {{ form.year_taken.label(class="form-label") }}
+
+                {% if form.year_taken.errors %}
+                    {{ form.year_taken(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.year_taken(class="form-control") }}
+                {% endif %}
+            </div>
             <div class="mb-3">
                 {% if legend.startswith('Update') %}
                     <button type="submit" class="btn btn-outline-info">Update</button>
