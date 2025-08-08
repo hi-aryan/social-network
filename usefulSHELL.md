@@ -248,7 +248,7 @@ db.session.commit()
 
 # TODO:
 *new*
-* only display the courses in user's program which they haven't reviewed yet, not ALL courses on the program.
+* fix the course dropdown in /post/new (if possible!), it's very ugly! fix!
 * "avg rating" goes to a new line (below the actual rating line) and it looks ugly (for reviewed courses in /courses/course/id) 
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
