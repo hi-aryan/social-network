@@ -33,26 +33,26 @@ h1, h2, h3, h4, h5, h6 {
               1px -1px 3px 0 rgba(30, 132, 157, 0.15);
 }
 
-a.article-title, a.author-link {
+a.review-title, a.author-link {
   text-decoration: none;
 }
 
-.article-title {
-  color: #444444;
+.review-title {
+  color: #333333;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
 }
 
-a.article-title:hover {
+a.review-title:hover {
   color: #428bca;
 }
 
-.article-content {
+.review-content {
   white-space: pre-line;
 }
 
-.article-img {
+.review-img {
   height: 42px;
   width: 42px;
   margin-right: 6px;
@@ -60,21 +60,15 @@ a.article-title:hover {
   vertical-align: middle;
 }
 
-.article-metadata {
+.review-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
   border-bottom: 1px solid #e3e3e3
 }
 
-.article-metadata a:hover {
+.review-metadata a:hover {
   color: #333;
   text-decoration: none;
-}
-
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
 }
 
 .account-img {

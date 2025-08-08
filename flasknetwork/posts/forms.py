@@ -9,7 +9,7 @@ class PostForm(FlaskForm):
     course = SelectField('Course', coerce=int, validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])
-    year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=1980, max=2100)])
+    year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)])
     rating = RadioField('Course Rating', coerce=int, choices=[(i, str(i)) for i in range(1,6)], validators=[DataRequired()])
     answer_q1 = TextAreaField('What did you like most?', validators=[DataRequired(), Length(max=200)])
     answer_q2 = TextAreaField('What could be improved?', validators=[DataRequired(), Length(max=200)])

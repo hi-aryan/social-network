@@ -56,6 +56,14 @@ p = Program.query.filter_by(code="TF").first()
 [cp.course for cp in p.course_programs]
 
 
+## ALL courses a user hasn't reviewed (including those not in program)
+
+reviewed_courses = [post.course for post in user1.posts]
+
+not_reviewed_courses = [course for course in Course.query.all() if course not in reviewed_courses]
+
+
+
 ## PROGRAM CRUD & RELATIONSHIPS
 
 program1 = Program(name='Teknisk Fysik', code='TF', program_type='bachelor')
@@ -145,7 +153,27 @@ program1.students
 
 ## POST (REVIEW) CRUD & RELATIONSHIPS
 
-post1 = Post(title='DD1337 Review', content='Great course!', author=user1, course=course1)
+post1 = Post(
+    title='DD1337 Review',
+    content='Great course!',
+    year_taken=2025,
+    rating=4,
+    answer_q1='Yes, I’d recommend.',
+    answer_q2='Challenging but fun.', # NEW (can) omit for None)
+    author=user1,
+    course=course1
+)
+
+post1 = Post(
+    title='programming review!',
+    content='pretty good course',
+    year_taken=2023,
+    rating=4,
+    answer_q1='Yes, I’d recommend.',
+    answer_q2='Challenging but fun.', # NEW (can) omit for None)
+    author=user1,
+    course=course1
+)
 
 db.session.add(post1); db.session.commit()           # create
 
@@ -232,10 +260,10 @@ db.session.commit()
 
 # TODO:
 *new*
-* don't need TWO buttons to write a new review?? either keep "Add your Review" or "Write Review"
-* margin or spacing or whatever for "Back to Search" and "Write Review" in courses/course/id for those with no reviews are very ugly.
+* "avg rating" goes to a new line (below the actual rating line) and it looks ugly (for reviewed courses in /courses/course/id) 
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
 * perhaps the "Course Information" box could be the sidebar? looks weird with 2 of them
+* browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
 * fix text sizing in create_post (course title and content inputs are bigger than the rest)
 * what does manually changing the id in "/post/new?course_id=2" change? it doesn't update the selected course? and it seems to have no effect on what courses the user can post for. so what does changing the id DO?
 * ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)?? what other issues does this have (where else is this exact functionality used?)
