@@ -49,7 +49,7 @@ a.review-title:hover {
 }
 
 /* where is this used?? */
-.review-questions {
+.review-questions p {
   white-space: pre-line;
 }
 

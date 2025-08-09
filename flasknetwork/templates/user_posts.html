@@ -11,9 +11,9 @@
                     <br><small class="text-secondary">Course: {{ post.course.code }} - {{ post.course.name }}</small>
                     <br><small class="text-warning">★ {{ post.rating }} / 5</small>
                 </div>
-                <h2>
+                <h3>
                     <a class="review-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
-                </h2>
+                </h3>
                 <!-- TODO: put the other review metadata here -->
             </div>
         </article>

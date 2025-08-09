@@ -248,8 +248,7 @@ db.session.commit()
 
 # TODO:
 *new*
-* fix the course dropdown in /post/new (if possible!), it's very ugly! fix!
-* "avg rating" goes to a new line (below the actual rating line) and it looks ugly (for reviewed courses in /courses/course/id) 
+
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
 * what does manually changing the id in "/post/new?course_id=2" change? it doesn't update the selected course? and it seems to have no effect on what courses the user can post for. so what does changing the id DO?
@@ -266,6 +265,7 @@ db.session.commit()
 * browse programs/courses
 * LATER: notification system? maybe a bit annoying.
 * LATER: if an auth user makes a search then sort the search in 2 sections "my program" and "all courses"
+* LATER: REQUIRES CUSTOM DROPDOWN LIBRARIES! fix the course dropdown (when open) in /post/new (if possible!), it's very ugly! fix!
 
 
 1. long blogpost titles go outside of the window lol (fixed?)
