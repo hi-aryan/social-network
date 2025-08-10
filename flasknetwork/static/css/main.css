@@ -10,7 +10,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-bg {
-	/* background: linear-gradient(to right, #18b4d7, #4bd1fec3); */
 	background: linear-gradient(to right, #A7C7E7, #a7e7e7da);
 }
 
@@ -158,12 +157,33 @@ a.review-title:hover {
   margin-top: 0.2rem;
 }
 
-
-.newpost-style {
-	background: linear-gradient(to right, #C1E1C1, #E1C1E1);
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.3);
+.post-section {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
+/* new post button */
+.site-header .navbar-nav .nav-link.newpost-style {
+  transition: background-position 0.5s;
+}
+
+.newpost-style {
+	background: linear-gradient(to right, #a7bfe8 0%, #6190e8 51%, #a7bfe8 100%);
+  box-shadow: 0 0 20px #eee;
+  text-align: center;
+  border-radius: 10px;
+  background-size: 200% auto;
+  background-position: left center;
+}
+
+.site-header .navbar-nav .nav-link.newpost-style:hover {
+  transform: none;
+}
+
+.newpost-style:hover {
+	background-position: right center;
+  text-decoration: none;
+}       
 
 /* Add to main.css - handles 90% of mobile styling needs */
 @media (max-width: 768px) {

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <article class="d-flex align-items-center content-section position-relative">
+    <article class="d-flex align-items-center content-section position-relative post-section">
         {% if post.author == current_user %}
             <div class="post-actions">
                 <a class="btn btn-secondary btn-sm me-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Edit</a>

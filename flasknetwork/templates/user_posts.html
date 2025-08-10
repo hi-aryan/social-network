@@ -2,7 +2,7 @@
 {% block content %}
     <h1 class="mb-4">Posts by {{ user.username }} ({{ posts.total }})</h1>
     {% for post in posts.items %}
-        <article class="d-flex align-items-center content-section">
+        <article class="d-flex align-items-center content-section post-section">
             <div>
                 <div class="review-metadata">
                     <img class="rounded-circle review-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="{{ post.author.username }}'s profile picture">
