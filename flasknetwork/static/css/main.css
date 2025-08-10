@@ -163,27 +163,52 @@ a.review-title:hover {
 }
 
 /* new post button */
-.site-header .navbar-nav .nav-link.newpost-style {
+.site-header .navbar-nav .nav-link.gradient-anim {
   transition: background-position 0.5s;
 }
 
-.newpost-style {
+.gradient-anim {
 	background: linear-gradient(to right, #a7bfe8 0%, #6190e8 51%, #a7bfe8 100%);
   box-shadow: 0 0 20px #eee;
   text-align: center;
   border-radius: 10px;
   background-size: 200% auto;
   background-position: left center;
+  transition: background-position 0.5s ease;
+  color: #000000;
 }
 
-.site-header .navbar-nav .nav-link.newpost-style:hover {
+.site-header .navbar-nav .nav-link.gradient-anim:hover {
   transform: none;
 }
 
-.newpost-style:hover {
+.gradient-anim:hover {
 	background-position: right center;
   text-decoration: none;
+  color: #000000;
 }       
+
+/* outline variant matching gradient-anim theme */
+.gradient-anim-outline {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  /* keep interior transparent; draw gradient on the border */
+  background:
+    linear-gradient(var(--bs-body-bg, #fafafa), var(--bs-body-bg, #fafafa)) padding-box,
+    linear-gradient(to right, #a7bfe8 0%, #6190e8 51%, #a7bfe8 100%) border-box;
+  background-size: auto, 200% auto;
+  background-position: left center;
+  transition: background-position 0.5s ease;
+  color: #000000;
+  text-align: center;
+  box-shadow: 0 0 20px #eee;
+}
+
+.gradient-anim-outline:hover {
+  background-position: right center;
+  text-decoration: none;
+  color: #000000;
+}
 
 /* Add to main.css - handles 90% of mobile styling needs */
 @media (max-width: 768px) {

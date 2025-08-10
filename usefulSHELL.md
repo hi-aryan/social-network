@@ -248,8 +248,8 @@ db.session.commit()
 
 # TODO:
 *new*
-
-* make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
+* CRUCIAL: " ValueError: invalid literal for int() with base 10: 'Courses to Review' " when posting a review!! regardless of if course is already reviewed or not!
+* make "Back to Search" prettier in courses/course/id. and perhaps move it to top left (Maybe add the gradient-anim class?!)
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
 * pre-filling the select dropdown in /post/new?course_id=1 based on the id in the URL. it currently doesn't update the selected course. (see help_post_select_dropdown.txt in Desktop for more info. models struggled with this, it seems either SelectOptGroupWidget or PostForm or the new_post() route is causing issues, maybe overriding or something)
 * ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)??
