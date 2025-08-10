@@ -8,7 +8,8 @@ from flasknetwork import mail
 
 def is_kth_domain(email):
     """Check if email belongs to KTH domain"""
-    allowed_domains = ['@kth.se', '@ug.kth.se']
+    #allowed_domains = ['@kth.se', '@ug.kth.se']
+    allowed_domains = ['@kth.se']
     return any(email.lower().endswith(domain) for domain in allowed_domains)
 
 

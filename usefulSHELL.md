@@ -251,8 +251,8 @@ db.session.commit()
 
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
-* what does manually changing the id in "/post/new?course_id=2" change? it doesn't update the selected course? and it seems to have no effect on what courses the user can post for. so what does changing the id DO?
-* ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)?? what other issues does this have (where else is this exact functionality used?)
+* pre-filling the select dropdown in /post/new?course_id=1 based on the id in the URL. it currently doesn't update the selected course. (see help_post_select_dropdown.txt in Desktop for more info. models struggled with this, it seems either SelectOptGroupWidget or PostForm or the new_post() route is causing issues, maybe overriding or something)
+* ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)??
 * fix color hierarchy in posts!! color of questions and stuff should be lighter than title and so on! (check twitter! https://x.com/heysatya_/status/1952975293590958444 )
 * fix the autocomplete
 * only allow @kth.se emails! (@ug.kth.se is the same anyways?! just makes for more complications)

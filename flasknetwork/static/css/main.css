@@ -9,8 +9,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
-.bg-steel {
-  background-color: #84b7dbe6;
+.navbar-bg {
+	background: linear-gradient(to right, #18b4d7, #4bd1fec3);
 }
 
 .site-header .navbar-nav .nav-link {
@@ -155,4 +155,9 @@ a.review-title:hover {
   font-size: 0.9rem;
   color: #666;
   margin-top: 0.2rem;
+}
+
+
+.test-gradient {
+	background: linear-gradient(to right, #0fcffa, #0caadec6);
 }
