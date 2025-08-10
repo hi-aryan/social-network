@@ -249,6 +249,7 @@ db.session.commit()
 # TODO:
 *new*
 * CRUCIAL: " ValueError: invalid literal for int() with base 10: 'Courses to Review' " when posting a review!! regardless of if course is already reviewed or not!
+* remove the blue border that appears when clicking the New Post (gradient-anim) button. 
 * make "Back to Search" prettier in courses/course/id. and perhaps move it to top left (Maybe add the gradient-anim class?!)
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
 * pre-filling the select dropdown in /post/new?course_id=1 based on the id in the URL. it currently doesn't update the selected course. (see help_post_select_dropdown.txt in Desktop for more info. models struggled with this, it seems either SelectOptGroupWidget or PostForm or the new_post() route is causing issues, maybe overriding or something)
@@ -263,6 +264,8 @@ db.session.commit()
 * make the "New Post" (should be New Review maybe) prettier and more popping (add an icon?)
 * "my reviews" in /account
 * browse programs/courses
+* kolla notes på luren!
+
 * LATER: notification system? maybe a bit annoying.
 * LATER: if an auth user makes a search then sort the search in 2 sections "my program" and "all courses"
 * LATER: REQUIRES CUSTOM DROPDOWN LIBRARIES! fix the course dropdown (when open) in /post/new (if possible!), it's very ugly! fix!

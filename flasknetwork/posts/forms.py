@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, SelectField, IntegerField, RadioField
-from wtforms.validators import DataRequired, Length, NumberRange
+from wtforms.validators import DataRequired, Length, NumberRange, ValidationError
 from wtforms.widgets import Select as BaseSelectWidget, html_params
 from markupsafe import escape, Markup
 from flasknetwork.models import Course_Program, Post
@@ -20,12 +20,16 @@ class SelectOptGroupWidget(BaseSelectWidget):
         for item in field.choices:
             if isinstance(item, (list, tuple)) and len(item) == 2:
                 group_label, choices = item
-                if isinstance(choices, (list, tuple)) and choices:
-                    # This is an optgroup
-                    html.append(f'<optgroup label="{escape(group_label)}">')
-                    for value, label in choices:
-                        html.append(self.render_option(value, label, field.data))
-                    html.append('</optgroup>')
+                if isinstance(choices, (list, tuple)):
+                    if choices:
+                        # This is a non-empty optgroup
+                        html.append(f'<optgroup label="{escape(group_label)}">')
+                        for value, label in choices:
+                            html.append(self.render_option(value, label, field.data))
+                        html.append('</optgroup>')
+                    else:
+                        # Skip empty optgroups entirely to avoid rendering the label as an option
+                        continue
                 else:
                     # This is a regular option
                     html.append(self.render_option(group_label, choices, field.data))
@@ -40,6 +44,41 @@ class SelectOptGroupField(SelectField):
     Maintains compatibility with standard SelectField while adding optgroup support.
     """
     widget = SelectOptGroupWidget()
+
+    def process_formdata(self, valuelist):
+        # Safely coerce form data; invalid values become None instead of crashing
+        if valuelist:
+            try:
+                self.data = self.coerce(valuelist[0])
+            except (TypeError, ValueError):
+                self.data = None
+
+    def _iter_flattened_choices(self):
+        # Yield (value, label) pairs from both flat and optgroup choices
+        for item in self.choices:
+            if isinstance(item, (list, tuple)) and len(item) == 2:
+                first, second = item
+                if isinstance(second, (list, tuple)):
+                    for value, label in second:
+                        yield value, label
+                else:
+                    yield first, second
+            else:
+                # Unexpected shape; attempt to unpack if possible
+                try:
+                    value, label = item
+                    yield value, label
+                except Exception:
+                    continue
+
+    def pre_validate(self, form):
+        # If data is None (e.g., invalid submission or no selection), skip membership check
+        if self.data is None:
+            return
+        for value, _ in self._iter_flattened_choices():
+            if value == self.data:
+                return
+        raise ValidationError(self.gettext('Not a valid choice.'))
 
 
 class PostForm(FlaskForm):
