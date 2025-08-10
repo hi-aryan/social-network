@@ -10,7 +10,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-bg {
-	background: linear-gradient(to right, #18b4d7, #4bd1fec3);
+	/* background: linear-gradient(to right, #18b4d7, #4bd1fec3); */
+	background: linear-gradient(to right, #A7C7E7, #a7e7e7da);
 }
 
 .site-header .navbar-nav .nav-link {
@@ -158,6 +159,20 @@ a.review-title:hover {
 }
 
 
-.test-gradient {
-	background: linear-gradient(to right, #0fcffa, #0caadec6);
+.newpost-style {
+	background: linear-gradient(to right, #C1E1C1, #E1C1E1);
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Add to main.css - handles 90% of mobile styling needs */
+@media (max-width: 768px) {
+  .navbar-bg {
+    background: linear-gradient(to right, #A7C7E7, #A7E7E7);
+  }
+  
+  .review-img {
+    height: 42px;
+    width: 42px; /* Smaller profile images on mobile */
+  }
 }
