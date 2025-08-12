@@ -57,7 +57,7 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
         """
         Return True if this user
         1) has verified their email,
-        2) hasn’t already reviewed this course, and
+        2) hasn't already reviewed this course, and
         3) the course is in their program.
         """
         if not self.email_verified:
@@ -155,8 +155,27 @@ class Course(db.Model):
             'id': self.id,
             'name': self.name,
             'code': self.code,
-            'review_count': len(self.reviews) if hasattr(self, 'reviews') else 0
+            'review_count': self.get_review_count()
         }
+
+    def get_review_count(self):
+        """
+        Get the total number of reviews for this course efficiently.
+        
+        Returns:
+            int: Number of reviews for this course
+        """
+        return Post.query.filter_by(course_id=self.id).count()
+
+    def get_average_rating(self):
+        """
+        Calculate the average rating for this course efficiently.
+        
+        Returns:
+            float: Average rating, or None if no reviews exist
+        """
+        result = db.session.query(db.func.avg(Post.rating)).filter_by(course_id=self.id).scalar()
+        return result if result is not None else None
 
     def is_reviewed_by(self, user):
         """Return True if `user` has already reviewed this course."""

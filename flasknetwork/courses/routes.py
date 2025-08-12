@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, current_app
-from flasknetwork.models import Course
+from flasknetwork.models import Course, Post
 from sqlalchemy.exc import SQLAlchemyError
 from flask_login import current_user
 import logging
@@ -102,16 +102,25 @@ def api_search():
 @courses.route('/course/<int:course_id>')
 def course_detail(course_id):
     """
-    Display details for a specific course including its reviews.
+    Display details for a specific course including its reviews with pagination.
     
     Args:
         course_id (int): The ID of the course to display
+        
+    Query Parameters:
+        page (int): Page number for pagination (default: 1)
     """
     try:
+        page = request.args.get('page', 1, type=int)
         course = Course.query.get_or_404(course_id)
-        # Get all reviews for this course, ordered by date
-        # TODO: how/why/WHERE is it ordered by date??
-        reviews = course.reviews
+        
+        # Get paginated reviews for this course, ordered by date (most recent first)
+        reviews = Post.query.filter_by(course=course).order_by(Post.date_posted.desc()).paginate(
+            page=page, per_page=5
+        )
+
+        # Get course statistics efficiently
+        avg_rating = course.get_average_rating()
 
         auth_can_review = ( 
             current_user.is_authenticated and current_user.can_review(course)
@@ -125,6 +134,7 @@ def course_detail(course_id):
                              title=f'{course.code} - {course.name}',
                              course=course,
                              reviews=reviews,
+                             avg_rating=avg_rating,
                              auth_can_review=auth_can_review,
                              auth_but_cannot_review=auth_but_cannot_review)
 

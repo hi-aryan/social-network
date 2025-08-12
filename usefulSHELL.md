@@ -248,22 +248,7 @@ db.session.commit()
 
 # TODO:
 *new*
-* CRUCIAL: add pagination to /courses/course/id page!!!
-"i've already implemented it in two pages so can i just copy that strucute?
-
-BE AWARE OF DOWNSTREAM ISSUES! IT MIGHT NOT BE EXACTLY SIMILAR SITUATION HERE!!
-
-Downstream pitfalls to watch for:
-
-• Anywhere you used reviews|length must become reviews.total
-• Anywhere you sliced reviews[:3] must now be reviews.items[:3]
-• Make sure your average‐rating macro sums over reviews.items
-
-i'm certain there are many more downsteam effects to watch out for!! be ware!! be very thorough when making any changes!
-"
-
 * ta bort en av boxarna i /courses/course/id: bara en med 'avg rating' och under det 3 'Recent Reviews'. eller gör allt som redan finns till en.
-* how are the 'Student Reviews' in /courses/course/id sorted?! vissa har äldre högre upp!
 * byt ordning på färgerna i New Post knappen för mobile (ser skumt ut med gradients åt samma håll)
 * remove the blue border that appears when clicking the New Post (gradient-anim) button???
 * make "Back to Search" prettier in courses/course/id (antingen ta bort texten och bara ha pil eller gör den mindre). and perhaps move it to top left (Maybe add the gradient-anim class?!) more it to somewhere better placed (AND BE WARE OF DOWNSTREAM ISSUES OF WHERE THE BACK TO SEARCH WAS! i think the text to the left is spaced or something dependent on or with attention to the button)
@@ -283,6 +268,8 @@ i'm certain there are many more downsteam effects to watch out for!! be ware!! b
 * "my reviews" in /account
 * browse programs/courses
 * kolla notes på luren!
+
+* testa: pagination på course_details page (/courses/course/id)
 
 * LATER: notification system? maybe a bit annoying.
 * LATER: if an auth user makes a search then sort the search in 2 sections "my program" and "all courses"

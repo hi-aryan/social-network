@@ -11,12 +11,12 @@
                     <h1 class="mb-2"><b>{{ course.code }}</b> - {{ course.name }}</h1>
                     <p class="text-muted mb-3">
                         <i class="fas fa-star text-warning"></i>
-                        {% if reviews|length == 0 %}
+                        {% if reviews.total == 0 %}
                             No reviews yet
-                        {% elif reviews|length == 1 %}
+                        {% elif reviews.total == 1 %}
                             1 review
                         {% else %}
-                            {{ reviews|length }} reviews
+                            {{ reviews.total }} reviews
                         {% endif %}
                     </p>
                 </div>
@@ -30,9 +30,9 @@
         </div>
 
         <!-- Reviews Section -->
-        {% if reviews %}
+        {% if reviews.items %}
             <h3 class="mb-4">Student Reviews</h3>
-            {% for review in reviews %}
+            {% for review in reviews.items %}
                 <article class="content-section mb-4">
                     <div class="d-flex align-items-center mb-3">
                         <img class="rounded-circle review-img me-3" 
@@ -85,6 +85,19 @@
                     </div>
                 </article>
             {% endfor %}
+            
+            <!-- Pagination Controls -->
+            {% for page_num in reviews.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                {% if page_num %}
+                    {% if reviews.page == page_num %}
+                        <a class="btn gradient-anim mb-4" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num) }}">{{ page_num }}</a>
+                    {% else %}
+                        <a class="btn gradient-anim-outline mb-4" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num) }}">{{ page_num }}</a>
+                    {% endif %}
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
         {% else %}
             <!-- No Reviews State -->
             <div class="content-section text-center">
@@ -98,7 +111,7 @@
                     </a>
                 {% elif auth_but_cannot_review %}
                     <p class="text-muted">
-                        This course isn’t in your program so you can't review it...
+                        This course isn't in your program so you can't review it...
                     </p>
                     <a href="{{ url_for('courses.search') }}" class="btn btn-outline-info shadow-sm">
                         <i class="fas fa-arrow-left"></i> Try another course
@@ -123,12 +136,11 @@
                 <dd class="col-sm-8">{{ course.name }}</dd>
                 
                 <dt class="col-sm-4">Reviews:</dt>
-                <dd class="col-sm-8">{{ reviews|length }}</dd>
+                <dd class="col-sm-8">{{ reviews.total }}</dd>
                 
-                {% if reviews %}
+                {% if avg_rating %}
                     <dt class="col-sm-5">Avg Rating:</dt>
                     <dd class="col-sm-7">
-                        {% set avg_rating = (reviews|sum(attribute='rating')) / (reviews|length) %}
                         <span class="text-dark bg-warning badge fs-6">
                             <i class="fas fa-star"></i> {{ "%.1f"|format(avg_rating) }}/5
                         </span>
@@ -145,10 +157,10 @@
             {% endif %}
         </div>
         
-        {% if reviews %}
+        {% if reviews.items %}
             <div class="content-section mt-4">
                 <h6>Recent Reviews</h6>
-                {% for review in reviews[:3] %}
+                {% for review in reviews.items[:3] %}
                     <div class="d-flex align-items-center mb-2">
                         <img class="rounded-circle" 
                              src="{{ url_for('static', filename='profile_pics/' + review.author.image_file) }}" 
