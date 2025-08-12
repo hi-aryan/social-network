@@ -248,9 +248,27 @@ db.session.commit()
 
 # TODO:
 *new*
-* CRUCIAL: " ValueError: invalid literal for int() with base 10: 'Courses to Review' " when posting a review!! regardless of if course is already reviewed or not!
-* remove the blue border that appears when clicking the New Post (gradient-anim) button. 
-* make "Back to Search" prettier in courses/course/id. and perhaps move it to top left (Maybe add the gradient-anim class?!)
+* CRUCIAL: add pagination to /courses/course/id page!!!
+"i've already implemented it in two pages so can i just copy that strucute?
+
+BE AWARE OF DOWNSTREAM ISSUES! IT MIGHT NOT BE EXACTLY SIMILAR SITUATION HERE!!
+
+Downstream pitfalls to watch for:
+
+• Anywhere you used reviews|length must become reviews.total
+• Anywhere you sliced reviews[:3] must now be reviews.items[:3]
+• Make sure your average‐rating macro sums over reviews.items
+
+i'm certain there are many more downsteam effects to watch out for!! be ware!! be very thorough when making any changes!
+"
+
+* ta bort en av boxarna i /courses/course/id: bara en med 'avg rating' och under det 3 'Recent Reviews'. eller gör allt som redan finns till en.
+* how are the 'Student Reviews' in /courses/course/id sorted?! vissa har äldre högre upp!
+* byt ordning på färgerna i New Post knappen för mobile (ser skumt ut med gradients åt samma håll)
+* remove the blue border that appears when clicking the New Post (gradient-anim) button???
+* make "Back to Search" prettier in courses/course/id (antingen ta bort texten och bara ha pil eller gör den mindre). and perhaps move it to top left (Maybe add the gradient-anim class?!) more it to somewhere better placed (AND BE WARE OF DOWNSTREAM ISSUES OF WHERE THE BACK TO SEARCH WAS! i think the text to the left is spaced or something dependent on or with attention to the button)
+* make ratings (when publishing a post, and maybe also in /home) which have yellow background gradients?
+* make all post/submit/"read full review"/"back to home" buttons gradient anims
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
 * pre-filling the select dropdown in /post/new?course_id=1 based on the id in the URL. it currently doesn't update the selected course. (see help_post_select_dropdown.txt in Desktop for more info. models struggled with this, it seems either SelectOptGroupWidget or PostForm or the new_post() route is causing issues, maybe overriding or something)
 * ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)??

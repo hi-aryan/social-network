@@ -10,7 +10,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-bg {
-	background: linear-gradient(to right, #A7C7E7, #a7e7e7da);
+  /* background: linear-gradient(to right, #A7C7E7, #a7e7e7ef); */
+	background: linear-gradient(to right, #A7C7E7, #9cd8d8ef);
 }
 
 .site-header .navbar-nav .nav-link {
@@ -136,7 +137,7 @@ a.review-title:hover {
   transition: box-shadow 0.2s ease;
 }
 .rating-box:hover {
-  box-shadow: 0 0 6px rgba(255,193,7,0.4);
+  box-shadow: 0 0 8px rgba(255,193,7,0.7);
 }
 .rating-box .star {
   font-size: 1.5rem;
@@ -146,7 +147,7 @@ a.review-title:hover {
 
 /* when the radio is checked, style its label */
 .rating-group .form-check-input:checked + .rating-box {
-  box-shadow: 0 0 9px rgba(255,193,7,0.7);
+  box-shadow: 0 0 12px rgba(255,193,7,0.9);
 }
 .rating-group .form-check-input:checked + .rating-box .star {
   color: #ffc107;
