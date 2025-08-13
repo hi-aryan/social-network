@@ -280,3 +280,37 @@ db.session.commit()
 2. avoid names that are only differently capitalized
 3. clean up unused profile pictures
 4. change "create_post" to "manage_post" or something since now it also edits the posts
+
+
+
+
+# adding dummy data
+*after pushing app and stuff*
+
+prog = Program.query.filter_by(name="Computer Science and Engineering").first()
+course = Course.query.filter_by(name="Algorithms and Data Structures").first()
+
+for i in range(1, 6):
+    email = f"dummy{i}@kth.se"
+    if User.query.filter_by(email=email).first():
+        continue  # skip existing
+
+    u = User(
+        username=f"dummy{i}",
+        email=email,
+        password="password",
+        program=prog
+    )
+    db.session.add(u)
+
+    review = Post(
+        title=f"Algorithms Review #{i}",
+        year_taken=2025,
+        rating=4,
+        answer_q1="Solid course, learned a lot.",
+        author=u,
+        course=course
+    )
+    db.session.add(review)
+
+db.session.commit()

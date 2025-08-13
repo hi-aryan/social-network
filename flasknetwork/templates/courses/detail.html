@@ -22,10 +22,13 @@
                 </div>
 
                 <!-- RIGHT: always flush to the far right -->
-                <a href="{{ url_for('courses.search') }}"
-                    class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left"></i> Back to Search
-                </a>
+                <!-- TODO: make btn prettier -->
+                <div class="ms-3 d-block d-md-none">
+                    <a href="{{ url_for('courses.search') }}"
+                       class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Search
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -102,64 +105,34 @@
             <!-- No Reviews State -->
             <div class="content-section text-center">
                 <i class="fas fa-comments fa-3x text-muted mb-3"></i>
-                <h4>No reviews yet</h4>
-                <h5>._.</h5>
+                <h4>No reviews yet...</h4>
+                <h5 class="mb-3">._.</h5>
                 {% if auth_can_review %}
                     <p class="text-muted mb-4">Be the first to share your experience with {{ course.code }}!</p>
                     <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Write the First Review
                     </a>
-                {% elif auth_but_cannot_review %}
-                    <p class="text-muted">
-                        This course isn't in your program so you can't review it...
-                    </p>
-                    <a href="{{ url_for('courses.search') }}" class="btn btn-outline-info shadow-sm">
+                {% else %}
+                    <a href="{{ url_for('courses.search') }}" class="btn gradient-anim shadow-sm mb-2">
                         <i class="fas fa-arrow-left"></i> Try another course
                     </a>
-                {% else %}
-                    <p class="text-muted">
-                        <a href="{{ url_for('users.login', next=request.url) }}">Login</a> to write a review
-                    </p>
                 {% endif %}
             </div>
         {% endif %}
     </div>
     
     <!-- Sidebar -->
-    <div class="col-lg-3">
-        <div class="content-section">
-            <dl class="row">
-                <dt class="col-sm-4">Code:</dt>
-                <dd class="col-sm-8">{{ course.code }}</dd>
-                
-                <dt class="col-sm-4">Name:</dt>
-                <dd class="col-sm-8">{{ course.name }}</dd>
-                
-                <dt class="col-sm-4">Reviews:</dt>
-                <dd class="col-sm-8">{{ reviews.total }}</dd>
-                
-                {% if avg_rating %}
-                    <dt class="col-sm-5">Avg Rating:</dt>
-                    <dd class="col-sm-7">
-                        <span class="text-dark bg-warning badge fs-6">
-                            <i class="fas fa-star"></i> {{ "%.1f"|format(avg_rating) }}/5
-                        </span>
-                    </dd>
-                {% endif %}
-            </dl>
-            {% if auth_can_review %}
-                <hr>
-                <div class="text-center">
-                    <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Add Your Review
-                    </a>
-                </div>
-            {% endif %}
-        </div>
-        
+    <div class="col-lg-3 d-none d-md-block">
         {% if reviews.items %}
-            <div class="content-section mt-4">
-                <h6>Recent Reviews</h6>
+            <div class="content-section">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="fw-bold">Avg Rating: </span>
+                    <span class="text-dark bg-warning badge fs-6 ms-2">
+                        <i class="fas fa-star"></i> {{ "%.1f"|format(avg_rating) }}/5
+                    </span>
+                </div>
+                <hr>
+                <h6 class="mt-3">Recent Reviews</h6>
                 {% for review in reviews.items[:3] %}
                     <div class="d-flex align-items-center mb-2">
                         <img class="rounded-circle" 
@@ -173,6 +146,35 @@
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+        {% else %}
+            <div class="content-section text-center">
+                <!-- TODO: change text to "make course selection easier for fellow student" or something -->
+                <!-- or "no info to display yet" -->
+                <p class="text-muted">No reviews available to display.</p>
+            </div>
+        {% endif %}
+        {% if auth_can_review %}
+            <div class="content-section">
+                <div class="text-center">
+                    <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn gradient-anim gradient-shadow btn-sm">
+                        <i class="fas fa-plus"></i> Add Your Review
+                    </a>
+                </div>
+            </div>
+        {% elif auth_but_cannot_review %}
+            <div class="content-section">
+                <div class="text-center">
+                    <small class="text-muted">You can't review this course because it's not in your program :/</small>
+                </div>
+            </div>
+        {% else %}
+            <div class="content-section">
+                <div class="text-center">
+                    <a href="{{ url_for('users.login', next=request.url) }}" class="btn gradient-anim-outline btn-sm shadow-sm my-3 text-muted">
+                        Login to write a review
+                    </a>
+                </div>
             </div>
         {% endif %}
     </div>

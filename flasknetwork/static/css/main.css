@@ -34,6 +34,11 @@ h1, h2, h3, h4, h5, h6 {
               1px -1px 3px 0 rgba(30, 132, 157, 0.15);
 }
 
+.content-section dl {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
 a.review-title, a.author-link {
   text-decoration: none;
 }
@@ -193,6 +198,7 @@ a.review-title:hover {
 
 /* outline variant matching gradient-anim theme */
 .gradient-anim-outline {
+  display: inline-block;
   border: 2px solid transparent;
   border-radius: 10px;
   /* keep interior transparent; draw gradient on the border */
