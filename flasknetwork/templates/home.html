@@ -1,14 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
     {% for post in posts.items %}
-        <article class="d-flex align-items-center content-section post-section">
+        <article class="position-relative d-flex align-items-center content-section post-section">
             <div>
                 <div class="review-metadata">
                     <img class="rounded-circle review-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="{{ post.author.username }}'s profile picture">
                     <a class="me-2 author-link" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date_posted.strftime('%b %d, %Y') }}</small>
-                    <small class="text-secondary d-block mt-2 ms-2">Course: {{ post.course.code }} - {{ post.course.name }}</small>
-                    <small class="badge fs-7 {{ 'bg-dark text-warning mt-1 mb-2' if post.rating == 5 else 'text-dark mb-1' }}">
+                    <!-- Desktop Star Rating -->
+                    <small class="d-none d-md-block position-absolute top-0 end-0 me-3 mt-3 badge fs-7 {{ 'gradient-anim gradient-anim--yellow mt-1 mb-2' if post.rating == 5 else 'text-dark mb-1' }}">
+                        {% for i in range(1, 6) %}
+                            {% if post.rating >= i %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </small>
+                    <small class="text-secondary d-block my-2 ms-2">Course: {{ post.course.code }} - {{ post.course.name }}</small>
+                    <!-- Mobile Star Rating -->
+                    <small class="d-inline-block d-md-none badge ms-2 fs-7 {{ 'gradient-anim gradient-anim--yellow mt-1 mb-2' if post.rating == 5 else 'text-dark mb-1' }}">
                         {% for i in range(1, 6) %}
                             {% if post.rating >= i %}
                                 <i class="fas fa-star"></i>

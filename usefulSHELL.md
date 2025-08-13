@@ -248,9 +248,9 @@ db.session.commit()
 
 # TODO:
 *new*
-* ta bort en av boxarna i /courses/course/id: bara en med 'avg rating' och under det 3 'Recent Reviews'. eller gör allt som redan finns till en.
-* byt ordning på färgerna i New Post knappen för mobile (ser skumt ut med gradients åt samma håll)
-* remove the blue border that appears when clicking the New Post (gradient-anim) button???
+* "taken in YEAR" texten är konstig på mobil
+* mycket weird blankspace till höger på alla posts
+* kolla notes på luren!
 * make "Back to Search" prettier in courses/course/id (antingen ta bort texten och bara ha pil eller gör den mindre). and perhaps move it to top left (Maybe add the gradient-anim class?!) more it to somewhere better placed (AND BE WARE OF DOWNSTREAM ISSUES OF WHERE THE BACK TO SEARCH WAS! i think the text to the left is spaced or something dependent on or with attention to the button)
 * make ratings (when publishing a post, and maybe also in /home) which have yellow background gradients?
 * make all post/submit/"read full review"/"back to home" buttons gradient anims
@@ -267,7 +267,7 @@ db.session.commit()
 * make the "New Post" (should be New Review maybe) prettier and more popping (add an icon?)
 * "my reviews" in /account
 * browse programs/courses
-* kolla notes på luren!
+* remove the blue border that appears when clicking the New Post (gradient-anim) button???
 
 * testa: pagination på course_details page (/courses/course/id)
 

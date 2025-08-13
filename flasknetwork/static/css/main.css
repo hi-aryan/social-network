@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
-  border-radius: 3px;
+  border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: -1px 1px 3px 0 rgba(32, 18, 183, 0.15), 
               1px -1px 3px 0 rgba(30, 132, 157, 0.15);
@@ -170,7 +170,7 @@ a.review-title:hover {
   margin-right: 6px;
 }
 
-/* new post button */
+/* new post/rview button */
 .site-header .navbar-nav .nav-link.gradient-anim {
   transition: background-position 0.5s;
 }
@@ -216,8 +216,35 @@ a.review-title:hover {
 .gradient-anim-outline:hover {
   background-position: right center;
   text-decoration: none;
-  color: #000000;
 }
+
+.gradient-anim--flipped {
+  background-image: linear-gradient(
+    to left,
+    #6693e9 0%,
+    #a3bce7 51%,
+    #6693e9 100%
+  );
+}
+
+.gradient-anim--white {
+  background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF  51%, #ECE9E6  100%);
+  color: rgb(47, 47, 47);            
+  box-shadow: 0 0 10px #05050550;
+}
+
+.gradient-anim--white-reverse {
+  background-image: linear-gradient(to right, #FFFFFF 0%, #ECE9E6  51%, #FFFFFF  100%);
+  color: rgb(47, 47, 47);            
+  box-shadow: 0 0 10px #05050550;
+}
+
+.gradient-anim--yellow {
+  background-image: linear-gradient(to right, #EDDE5D 0%, #F09819  51%, #EDDE5D  100%);
+  box-shadow: 0 0 20px #eee;
+  border-radius: 4px;
+}
+         
 
 /* Add to main.css - handles 90% of mobile styling needs */
 @media (max-width: 768px) {
