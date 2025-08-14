@@ -30,7 +30,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    {{ form.title.label(class="form-label") }}
+                    Review {{ form.title.label(class="form-label") }}
 
                     {% if form.title.errors %}
                         {{ form.title(class="form-control form-control-lg is-invalid") }}
@@ -85,7 +85,7 @@
                     {% endif %}
                 </div>
             </fieldset>
-            <div class="mb-3">
+            <div class="mb-4">
                 {{ form.year_taken.label(class="form-label") }}
 
                 {% if form.year_taken.errors %}
@@ -99,9 +99,9 @@
             </div>
             <div class="mb-3">
                 {% if legend.startswith('Update') %}
-                    <button type="submit" class="btn btn-outline-info">Update</button>
+                    <button type="submit" class="btn gradient-anim-outline gradient-shadow">Update</button>
                 {% else %}
-                    {{ form.submit(class="btn btn-outline-info") }}
+                    {{ form.submit(class="btn gradient-anim gradient-anim--green") }}
                 {% endif %}
             </div>
         </form>

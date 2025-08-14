@@ -53,14 +53,14 @@
                                     <span class="badge gradient-anim gradient-anim--yellow">
                                         <i class="fas fa-star"></i> {{ review.rating }}/5
                                     </span>
-                                    <small class="text-muted d-block">Taken in {{ review.year_taken }}</small>
+                                    <small class="text-muted d-block mt-1">Taken in {{ review.year_taken }}</small>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <h4 class="mb-3">
-                        <a class="review-title" href="{{ url_for('posts.post', post_id=review.id) }}">
+                        <a class="review-title course-link" href="{{ url_for('posts.post', post_id=review.id) }}">
                             {{ review.title }}
                         </a>
                     </h4>

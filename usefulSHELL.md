@@ -248,8 +248,8 @@ db.session.commit()
 
 # TODO:
 *new*
-* "taken in YEAR" texten är konstig på mobil
-* mycket weird blankspace till höger på alla posts
+* what from the review should be displayed in the /home feed ?!
+* remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.
 * kolla notes på luren!
 * make "Back to Search" prettier in courses/course/id (antingen ta bort texten och bara ha pil eller gör den mindre). and perhaps move it to top left (Maybe add the gradient-anim class?!) more it to somewhere better placed (AND BE WARE OF DOWNSTREAM ISSUES OF WHERE THE BACK TO SEARCH WAS! i think the text to the left is spaced or something dependent on or with attention to the button)
 * make ratings (when publishing a post, and maybe also in /home) which have yellow background gradients?

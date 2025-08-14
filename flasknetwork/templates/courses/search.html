@@ -4,9 +4,11 @@
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="content-section">
+            <div class="text-center text-muted">
+                <i class="fas fa-graduation-cap fa-3x mb-3"></i>
             <h2 class="mb-4">Search Courses</h2>
-            <p class="text-muted mb-4">Find courses and read reviews from fellow students</p>
-            
+            <p class="text-muted mb-4">Read reviews from fellow students</p>
+            </div>
             <!-- Search Form -->
             <div class="mb-4">
                 <div class="input-group input-group-lg">
@@ -54,10 +56,7 @@
                 </div>
             </div>
             
-            <!-- Initial Help Text -->
             <div id="initialHelp" class="text-center text-muted">
-                <i class="fas fa-graduation-cap fa-3x mb-3"></i>
-                <h5>Find a Course</h5>
             </div>
         </div>
     </div>
@@ -65,25 +64,25 @@
 
 <!-- Course Item Template (Hidden) TODO: what is this?! -->
 <template id="courseItemTemplate">
-    <div class="card mb-3 course-item">
+    <div class="card mb-4 course-item">
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-8">
                     <h5 class="card-title mb-1">
                         <a href="#" class="course-link text-decoration-none">
-                            <span class="course-code fw-bold text-primary"></span> - 
+                            <span class="course-code fw-bold"></span> - 
                             <span class="course-name"></span>
                         </a>
                     </h5>
                     <p class="card-text">
                         <small class="text-muted">
-                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning my-2"></i>
                             <span class="review-count"></span>
                         </small>
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end">
-                    <a href="#" class="btn gradient-anim-outline course-detail-btn">
+                    <a href="#" class="btn btn-sm gradient-anim-outline course-detail-btn my-2">
                         View Reviews
                     </a>
                 </div>

@@ -141,7 +141,7 @@ a.review-title:hover {
   margin: 0.25rem;
   padding: 0.25rem;
   border: 1px solid #ddd;
-  border-radius: 0.25rem;
+  border-radius: 16px;
   background: #f8f9fa;
   text-align: center;
   cursor: pointer;
@@ -172,8 +172,8 @@ a.review-title:hover {
 }
 
 .post-section {
-  margin-left: 6px;
-  margin-right: 6px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 /* new post/rview button */
@@ -250,7 +250,17 @@ a.review-title:hover {
   box-shadow: 0 0 20px #eee;
   border-radius: 4px;
 }
-         
+
+.gradient-anim--green {
+  background-image: linear-gradient(to right, #45B649 0%, #DCE35B  51%, #45B649  100%);
+  box-shadow: 0 0 20px #eee;
+  border-radius: 4px;
+}
+
+.gradient-shadow {
+  box-shadow: 0 0 10px #b8b8b895;
+}
+
 
 /* Add to main.css - handles 90% of mobile styling needs */
 @media (max-width: 768px) {
@@ -262,4 +272,33 @@ a.review-title:hover {
     height: 42px;
     width: 42px; /* Smaller profile images on mobile */
   }
+
+  .post-section {
+  margin-left: 0px;
+  margin-right: 0px;
+  }
+}
+
+
+/* Course search result colors */
+.course-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.course-code {
+  color: #292929;
+}
+.course-name {
+  color: #3d444f;
+}
+
+/* optional: hover accent */
+.course-link:hover {
+  transform: scale(1.03);
+}
+/* for titles in detail.html */
+a.review-title.course-link:hover {
+  color: inherit; 
 }
