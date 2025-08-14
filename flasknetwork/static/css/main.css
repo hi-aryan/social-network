@@ -43,11 +43,17 @@ a.review-title, a.author-link {
   text-decoration: none;
 }
 
+a.author-link {
+  color:#6190e8;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 .review-title {
   color: #333333;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 a.review-title:hover {

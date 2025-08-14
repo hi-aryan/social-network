@@ -34,6 +34,12 @@ def new_post():
             db.session.commit()
             flash('Your post has been created!', 'success')
             return redirect(url_for('main.home'))
+    elif request.method == 'GET':
+        # Handle course_id URL parameter for pre-selection
+        course_id = request.args.get('course_id', type=int)
+        if course_id:
+            form.course.data = course_id
+
     
     return render_template('create_post.html', title='New Course Review', form=form, 
                          legend='New Course Review', existing_review_id=existing_review_id)

@@ -13,6 +13,14 @@ class SelectOptGroupWidget(BaseSelectWidget):
     Renders select options with optgroup support for categorizing choices.
     """
     
+    def render_option(self, value, label, selected_value):
+        """Render an individual option with proper selected attribute."""
+        if value == selected_value:
+            return f'<option value="{escape(value)}" selected>{escape(label)}</option>'
+        else:
+            return f'<option value="{escape(value)}">{escape(label)}</option>'
+
+
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
         html = ['<select %s>' % html_params(name=field.name, **kwargs)]
