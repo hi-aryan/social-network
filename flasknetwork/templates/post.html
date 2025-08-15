@@ -1,10 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div class="mb-3">
+        <a href="{{ url_for('main.home') }}" class="btn btn-sm gradient-anim gradient-anim--white gradient-shadow">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
     <article class="d-flex align-items-center content-section position-relative post-section">
         {% if post.author == current_user %}
             <div class="post-actions">
-                <a class="btn btn-secondary btn-sm me-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Edit</a>
-                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                <a class="btn gradient-anim gradient-anim--grey btn-sm me-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Edit</a>
+                <button type="button" class="btn gradient-anim gradient-anim--red btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
             </div>
         {% endif %}
         <div class="flex-grow-1">
@@ -16,7 +21,7 @@
             <small class="text-secondary ms-2 d-block my-2">Course: {{ post.course.code }} - {{ post.course.name }}</small>
             <h2 class="review-title">{{ post.title }}</h2>
             <p><strong>Year Taken:</strong> {{ post.year_taken }}</p>
-            <p><strong>Rating:</strong> <span class="text-warning">★ {{ post.rating }} / 5</span></p>
+            <p><strong>Rating:</strong> <span class="badge gradient-shadow {{ 'gradient-anim gradient-anim--yellow' if post.rating == 5 else 'gradient-anim gradient-anim--white' }}">★ {{ post.rating }} / 5</span></p>
             <p><strong>What did you like most?</strong><br>{{ post.answer_q1 }}</p>
             <p><strong>What could be improved?</strong><br>{{ post.answer_q2 or '—' }}</p>
         </div>

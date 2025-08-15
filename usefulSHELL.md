@@ -248,6 +248,7 @@ db.session.commit()
 
 # TODO:
 *new*
+* "my reviews" button in /account page pointing to the user_posts
 * what from the review should be displayed in the /home feed ?!
 * remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.
 * kolla notes på luren!

@@ -139,7 +139,10 @@
                              src="{{ url_for('static', filename='profile_pics/' + review.author.image_file) }}" 
                              alt="Profile" style="width: 30px; height: 30px;">
                         <div class="ms-2 flex-grow-1">
-                            <small class="d-block fw-bold">{{ review.author.username }}</small>
+                            <a class="d-block fw-bold author-link"
+                            href="{{ url_for('users.user_posts', username=review.author.username) }}">
+                            {{ review.author.username }}
+                            </a>
                             <small class="text-muted">
                                 <i class="fas fa-star text-warning"></i> {{ review.rating }}/5
                             </small>

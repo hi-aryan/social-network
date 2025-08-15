@@ -1,3 +1,10 @@
+.form-control,
+.form-control-lg,
+.form-select,
+.form-control-lg {
+  border-radius: 10px;
+}
+
 body {
   background: #fafafa;
   color: #333333;
@@ -28,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: -1px 1px 3px 0 rgba(32, 18, 183, 0.15), 
               1px -1px 3px 0 rgba(30, 132, 157, 0.15);
@@ -80,7 +87,12 @@ a.review-title:hover {
 }
 
 .review-metadata a:hover {
-  color: #333;
+  color: #2953a2;
+  text-decoration: none;
+}
+
+a.author-link:hover {
+  color: #2953a2;
   text-decoration: none;
 }
 
@@ -141,7 +153,7 @@ a.review-title:hover {
   margin: 0.25rem;
   padding: 0.25rem;
   border: 1px solid #ddd;
-  border-radius: 16px;
+  border-radius: 20px;
   background: #f8f9fa;
   text-align: center;
   cursor: pointer;
@@ -158,7 +170,14 @@ a.review-title:hover {
 
 /* when the radio is checked, style its label */
 .rating-group .form-check-input:checked + .rating-box {
-  box-shadow: 0 0 12px rgba(255,193,7,0.9);
+  box-shadow: 0 0 12px rgb(255, 193, 7);
+  background: linear-gradient(90deg,rgba(67, 34, 0, 0.95) 0%, rgb(159, 82, 0, 0.95) 50%, rgb(67, 34, 0, 0.95) 100%);
+}
+.rating-group .form-check-input[value="5"]:checked + .rating-box {
+  /* custom 5-star gradient: */
+  background: linear-gradient(90deg,rgba(13, 117, 56, 1) 0%, rgba(13, 184, 84, 1) 50%, rgba(13, 117, 56, 1) 100%);
+
+  /* background: linear-gradient(to right, #45B649 0%, #DCE35B  51%, #45B649  100%); */
 }
 .rating-group .form-check-input:checked + .rating-box .star {
   color: #ffc107;
@@ -210,7 +229,7 @@ a.review-title:hover {
   /* keep interior transparent; draw gradient on the border */
   background:
     linear-gradient(var(--bs-body-bg, #fafafa), var(--bs-body-bg, #fafafa)) padding-box,
-    linear-gradient(to right, #a7bfe8 0%, #6190e8 51%, #a7bfe8 100%) border-box;
+    linear-gradient(to right, #abc1e7 0%, #5889e4 51%, #abc1e7 100%) border-box;
   background-size: auto, 200% auto;
   background-position: left center;
   transition: background-position 0.5s ease;
@@ -236,7 +255,6 @@ a.review-title:hover {
 .gradient-anim--white {
   background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF  51%, #ECE9E6  100%);
   color: rgb(47, 47, 47);            
-  box-shadow: 0 0 10px #05050550;
 }
 
 .gradient-anim--white-reverse {
@@ -248,17 +266,29 @@ a.review-title:hover {
 .gradient-anim--yellow {
   background-image: linear-gradient(to right, #EDDE5D 0%, #F09819  51%, #EDDE5D  100%);
   box-shadow: 0 0 20px #eee;
-  border-radius: 4px;
 }
 
 .gradient-anim--green {
-  background-image: linear-gradient(to right, #45B649 0%, #DCE35B  51%, #45B649  100%);
+  background-image: linear-gradient(90deg,rgb(108, 170, 135) 0%, rgb(110, 237, 163) 51%, rgb(108, 170, 135) 100%);
+  /* background-image: linear-gradient(to right, #45B649 0%, #DCE35B  51%, #45B649  100%); */
   box-shadow: 0 0 20px #eee;
-  border-radius: 4px;
+}
+
+.gradient-anim--red {
+  background-image: linear-gradient(to right, #d41a30 0%, #ec5062  51%, #d41a30  100%);
+}
+
+.gradient-anim--grey {
+  background-image: linear-gradient(to right, #303233 0%, #5d6062  51%, #303233  100%);
+  color: white
+}
+.gradient-anim--grey:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .gradient-shadow {
-  box-shadow: 0 0 10px #b8b8b895;
+  box-shadow: 0 0 8px #b0b0b095;
 }
 
 
