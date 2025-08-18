@@ -11,16 +11,11 @@
             </div>
             <!-- Search Form -->
             <div class="mb-4">
-                <div class="input-group input-group-lg">
-                    <input type="text" 
-                           class="form-control rounded-start" 
-                           id="courseSearchInput" 
-                           placeholder="Search by course name or code"
-                           autocomplete="off">
-                    <button class="btn btn-outline-secondary rounded-end" type="button" id="clearSearch">
-                        <i class="fas fa-times" style="color: #333;"></i>
-                    </button>
-                </div>
+                <input type="text" 
+                       class="form-control form-control-lg" 
+                       id="courseSearchInput" 
+                       placeholder="Search by course name or code"
+                       autocomplete="off">
                 <div class="form-text">
                     <small class="text-muted">Enter at least 2 characters to search</small>
                 </div>
@@ -98,7 +93,6 @@
 class CourseSearch {
     constructor() {
         this.searchInput = document.getElementById('courseSearchInput');
-        this.clearButton = document.getElementById('clearSearch');
         this.loadingIndicator = document.getElementById('loadingIndicator');
         this.errorMessage = document.getElementById('errorMessage');
         this.errorText = document.getElementById('errorText');
@@ -120,10 +114,6 @@ class CourseSearch {
         // Event listeners
         this.searchInput.addEventListener('input', (e) => {
             this.handleSearchInput(e.target.value);
-        });
-        
-        this.clearButton.addEventListener('click', () => {
-            this.clearSearch();
         });
         
         // Focus on search input when page loads

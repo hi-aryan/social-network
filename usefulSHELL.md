@@ -248,7 +248,7 @@ db.session.commit()
 
 # TODO:
 *new*
-* "my reviews" button in /account page pointing to the user_posts
+* add fixed set of profile pictures (the theme of the one from the tutorial is nice. prompt well!)
 * what from the review should be displayed in the /home feed ?!
 * remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.
 * kolla notes på luren!
@@ -266,9 +266,10 @@ db.session.commit()
 * fix the 'remember me' or delete it!
 * change questions in post!
 * make the "New Post" (should be New Review maybe) prettier and more popping (add an icon?)
-* "my reviews" in /account
 * browse programs/courses
 * remove the blue border that appears when clicking the New Post (gradient-anim) button???
+
+* "my reviews" button in /account page pointing to the user_posts (KINDA USELESS cause no one can access another person's /account page anyways?!)
 
 * testa: pagination på course_details page (/courses/course/id)
 
