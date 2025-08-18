@@ -33,7 +33,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')
         
         if not is_kth_domain(email.data):
-            raise ValidationError('Only KTH students (@kth.se or @ug.kth.se) can register.')
+            raise ValidationError('Only KTH students (@kth.se) can register.')
 
 
 class LoginForm(FlaskForm):
@@ -62,7 +62,7 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
         if not is_kth_domain(email.data):
-            raise ValidationError('Only KTH students (@kth.se or @ug.kth.se) can register.')
+            raise ValidationError('Only KTH students (@kth.se) can register.')
 
 
 class RequestResetForm(FlaskForm):
@@ -74,7 +74,7 @@ class RequestResetForm(FlaskForm):
         if user is None:
             raise ValidationError('There is no account with that email. Please register first.')
         if not is_kth_domain(email.data):
-            raise ValidationError('Only KTH students (@kth.se or @ug.kth.se) can register.')
+            raise ValidationError('Only KTH students (@kth.se) can register.')
         
 
 class ResetPasswordForm(FlaskForm):
@@ -94,4 +94,4 @@ class RequestVerificationForm(FlaskForm):
         if user.email_verified:
             raise ValidationError('This account is already verified.')
         if not is_kth_domain(email.data):
-            raise ValidationError('Only KTH students (@kth.se or @ug.kth.se) can register.')
+            raise ValidationError('Only KTH students (@kth.se) can register.')

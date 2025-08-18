@@ -5,6 +5,32 @@
   border-radius: 10px;
 }
 
+.rounded-10 {
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+/* for search bar in /search */
+.rounded-start {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+.rounded-end {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+
+.content-section .btn,
+.content-section .gradient-anim,
+.content-section .gradient-anim-outline {
+  /* vertical gap = 12px (≈ .75rem) from whatever’s above/below */
+  margin-block: 0.1rem;
+  /* no extra left/right margin—parent’s padding handles horizontal inset */
+  margin-inline: 0;
+}
+
+
 body {
   background: #fafafa;
   color: #333333;
@@ -33,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
+  padding: 20px 20px;
   border: 1px solid #dddddd;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -134,7 +160,7 @@ a.author-link:hover {
 }
 
 .text-shadow {
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* for rating button */
@@ -157,7 +183,27 @@ a.author-link:hover {
   background: #f8f9fa;
   text-align: center;
   cursor: pointer;
-  transition: box-shadow 0.2s ease;
+  position: relative;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Create gradient pseudo-elements for smooth transitions */
+.rating-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background: linear-gradient(90deg,rgba(67, 34, 0, 0.95) 0%, rgb(159, 82, 0, 0.95) 50%, rgb(67, 34, 0, 0.95) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.rating-box[for$="5"]::before {
+  background: linear-gradient(90deg,rgba(13, 117, 56, 1) 0%, rgba(13, 184, 84, 1) 50%, rgba(13, 117, 56, 1) 100%);
 }
 .rating-box:hover {
   box-shadow: 0 0 8px rgba(255,193,7,0.7);
@@ -166,19 +212,19 @@ a.author-link:hover {
   font-size: 1.5rem;
   color: #ccc;
   line-height: 2.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 /* when the radio is checked, style its label */
 .rating-group .form-check-input:checked + .rating-box {
   box-shadow: 0 0 12px rgb(255, 193, 7);
-  background: linear-gradient(90deg,rgba(67, 34, 0, 0.95) 0%, rgb(159, 82, 0, 0.95) 50%, rgb(67, 34, 0, 0.95) 100%);
 }
-.rating-group .form-check-input[value="5"]:checked + .rating-box {
-  /* custom 5-star gradient: */
-  background: linear-gradient(90deg,rgba(13, 117, 56, 1) 0%, rgba(13, 184, 84, 1) 50%, rgba(13, 117, 56, 1) 100%);
 
-  /* background: linear-gradient(to right, #45B649 0%, #DCE35B  51%, #45B649  100%); */
+.rating-group .form-check-input:checked + .rating-box::before {
+  opacity: 1;
 }
+
 .rating-group .form-check-input:checked + .rating-box .star {
   color: #ffc107;
 }
@@ -188,6 +234,8 @@ a.author-link:hover {
   font-size: 0.9rem;
   color: #666;
   margin-top: 0.2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .post-section {
@@ -254,7 +302,10 @@ a.author-link:hover {
 
 .gradient-anim--white {
   background-image: linear-gradient(to right, #ECE9E6 0%, #FFFFFF  51%, #ECE9E6  100%);
-  color: rgb(47, 47, 47);            
+  color: rgb(47, 47, 47);
+  border: 2px solid;
+  border-color: rgb(233, 233, 233);
+  border-radius: 10px;       
 }
 
 .gradient-anim--white-reverse {
@@ -326,7 +377,7 @@ a.author-link:hover {
 
 /* optional: hover accent */
 .course-link:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 /* for titles in detail.html */
 a.review-title.course-link:hover {

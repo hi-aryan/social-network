@@ -4,7 +4,7 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4">sign in</legend> 
+                <legend class="border-bottom mb-4 text-shadow">Sign In</legend> 
                 <div class="mb-3">
                     {{ form.email.label(class="form-label") }}
 
@@ -38,8 +38,8 @@
                     {{ form.remember.label(class="form-check-label") }}
                 </div>
             </fieldset>
-            <div class="mb-3">
-                {{ form.submit(class="btn btn-outline-info") }}
+            <div>
+                {{ form.submit(class="btn gradient-anim-outline") }}
                 <small class="text-muted ms-2">
                     <a href="{{ url_for('users.reset_request') }}">
                         Forgot Password?

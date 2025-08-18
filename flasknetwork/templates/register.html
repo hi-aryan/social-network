@@ -4,9 +4,9 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4 text-shadow fw-bold">Register</legend> 
+                <legend class="border-bottom mb-4 text-shadow">Register</legend> 
                 <div class="mb-3">
-                    <b>{{ form.username.label(class="form-label") }}</b>
+                    {{ form.username.label(class="form-label") }}
 
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
@@ -20,7 +20,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    <b>{{ form.email.label(class="form-label") }}</b>  <small>(your email won't be displayed publicly, only your username)</small>
+                    {{ form.email.label(class="form-label") }} <small>(your email won't be displayed publicly, only your username)</small>
 
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -34,7 +34,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    <b>{{ form.program.label(class="form-label") }}</b>
+                    {{ form.program.label(class="form-label") }}
                     {% if form.program.errors %}
                         {{ form.program(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -47,7 +47,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    <b>{{ form.password.label(class="form-label") }}</b>
+                    {{ form.password.label(class="form-label") }}
 
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -61,7 +61,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    <b>{{ form.confirm_password.label(class="form-label") }}</b>
+                    {{ form.confirm_password.label(class="form-label") }}
 
                     {% if form.confirm_password.errors %}
                         {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
@@ -75,8 +75,8 @@
                     {% endif %}
                 </div>
             </fieldset>
-            <div class="mb-3">
-                {{ form.submit(class="btn btn-outline-info") }}
+            <div>
+                {{ form.submit(class="btn gradient-anim-outline") }}
             </div>
         </form>
     </div>
