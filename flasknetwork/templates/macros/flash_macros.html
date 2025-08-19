@@ -3,13 +3,13 @@
   <div class="card-flash shadow-lg {{ extra_classes }}">
     <img src="{{ url_for('static', filename='img/happymonkey1.png') }}" class="image-in-card" alt="🎉">
     <h3 class="mb-2">Thank you!</h3>
-    <!-- TODO: keep "curious student"? -->
-    <p>I really appreciate it. <small class="text-muted">/ curious student</small></p>
-    <!-- TODO: change "Write another review?" to "Keep being helpful?" or something. "Keep doing students a service?" -->
-    <!-- TODO: change "Go for it" to "Press me" or "Click me" -->
-    <p class="mt-4">Write another review? <a href="{{ url_for('posts.new_post') }}" class="btn gradient-anim shadow-sm">Go for it</a></p>
+    <p>I really appreciate you. <small class="text-muted">/ curious student</small></p>
+    <div class="d-flex align-items-center justify-content-center gap-2 my-4">
+      <span>Keep being helpful?</span>
+      <a href="{{ url_for('posts.new_post') }}" class="btn gradient-anim shadow-sm">Press me</a>
+    </div>
     <button type="button" id="flash-close" class="btn-close" aria-label="Close"></button>
-  </div>
+    </div>
 </div>
 <script src="{{ url_for('static', filename='js/flashcard.js') }}"></script>
 {% endmacro %}

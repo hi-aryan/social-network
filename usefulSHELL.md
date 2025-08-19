@@ -249,7 +249,6 @@ db.session.commit()
 # TODO:
 *new*
 * scale down images (thankyou images too) the same way they're scaled down (to take less space) for profile pics
-* check TOODs in flash_macros.html
 * add fixed set of profile pictures (the theme of the one from the tutorial is nice. prompt well!)
 * what from the review should be displayed in the /home feed ?!
 * remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.
@@ -275,6 +274,7 @@ db.session.commit()
 
 * testa: pagination på course_details page (/courses/course/id)
 
+* LATER: there was an issue with the thankyou card when i had a /ty api to test it where it would create multiple instances and glitch. this doesn't seem to happen on posts so idk if it's solved or what. kinda fixed when i don't have multiple browsers open though??
 * LATER: notification system? maybe a bit annoying.
 * LATER: if an auth user makes a search then sort the search in 2 sections "my program" and "all courses"
 * LATER: REQUIRES CUSTOM DROPDOWN LIBRARIES! fix the course dropdown (when open) in /post/new (if possible!), it's very ugly! fix!

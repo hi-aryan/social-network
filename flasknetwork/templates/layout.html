@@ -23,18 +23,9 @@
         <title>social network</title>
     {% endif %}
 
-    {% block full_flash_css %}{% endblock full_flash_css %}
-
-
 </head>
 <body>
-    {% with flashes = get_flashed_messages(with_categories=true) %}
-        {% for category, message in flashes %}
-            {% if category=='thankyou' %}
-                {{ thankyou_card() }}
-            {% endif %}
-        {% endfor %}
-    {% endwith %}
+    
 
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark navbar-bg fixed-top">
@@ -81,7 +72,7 @@
                 {% with messages = get_flashed_messages(with_categories=true) %} 
                     {% if messages %}
                         {% for category, message in messages %}
-                            {% if category != 'card' %}
+                            {% if category != 'thankyou' %}
                                 <div class="alert alert-{{ category }}">{{ message }}</div>
                             {% endif %}
                         {% endfor %}
@@ -91,6 +82,14 @@
             </div>
         </div>
     </main>
+
+    {% with flashes = get_flashed_messages(with_categories=true) %}
+        {% for category, message in flashes %}
+            {% if category=='thankyou' %}
+                {{ thankyou_card() }}
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
