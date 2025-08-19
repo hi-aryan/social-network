@@ -248,6 +248,8 @@ db.session.commit()
 
 # TODO:
 *new*
+* scale down images (thankyou images too) the same way they're scaled down (to take less space) for profile pics
+* check TOODs in flash_macros.html
 * add fixed set of profile pictures (the theme of the one from the tutorial is nice. prompt well!)
 * what from the review should be displayed in the /home feed ?!
 * remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.

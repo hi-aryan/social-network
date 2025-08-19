@@ -32,7 +32,7 @@ def new_post():
             )
             db.session.add(post)
             db.session.commit()
-            flash('🙏 Thanks for your review!', 'card')
+            flash('', 'thankyou')
             return redirect(url_for('main.home'))
     elif request.method == 'GET':
         # Handle course_id URL parameter for pre-selection
@@ -45,10 +45,9 @@ def new_post():
                          legend='New Course Review', existing_review_id=existing_review_id)
 
 
-@posts.route('/testcard')
-def test_flash_card():
-    # fire a “card” flash without creating a real post
-    flash('🎉 This is just a test of your card flash!', 'card')
+@posts.route('/ty')
+def thankyou():
+    flash('', 'thankyou')
     return redirect(url_for('main.home'))
 
 

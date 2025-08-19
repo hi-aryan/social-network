@@ -1,8 +1,15 @@
-{% macro card_flash(message, extra_classes='') %}  
-<div id="flash-overlay">  
-  <div class="card-flash shadow-lg {{ extra_classes }}">  
-    <div class="card-body">{{ message }}</div>
-    <button type="button" id="flash-close" class="btn-close mt-4" aria-label="Close"></button>  
-  </div>  
-</div>  
-{% endmacro %}  
+{% macro thankyou_card(extra_classes='') %}
+<div id="flash-overlay">
+  <div class="card-flash shadow-lg {{ extra_classes }}">
+    <img src="{{ url_for('static', filename='img/happymonkey1.png') }}" class="image-in-card" alt="🎉">
+    <h3 class="mb-2">Thank you!</h3>
+    <!-- TODO: keep "curious student"? -->
+    <p>I really appreciate it. <small class="text-muted">/ curious student</small></p>
+    <!-- TODO: change "Write another review?" to "Keep being helpful?" or something. "Keep doing students a service?" -->
+    <!-- TODO: change "Go for it" to "Press me" or "Click me" -->
+    <p class="mt-4">Write another review? <a href="{{ url_for('posts.new_post') }}" class="btn gradient-anim shadow-sm">Go for it</a></p>
+    <button type="button" id="flash-close" class="btn-close" aria-label="Close"></button>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/flashcard.js') }}"></script>
+{% endmacro %}

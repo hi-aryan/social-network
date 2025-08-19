@@ -1,4 +1,5 @@
-{% from 'macros/flash_macros.html' import card_flash %}
+{% from 'macros/flash_macros.html' import thankyou_card %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +30,8 @@
 <body>
     {% with flashes = get_flashed_messages(with_categories=true) %}
         {% for category, message in flashes %}
-            {% if category=='card' %}
-                {{ card_flash(message, 'my-custom-class') }}
+            {% if category=='thankyou' %}
+                {{ thankyou_card() }}
             {% endif %}
         {% endfor %}
     {% endwith %}
@@ -93,16 +94,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script>
-        const overlay = document.getElementById('flash-overlay');
-        if (overlay) {
-            const btn = document.getElementById('flash-close');
-            if (btn) btn.addEventListener('click', () => overlay.remove());
-            overlay.addEventListener('click', e => {
-                if (e.target === overlay) overlay.remove();
-            });
-        }
-    </script>
     {% block scripts %}{% endblock scripts %}
 </body>
 </html>
