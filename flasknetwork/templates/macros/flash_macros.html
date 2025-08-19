@@ -1,0 +1,8 @@
+{% macro card_flash(message, extra_classes='') %}  
+<div id="flash-overlay">  
+  <div class="card-flash shadow-lg {{ extra_classes }}">  
+    <div class="card-body">{{ message }}</div>
+    <button type="button" id="flash-close" class="btn-close mt-4" aria-label="Close"></button>  
+  </div>  
+</div>  
+{% endmacro %}  

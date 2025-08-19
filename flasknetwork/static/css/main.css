@@ -22,16 +22,6 @@
 }
 
 
-.content-section .btn,
-.content-section .gradient-anim,
-.content-section .gradient-anim-outline {
-  /* vertical gap = 12px (≈ .75rem) from whatever’s above/below */
-  margin-block: 0.1rem;
-  /* no extra left/right margin—parent’s padding handles horizontal inset */
-  margin-inline: 0;
-}
-
-
 body {
   /*
   background: rgb(245, 245, 245); /* TODO: find good background, it was originally 250,250,250 */
@@ -206,8 +196,13 @@ a.author-link:hover {
   z-index: 1;
 }
 
-.rating-box[for$="5"]::before {
-  background: linear-gradient(90deg,rgba(13, 117, 56, 1) 0%, rgba(13, 184, 84, 1) 50%, rgba(13, 117, 56, 1) 100%);
+.rating-group .form-check-input[value="5"]:checked + .rating-box::before {
+  background: linear-gradient(
+    90deg,
+    rgba( 13, 117, 56, 1 )  0%,
+    rgba( 13, 184, 84, 1 )  50%,
+    rgba( 13, 117, 56, 1 ) 100%
+  );
 }
 .rating-box:hover {
   box-shadow: 0 0 8px rgba(255,193,7,0.7);
@@ -369,7 +364,7 @@ a.author-link:hover {
 .course-link {
   display: inline-block;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .course-code {
@@ -383,7 +378,30 @@ a.author-link:hover {
 .course-link:hover {
   transform: scale(1.02);
 }
-/* for titles in detail.html */
-a.review-title.course-link:hover {
-  color: inherit; 
+
+
+#flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1040;
+}
+.card-flash {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 360px;
+  width: 90%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.25rem;
+  text-align: center;
+  z-index: 1050;
+  animation: popIn 0.3s ease-out;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translate(-50%, -60%) scale(0.9); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
