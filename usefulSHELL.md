@@ -247,21 +247,18 @@ db.session.commit()
 
 
 # TODO:
-*new*
+* course selection/list for new posts goes outside of the screen on mobile?!
+* add a small "view full review" button on home and userposts pages instead of scaling the title (keep both as redirects tho cause why not)
 * scale down images (thankyou images too) the same way they're scaled down (to take less space) for profile pics
 * add fixed set of profile pictures (the theme of the one from the tutorial is nice. prompt well!)
 * what from the review should be displayed in the /home feed ?!
+* move "Review Title" to the bottom of the form, and add a <small> saying "title is displayed in the main feed. make it memorable/meaningful!" or something.
 * remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.
 * kolla notes på luren!
 * make "Back to Search" prettier in courses/course/id (antingen ta bort texten och bara ha pil eller gör den mindre). and perhaps move it to top left (Maybe add the gradient-anim class?!) more it to somewhere better placed (AND BE WARE OF DOWNSTREAM ISSUES OF WHERE THE BACK TO SEARCH WAS! i think the text to the left is spaced or something dependent on or with attention to the button)
-* make ratings (when publishing a post, and maybe also in /home) which have yellow background gradients?
-* make all post/submit/"read full review"/"back to home" buttons gradient anims
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
-* pre-filling the select dropdown in /post/new?course_id=1 based on the id in the URL. it currently doesn't update the selected course. (see help_post_select_dropdown.txt in Desktop for more info. models struggled with this, it seems either SelectOptGroupWidget or PostForm or the new_post() route is causing issues, maybe overriding or something)
-* ^^related to the above: pressing "Write the First Review" in an empty course takes me to "/post/new?course_id=2" but the selected course is still the first one (with id=1)??
 * fix color hierarchy in posts!! color of questions and stuff should be lighter than title and so on! (check twitter! https://x.com/heysatya_/status/1952975293590958444 )
 * fix the autocomplete
-* only allow @kth.se emails! (@ug.kth.se is the same anyways?! just makes for more complications)
 * add a random name generator for username on register (reddit-type names)
 * autofill login (and maybe register? but then maybe it's not as obvious that only @kth.se mails are allowed??) with @kth.se so users only need to type the first part on login
 * fix the 'remember me' or delete it!

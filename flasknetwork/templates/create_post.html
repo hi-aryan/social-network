@@ -18,7 +18,7 @@
                                 {% if existing_review_id and "already reviewed" in error %}
                                     <div class="mt-2">
                                         <a href="{{ url_for('posts.update_post', post_id=existing_review_id) }}" 
-                                           class="btn btn-sm btn-outline-danger">
+                                           class="btn btn-sm gradient-anim gradient-anim--red rounded-10">
                                             Edit Existing Review
                                         </a>
                                     </div>

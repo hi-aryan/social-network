@@ -73,6 +73,7 @@ a.review-title, a.author-link {
 a.author-link {
   color:#6190e8;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  transition: color 0.2s ease-in-out;
 }
 
 .review-title {
@@ -325,11 +326,11 @@ a.author-link:hover {
 }
 
 .gradient-anim--red {
-  background-image: linear-gradient(to right, #d41a30 0%, #ec5062  51%, #d41a30  100%);
+  background-image: linear-gradient(to right, #d41a30 0%, #ee7785  51%, #d41a30  100%);
 }
 
 .gradient-anim--grey {
-  background-image: linear-gradient(to right, #303233 0%, #5d6062  51%, #303233  100%);
+  background-image: linear-gradient(to right, #303233 0%, #717477  51%, #303233  100%);
   color: white
 }
 .gradient-anim--grey:hover {
@@ -379,7 +380,20 @@ a.author-link:hover {
   transform: scale(1.02);
 }
 
-/* flashed card */
+/* Remove scaling for review titles specifically */
+a.review-title.course-link:hover {
+  transform: none;
+}
+
+
+/* flash stuff  */
+
+.alert {
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+  border-radius: 20px !important;
+}
+
 #flash-overlay {
   position: fixed;
   inset: 0;
