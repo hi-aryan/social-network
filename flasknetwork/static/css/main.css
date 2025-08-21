@@ -243,6 +243,10 @@ a.author-link:hover {
   margin-right: 0px;
 }
 
+.extra-small {
+  font-size: 0.7rem;
+}
+
 /* new post/rview button */
 .site-header .navbar-nav .nav-link.gradient-anim {
   transition: background-position 0.5s;
@@ -351,12 +355,12 @@ a.author-link:hover {
   
   .review-img {
     height: 42px;
-    width: 42px; /* Smaller profile images on mobile */
+    width: 42px;
   }
 
-  .post-section {
-  margin-left: 0px;
-  margin-right: 0px;
+  .col-12.col-lg-10.col-xl-8 {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 

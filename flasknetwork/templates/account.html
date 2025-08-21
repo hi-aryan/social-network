@@ -2,14 +2,14 @@
 {% block content %}
     <div class="content-section">
         <div class="d-flex align-items-center">
-            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <img class="rounded-circle account-img" src="{{ image_file }}" id="profile-preview">
             <div>
                 <h2 class="account-heading">{{ current_user.username }}</h2>
                 <p class="text-secondary">{{ current_user.email }}</p>
                 <p class="text-secondary">Program: {{ current_user.program.name }} ({{ current_user.program.program_type.title() }})</p>
             </div>
         </div>
-        <form method="POST" action="" autocomplete="off" enctype="multipart/form-data">
+        <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
                 <legend class="border-bottom mb-4 text-shadow">Account Info</legend> 
@@ -42,8 +42,8 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    {{ form.picture.label() }}
-                    {{ form.picture(class="form-control") }}
+                    {{ form.picture.label(class="form-label") }}
+                    {{ form.picture(class="form-control", onchange="updateProfilePreview(this)") }}
                     {% if form.picture.errors %}
                         {% for error in form.picture.errors %}
                             <span class="text-danger">{{ error }}</span><br>
@@ -56,4 +56,14 @@
             </div>
         </form>
     </div>
+
+    <script>
+        function updateProfilePreview(selectElement) {
+            const selectedImage = selectElement.value;
+            const preview = document.getElementById('profile-preview');
+            if (selectedImage) {
+                preview.src = "{{ url_for('static', filename='profile_pics/') }}" + selectedImage;
+            }
+        }
+    </script>
 {% endblock content %}

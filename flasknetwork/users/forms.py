@@ -1,10 +1,9 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from flasknetwork.models import User, Program, RandomUsername
-from flasknetwork.users.utils import is_kth_domain
+from flasknetwork.users.utils import is_kth_domain, get_available_profile_pictures, validate_profile_picture
 
 
 class RegistrationForm(FlaskForm):
@@ -45,9 +44,18 @@ class LoginForm(FlaskForm):
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    # TODO: perhaps add a SelectField for program, but user shouldn't be able to change program just to review more courses! maybe delete all reviews if they change program?
+    picture = SelectField('Choose Profile Picture', coerce=str, validators=[DataRequired()])
     submit = SubmitField('Update')
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    
+    def __init__(self, *args, **kwargs):
+        super(UpdateAccountForm, self).__init__(*args, **kwargs)
+        # Populate picture choices from available images
+        self.picture.choices = get_available_profile_pictures()
+
+    def validate_picture(self, picture):
+        """Validate that the selected picture exists"""
+        if picture.data and not validate_profile_picture(picture.data):
+            raise ValidationError('Selected profile picture is not available.')
 
     def validate_username(self, username):
         if username.data != current_user.username:
