@@ -259,7 +259,6 @@ db.session.commit()
 * browse the website on mobile! It's shit!! ("course information" for each courses/course/id is below the actual reviews??)
 * fix color hierarchy in posts!! color of questions and stuff should be lighter than title and so on! (check twitter! https://x.com/heysatya_/status/1952975293590958444 )
 * fix the autocomplete
-* add a random name generator for username on register (reddit-type names)
 * autofill login (and maybe register? but then maybe it's not as obvious that only @kth.se mails are allowed??) with @kth.se so users only need to type the first part on login
 * fix the 'remember me' or delete it!
 * change questions in post!
@@ -267,9 +266,8 @@ db.session.commit()
 * browse programs/courses
 * remove the blue border that appears when clicking the New Post (gradient-anim) button???
 
-* "my reviews" button in /account page pointing to the user_posts (KINDA USELESS cause no one can access another person's /account page anyways?!)
 
-* testa: pagination på course_details page (/courses/course/id)
+* "X people viewed your review" update number on each click on post, regardless of signed in or not. (let website refreshed and stuff also count as views. why not? youtube also does that.)
 
 * LATER: there was an issue with the thankyou card when i had a /ty api to test it where it would create multiple instances and glitch. this doesn't seem to happen on posts so idk if it's solved or what. kinda fixed when i don't have multiple browsers open though??
 * LATER: notification system? maybe a bit annoying.

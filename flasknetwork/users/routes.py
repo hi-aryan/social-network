@@ -1,19 +1,44 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
 from flasknetwork import db, bcrypt
-from flasknetwork.models import User, Post
+from flasknetwork.models import User, Post, RandomUsername
 from flasknetwork.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, RequestVerificationForm
 from flasknetwork.users.utils import save_picture, send_reset_email, send_verification_email
 
 users = Blueprint('users', __name__)
 
 
+@users.route('/api/generate-username')
+def generate_username():
+    """API endpoint to generate a random unused username."""
+    try:
+        username = RandomUsername.get_random_unused()
+        if username:
+            return jsonify({'success': True, 'username': username})
+        else:
+            return jsonify({'success': False, 'error': 'No available usernames in pool'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': 'Server error'})
+
+
 @users.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
+    
     form = RegistrationForm()
+    
+    # Auto-fill username on GET request
+    if request.method == 'GET' and not form.username.data:
+        random_username = RandomUsername.get_random_unused()
+        if random_username:
+            form.username.data = random_username
+    
     if form.validate_on_submit():
+        # Mark username as used if it's from our pool
+        if RandomUsername.query.filter_by(username=form.username.data).first():
+            RandomUsername.mark_as_used(form.username.data)
+        
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password, program_id=form.program.data)
         db.session.add(user)

@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
-from flasknetwork.models import User, Program
+from flasknetwork.models import User, Program, RandomUsername
 from flasknetwork.users.utils import is_kth_domain
 
 
@@ -21,10 +21,9 @@ class RegistrationForm(FlaskForm):
         self.program.choices = [(p.id, f"{p.name} ({p.program_type.title()})") 
                                for p in Program.query.order_by(Program.name).all()]
 
-
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:  
+        # Use our centralized availability check
+        if not RandomUsername.is_username_available(username.data):
             raise ValidationError('That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
