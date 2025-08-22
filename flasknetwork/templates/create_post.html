@@ -6,11 +6,11 @@
             <fieldset class="mb-3">
                 <legend class="border-bottom mb-4 text-shadow">{{ legend }}</legend>
 
-                <div class="mb-3">
+                <div class="mb-5">
                     <p class="text-muted"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u> <br> plz be <u>honest</u>, if the course was shit: say it. if you enjoyed it: tell us! </i> ( ͡° ͜ʖ ͡°)</p>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-4">
                     {{ form.course.label(class="form-label") }}
                     {% if form.course.errors %}
                         {{ form.course(class="form-control form-control-lg is-invalid") }}
@@ -30,10 +30,6 @@
                     {% else %}
                         {{ form.course(class="form-select form-select-lg") }}
                     {% endif %}
-                </div>
-
-                <div class="mt-4">
-                    <p class="text-muted small">Answer at least one question to submit your review.</p>
                 </div>
 
                 <div class="questions-section mb-4">
@@ -112,8 +108,10 @@
                 </div>
 
                 <!-- Title Section -->
-                <div class="mb-3">
-                    {{ form.title.label(class="form-label") }}
+                <div class="mb-5">
+                    <b> {{ form.title.label(class="form-label") }} </b>
+                    <small> (displayed in the main feed. make it memorable/useful)</small>
+
                     {% if form.title.errors %}
                         {{ form.title(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">

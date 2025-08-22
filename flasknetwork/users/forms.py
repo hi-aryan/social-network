@@ -8,9 +8,12 @@ from flasknetwork.users.utils import is_kth_domain, get_available_profile_pictur
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=30)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    email = StringField('Email', validators=[DataRequired(), Email()], 
+                        render_kw={'placeholder': 'email@kth.se (your email won\'t be displayed publicly, only your username)'})
+    password = PasswordField('', validators=[DataRequired(), Length(min=6, max=30)],
+                        render_kw={'placeholder': 'Password'})
+    confirm_password = PasswordField('', validators=[DataRequired(), EqualTo('password')],
+                                render_kw={'placeholder': 'Confirm Password'})
     program = SelectField('Program', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
@@ -35,16 +38,19 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()], 
+                        render_kw={'placeholder': 'email@kth.se'})
+    password = PasswordField('', validators=[DataRequired()],
+                        render_kw={'placeholder': 'Password'})
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    picture = SelectField('Choose Profile Picture', coerce=str, validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()], 
+                        render_kw={'placeholder': 'email@kth.se'})
+    picture = SelectField('Profile Picture', coerce=str, validators=[DataRequired()])
     submit = SubmitField('Update')
     
     def __init__(self, *args, **kwargs):
@@ -73,7 +79,8 @@ class UpdateAccountForm(FlaskForm):
 
 
 class RequestResetForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()], 
+                        render_kw={'placeholder': 'email@kth.se'})
     submit = SubmitField('Request Password Reset')
 
     def validate_email(self, email):
@@ -85,13 +92,16 @@ class RequestResetForm(FlaskForm):
         
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=30)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    password = PasswordField('', validators=[DataRequired(), Length(min=6, max=30)],
+                        render_kw={'placeholder': 'Password'})
+    confirm_password = PasswordField('', validators=[DataRequired(), EqualTo('password')],
+                                render_kw={'placeholder': 'Confirm Password'})
     submit = SubmitField('Reset Password')
 
 
 class RequestVerificationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()], 
+                        render_kw={'placeholder': 'email@kth.se'})
     submit = SubmitField('Send Verification Email')
 
     def validate_email(self, email):

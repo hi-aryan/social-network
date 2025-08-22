@@ -45,8 +45,8 @@ def new_post():
             form.course.data = course_id
 
     
-    return render_template('create_post.html', title='New Course Review', form=form, 
-                         legend='New Course Review', existing_review_id=existing_review_id)
+    return render_template('create_post.html', title='Course Review', form=form, 
+                         legend='Course Review', existing_review_id=existing_review_id)
 
 
 @posts.route('/ty')

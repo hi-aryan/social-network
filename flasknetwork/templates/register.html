@@ -24,11 +24,11 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <small class="form-text text-muted">Click the dice to get a new random username, or type your own</small>
+                    <small class="form-text text-muted"><i>Click the dice for a random username, or type your own</i></small>
                 </div>
                 
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }} <small>(your email won't be displayed publicly, only your username)</small>
+                    {{ form.email.label(class="form-label") }}
 
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -71,7 +71,7 @@
                     {% endif %}
                 </div>
                 
-                <div class="mb-3">
+                <div class="mb-4">
                     {{ form.confirm_password.label(class="form-label") }}
 
                     {% if form.confirm_password.errors %}

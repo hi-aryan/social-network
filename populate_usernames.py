@@ -15,7 +15,7 @@ def create_username_pool(limit=None):
         'Incredible', 'Jolly', 'Kind', 'Lucky', 'Mysterious', 'Noble', 'Outstanding', 'Peaceful',
         'Quirky', 'Radiant', 'Stellar', 'Tremendous', 'Ultimate', 'Vibrant', 'Wonderful', 
         'Ancient', 'Bold', 'Cosmic', 'Divine', 'Electric', 'Fierce', 'Golden', 'Hidden',
-        'Infinite', 'Legendary', 'Majestic', 'Nimble', 'Organic', 'Pristine',
+        'Infinite', 'Majestic', 'Nimble', 'Organic', 'Pristine',
         'Quantum', 'Royal', 'Sacred', 'Timeless', 'Unique', 'Wild'
     ]
     

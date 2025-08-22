@@ -252,7 +252,6 @@ db.session.commit()
 * scale down images (thankyou images too) the same way they're scaled down (to take less space) for profile pics
 * add fixed set of profile pictures (the theme of the one from the tutorial is nice. prompt well!)
 * what from the review should be displayed in the /home feed ?!
-* move "Review Title" to the bottom of the form, and add a <small> saying "title is displayed in the main feed. make it memorable/meaningful!" or something.
 * remove some of the "View Reviews" or "Read Full Review" from pc? seems enough that the title scales. buttons are better for mobile only.
 * kolla notes på luren!
 * make "Back to Search" prettier in courses/course/id (antingen ta bort texten och bara ha pil eller gör den mindre). and perhaps move it to top left (Maybe add the gradient-anim class?!) more it to somewhere better placed (AND BE WARE OF DOWNSTREAM ISSUES OF WHERE THE BACK TO SEARCH WAS! i think the text to the left is spaced or something dependent on or with attention to the button)
