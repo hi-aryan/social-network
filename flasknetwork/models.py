@@ -78,9 +78,15 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     year_taken = db.Column(db.Integer, nullable=False)  # e.g., 2023
-    rating = db.Column(db.Integer, nullable=False)  # e.g., 1-
-    answer_q1 = db.Column(db.Text, nullable=False)  # e.g., "Yes, I would recommend this course."
+    rating = db.Column(db.Integer, nullable=False)  # e.g., 1-5
+    
+    # All 6 questions are now optional, but at least one must be filled
+    answer_q1 = db.Column(db.Text, nullable=True)
     answer_q2 = db.Column(db.Text, nullable=True)
+    answer_q3 = db.Column(db.Text, nullable=True)
+    answer_q4 = db.Column(db.Text, nullable=True)
+    answer_q5 = db.Column(db.Text, nullable=True)
+    answer_q6 = db.Column(db.Text, nullable=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
@@ -92,10 +98,29 @@ class Post(db.Model):
     course = db.relationship('Course', backref='reviews')
     #author = db.relationship('User', backref='reviews')
 
+    def get_answered_questions(self):
+        """
+        Returns a list of (question, answer) tuples for only the questions that have been answered.
+        Encapsulates the logic for determining which questions to display.
+        """
+        questions_map = [
+            ("Did you have fun?", self.answer_q1),
+            ("How was the professor?", self.answer_q2),
+            ("How was the workload?", self.answer_q3),
+            ("Did you learn anything or just memorize a bunch of stuff?", self.answer_q4),
+            ("What was the best part of the course?", self.answer_q5),
+            ("A word to enrolling students?", self.answer_q6),
+        ]
+        
+        # Return only questions that have non-empty answers
+        return [(question, answer) for question, answer in questions_map 
+                if answer and answer.strip()]
+
     def __repr__(self):
         author = self.author.username if self.author else "None"
         course = self.course.name if self.course else "None"
-        return f"\n\nPost('{self.id}', '{self.title}', '{self.date_posted}', author='{author}', course='{course}', year_taken='{self.year_taken}', rating='{self.rating}', q1='{'None' if self.answer_q1 is None else 'present'}', q2='{'None' if self.answer_q2 is None else 'present'}')\n\n"
+        answered_questions = len(self.get_answered_questions())
+        return f"\n\nPost('{self.id}', '{self.title}', '{self.date_posted}', author='{author}', course='{course}', year_taken='{self.year_taken}', rating='{self.rating}', answered_questions='{answered_questions}/6')\n\n"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??

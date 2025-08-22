@@ -27,8 +27,12 @@ def new_post():
                 course_id=form.course.data,
                 year_taken=form.year_taken.data,
                 rating=form.rating.data,
-                answer_q1=form.answer_q1.data,
-                answer_q2=form.answer_q2.data
+                answer_q1=form.answer_q1.data if form.answer_q1.data and form.answer_q1.data.strip() else None,
+                answer_q2=form.answer_q2.data if form.answer_q2.data and form.answer_q2.data.strip() else None,
+                answer_q3=form.answer_q3.data if form.answer_q3.data and form.answer_q3.data.strip() else None,
+                answer_q4=form.answer_q4.data if form.answer_q4.data and form.answer_q4.data.strip() else None,
+                answer_q5=form.answer_q5.data if form.answer_q5.data and form.answer_q5.data.strip() else None,
+                answer_q6=form.answer_q6.data if form.answer_q6.data and form.answer_q6.data.strip() else None
             )
             db.session.add(post)
             db.session.commit()
@@ -73,8 +77,12 @@ def update_post(post_id):
             post.title      = form.title.data
             post.year_taken = form.year_taken.data
             post.rating     = form.rating.data
-            post.answer_q1  = form.answer_q1.data
-            post.answer_q2  = form.answer_q2.data
+            post.answer_q1  = form.answer_q1.data if form.answer_q1.data and form.answer_q1.data.strip() else None
+            post.answer_q2  = form.answer_q2.data if form.answer_q2.data and form.answer_q2.data.strip() else None
+            post.answer_q3  = form.answer_q3.data if form.answer_q3.data and form.answer_q3.data.strip() else None
+            post.answer_q4  = form.answer_q4.data if form.answer_q4.data and form.answer_q4.data.strip() else None
+            post.answer_q5  = form.answer_q5.data if form.answer_q5.data and form.answer_q5.data.strip() else None
+            post.answer_q6  = form.answer_q6.data if form.answer_q6.data and form.answer_q6.data.strip() else None
             db.session.commit()
             flash('Your post has been updated!', 'success')
             return redirect(url_for('posts.post', post_id=post.id))
@@ -85,6 +93,10 @@ def update_post(post_id):
         form.rating.data = post.rating
         form.answer_q1.data = post.answer_q1
         form.answer_q2.data = post.answer_q2
+        form.answer_q3.data = post.answer_q3
+        form.answer_q4.data = post.answer_q4
+        form.answer_q5.data = post.answer_q5
+        form.answer_q6.data = post.answer_q6
 
     return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
 

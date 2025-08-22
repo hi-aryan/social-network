@@ -7,8 +7,10 @@
                 <legend class="border-bottom mb-4 text-shadow">{{ legend }}</legend>
 
                 <div class="mb-3">
-                    <p class="text-muted"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u></i> ( ͡° ͜ʖ ͡°)</p>
+                    <p class="text-muted"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u> <br> plz be <u>honest</u>, if the course was shit: say it. if you enjoyed it: tell us! </i> ( ͡° ͜ʖ ͡°)</p>
+                </div>
 
+                <div class="mb-3">
                     {{ form.course.label(class="form-label") }}
                     {% if form.course.errors %}
                         {{ form.course(class="form-control form-control-lg is-invalid") }}
@@ -29,9 +31,89 @@
                         {{ form.course(class="form-select form-select-lg") }}
                     {% endif %}
                 </div>
-                <div class="mb-3">
-                    Review {{ form.title.label(class="form-label") }}
 
+                <div class="mt-4">
+                    <p class="text-muted small">Answer at least one question to submit your review.</p>
+                </div>
+
+                <div class="questions-section mb-4">
+                    
+                    <div class="mb-3">
+                        {{ form.answer_q1.label(class="form-label") }}
+                        {% if form.answer_q1.errors %}
+                            {{ form.answer_q1(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in form.answer_q1.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.answer_q1(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.answer_q2.label(class="form-label") }}
+                        {% if form.answer_q2.errors %}
+                            {{ form.answer_q2(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in form.answer_q2.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.answer_q2(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.answer_q3.label(class="form-label") }}
+                        {% if form.answer_q3.errors %}
+                            {{ form.answer_q3(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in form.answer_q3.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.answer_q3(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.answer_q4.label(class="form-label") }}
+                        {% if form.answer_q4.errors %}
+                            {{ form.answer_q4(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in form.answer_q4.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.answer_q4(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.answer_q5.label(class="form-label") }}
+                        {% if form.answer_q5.errors %}
+                            {{ form.answer_q5(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in form.answer_q5.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.answer_q5(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.answer_q6.label(class="form-label") }}
+                        {% if form.answer_q6.errors %}
+                            {{ form.answer_q6(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in form.answer_q6.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.answer_q6(class="form-control") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Title Section -->
+                <div class="mb-3">
+                    {{ form.title.label(class="form-label") }}
                     {% if form.title.errors %}
                         {{ form.title(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -43,6 +125,8 @@
                         {{ form.title(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+
+                <!-- Rating Section -->
                 <fieldset class="mb-3" role="group" aria-labelledby="ratingGroupLabel">
                     <div id="ratingGroupLabel" class="form-label mb-2">
                         {{ form.rating.label.text }}
@@ -62,41 +146,22 @@
                         </div>
                     {% endif %}
                 </fieldset>
-                <div class="mb-3">
-                    {{ form.answer_q1.label(class="form-label") }}
-                    {% if form.answer_q1.errors %}
-                        {{ form.answer_q1(class="form-control is-invalid") }}
+
+                <!-- Year Taken Section -->
+                <div class="mb-4">
+                    {{ form.year_taken.label(class="form-label") }}
+                    {% if form.year_taken.errors %}
+                        {{ form.year_taken(class="form-control is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for e in form.answer_q1.errors %}{{ e }}{% endfor %}
+                            {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
                         </div>
                     {% else %}
-                        {{ form.answer_q1(class="form-control") }}
-                    {% endif %}
-                    </div>
-                    <div class="mb-3">
-                    {{ form.answer_q2.label(class="form-label") }}
-                    {% if form.answer_q2.errors %}
-                        {{ form.answer_q2(class="form-control is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for e in form.answer_q2.errors %}{{ e }}{% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.answer_q2(class="form-control") }}
+                        {{ form.year_taken(class="form-control") }}
                     {% endif %}
                 </div>
-            </fieldset>
-            <div class="mb-4">
-                {{ form.year_taken.label(class="form-label") }}
 
-                {% if form.year_taken.errors %}
-                    {{ form.year_taken(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.year_taken(class="form-control") }}
-                {% endif %}
-            </div>
+            </fieldset>
+            
             <div>
                 {% if legend.startswith('Update') %}
                     <button type="submit" class="btn gradient-anim-outline gradient-shadow">Update</button>

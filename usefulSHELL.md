@@ -36,7 +36,7 @@ for c in Course.query.all():
 ## always do this first
 from flasknetwork import create_app, db
 
-from flasknetwork.models import User, Post, Program, Course, Course_Program
+from flasknetwork.models import User, Post, Program, Course, Course_Program, RandomUsername
 
 app = create_app()
 

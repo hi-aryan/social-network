@@ -13,21 +13,20 @@ def create_username_pool(limit=None):
     adjectives = [
         'Awesome', 'Crazy', 'Clever', 'Daring', 'Epic', 'Fantastic', 'Glorious', 'Happy',
         'Incredible', 'Jolly', 'Kind', 'Lucky', 'Mysterious', 'Noble', 'Outstanding', 'Peaceful',
-        'Quirky', 'Radiant', 'Stellar', 'Tremendous', 'Ultimate', 'Vibrant', 'Wonderful', 'Zealous',
+        'Quirky', 'Radiant', 'Stellar', 'Tremendous', 'Ultimate', 'Vibrant', 'Wonderful', 
         'Ancient', 'Bold', 'Cosmic', 'Divine', 'Electric', 'Fierce', 'Golden', 'Hidden',
-        'Infinite', 'Jovial', 'Keen', 'Legendary', 'Majestic', 'Nimble', 'Organic', 'Pristine',
-        'Quantum', 'Royal', 'Sacred', 'Timeless', 'Unique', 'Victorious', 'Wild', 'Xenial'
+        'Infinite', 'Legendary', 'Majestic', 'Nimble', 'Organic', 'Pristine',
+        'Quantum', 'Royal', 'Sacred', 'Timeless', 'Unique', 'Wild'
     ]
     
     nouns = [
-        'Panda', 'Dragon', 'Phoenix', 'Tiger', 'Eagle', 'Wolf', 'Bear', 'Lion',
-        'Falcon', 'Shark', 'Dolphin', 'Owl', 'Fox', 'Raven', 'Hawk', 'Lynx',
-        'Otter', 'Penguin', 'Koala', 'Sloth', 'Gecko', 'Mantis', 'Octopus', 'Whale',
-        'Knight', 'Wizard', 'Ninja', 'Pirate', 'Archer', 'Scholar', 'Artist', 'Explorer',
+        'Panda', 'Student', 'Dragon', 'Phoenix', 'Tiger', 'Eagle', 'Wolf', 'Bear', 'Lion',
+        'Falcon', 'Shark', 'Dolphin', 'Owl', 'Fox', 'Raven', 'Hawk',
+        'Penguin', 'Koala', 'Octopus', 'Wizard', 'Ninja', 'Scholar', 'Artist', 'Explorer',
         'Coder', 'Hacker', 'Gamer', 'Dreamer', 'Thinker', 'Creator', 'Builder', 'Seeker',
         'Storm', 'Thunder', 'Lightning', 'Comet', 'Galaxy', 'Nebula', 'Meteor', 'Aurora'
     ]
-    # TODO: add "Reviewer" and such words to adjectives
+    # TODO: add "Reviewer" and such words
     
     suffixes = ['42', '69', '88', '99', '777', '007', 'X', 'Pro', 'Max']
     
@@ -87,6 +86,6 @@ def populate_database(limit=None):
 
 if __name__ == '__main__':
     # Change this number to control how many usernames to generate
-    USERNAME_LIMIT = 50  # Set to 20, 50, 100, 1000, or None for all
+    USERNAME_LIMIT = None  # Set to 20, 50, 100, 1000, or None for all
     
     populate_database(limit=USERNAME_LIMIT)

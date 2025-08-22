@@ -22,8 +22,13 @@
             <h2 class="review-title">{{ post.title }}</h2>
             <p><strong>Year Taken:</strong> {{ post.year_taken }}</p>
             <p><strong>Rating:</strong> <span class="badge gradient-shadow {{ 'gradient-anim gradient-anim--yellow' if post.rating == 5 else 'gradient-anim gradient-anim--white' }}">★ {{ post.rating }} / 5</span></p>
-            <p><strong>What did you like most?</strong><br>{{ post.answer_q1 }}</p>
-            <p><strong>What could be improved?</strong><br>{{ post.answer_q2 or '—' }}</p>
+            
+            <!-- Dynamic Questions Section -->
+            {% for question, answer in post.get_answered_questions() %}
+                <div class="mb-3">
+                    <p><strong>{{ question }}</strong><br>{{ answer }}</p>
+                </div>
+            {% endfor %}
         </div>
     </article>
 
