@@ -60,7 +60,7 @@
                     </div>
                     
                     <h4 class="mb-3">
-                        <a class="review-title course-link" href="{{ url_for('posts.post', post_id=review.id) }}">
+                        <a class="review-title" href="{{ url_for('posts.post', post_id=review.id) }}">
                             {{ review.title }}
                         </a>
                     </h4>
@@ -172,12 +172,10 @@
                 </div>
             </div>
         {% else %}
-            <div class="content-section">
-                <div class="text-center">
-                    <a href="{{ url_for('users.login', next=request.url) }}" class="btn gradient-anim-outline btn-sm shadow-sm my-3 text-muted">
-                        Login to write a review
-                    </a>
-                </div>
+            <div class="text-center">
+                <a href="{{ url_for('users.login', next=request.url) }}" class="btn gradient-anim-outline btn-sm shadow-sm my-3 text-muted">
+                    Login to write a review
+                </a>
             </div>
         {% endif %}
     </div>

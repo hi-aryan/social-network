@@ -247,6 +247,7 @@ db.session.commit()
 
 
 # TODO:
+* popup (instead of the simple flash) after first regsiter (for confirmation mail)
 * course selection/list for new posts goes outside of the screen on mobile?!
 * add a small "view full review" button on home and userposts pages instead of scaling the title (keep both as redirects tho cause why not)
 * scale down images (thankyou images too) the same way they're scaled down (to take less space) for profile pics

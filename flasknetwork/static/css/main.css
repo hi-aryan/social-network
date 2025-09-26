@@ -52,13 +52,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.8);
   padding: 20px 20px;
   border: 1px solid #dddddd;
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: -1px 1px 2px 0 rgba(32, 18, 183, 0.15), 
               1px -1px 2px 0 rgba(30, 132, 157, 0.15);
+}
+.content-section--clean {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  /* keep padding/margins from .content-section so alignment is preserved */
 }
 
 .content-section dl {
@@ -368,8 +374,6 @@ a.author-link:hover {
 /* Course search result colors */
 .course-link {
   display: inline-block;
-  text-decoration: none;
-  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .course-code {
@@ -379,16 +383,17 @@ a.author-link:hover {
   color: #3d444f;
 }
 
-/* optional: hover accent */
-.course-link:hover {
-  transform: scale(1.02);
+/* for search results */
+.course-item {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08); /* subtle card shadow */
+  margin-bottom: 1rem;                       /* extra vertical gap */
+  margin-top: 1rem;
+  transition: transform 0.12s ease;          /* optional: small hover lift */
+  text-decoration: none;
 }
-
-/* Remove scaling for review titles specifically */
-a.review-title.course-link:hover {
-  transform: none;
+.course-item:hover {
+  transform: translateY(-4px);
 }
-
 
 /* flash stuff  */
 
@@ -477,4 +482,19 @@ a.review-title.course-link:hover {
 /* Style dropdown options (limited cross-browser support) */
 .form-select option {
     font-size: 0.9rem !important;
+}
+
+
+/* post color hierarchy */
+.level1text {
+  color: #333333;
+}
+.level2text {
+  color: grey;
+}
+.level3text {
+  color: darkgray;
+}
+.level4text {
+  color: lightgrey;
 }
