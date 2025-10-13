@@ -2,3 +2,19 @@ social_network-venv/
 
 flasknetwork/__pycache__/
 __pycache__/
+
+# Environments
+.env
+.venv
+venv/
+social-network-venv/
+
+# Instance folder
+instance/
+
+# VSCode
+.vscode/
+
+# Documentation
+plan.md
+usefulSHELL.md
