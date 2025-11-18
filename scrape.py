@@ -32,7 +32,7 @@ for row in soup.find_all("tr"):
         parts = text.split(" ", 1)
         if len(parts) == 2:
             course_code = parts[0]
-            course_name = parts[1]
+            course_name = parts[1][:200] # Clip to 200 chars just in case
             print("\ncourse code:", course_code, "\ncourse name:", course_name)
 
 

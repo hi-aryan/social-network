@@ -135,7 +135,7 @@ class Program(db.Model):
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, index=True)
+    name = db.Column(db.String(150), nullable=False, index=True)
     code = db.Column(db.String(20), unique=True, nullable=False, index=True)
     
     @classmethod
