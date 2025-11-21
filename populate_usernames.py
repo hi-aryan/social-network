@@ -3,6 +3,9 @@ Script to populate the RandomUsername table with Reddit-style usernames.
 Run this script once to initialize the username pool.
 """
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from flasknetwork import create_app, db
 from flasknetwork.models import RandomUsername
 

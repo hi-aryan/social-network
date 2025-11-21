@@ -6,14 +6,18 @@
 # "
 # ^ not added to requirements.txt !
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 
 driver = webdriver.Chrome()
 #driver.get("https://www.kth.se/student/kurser/program/TCOMK/20252/arskurs1?l=en")
-# driver.get("https://www.kth.se/student/kurser/program/CTKEM/20252/arskurs1?l=en")
-driver.get("https://www.kth.se/student/kurser/program/CDATE/20252/arskurs1?l=en")
+#driver.get("https://www.kth.se/student/kurser/program/CTKEM/20252/arskurs1?l=en")
+#driver.get("https://www.kth.se/student/kurser/program/CDATE/20252/arskurs1?l=en")
+# all of the above are done ^
 
 time.sleep(5)
 

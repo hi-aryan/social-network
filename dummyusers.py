@@ -1,4 +1,7 @@
-from flasknetwork import create_app, db
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env
+
+from flasknetwork import create_app, db, bcrypt
 from flasknetwork.models import User, Post, Program, Course
 
 app = create_app()
@@ -16,7 +19,8 @@ for i in range(1, 6):
         continue
 
     # create dummy user
-    user = User(username=f"dummy{i}", email=email, password="password", program=prog)
+    hashed_password = bcrypt.generate_password_hash("password").decode('utf-8')
+    user = User(username=f"dummy{i}", email=email, password=hashed_password, program=prog)
     db.session.add(user)
     db.session.flush()  # so user.id is available
 
