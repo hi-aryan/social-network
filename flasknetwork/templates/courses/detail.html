@@ -22,10 +22,9 @@
                 </div>
 
                 <!-- RIGHT: always flush to the far right -->
-                <!-- TODO: make btn prettier -->
                 <div class="ms-3 d-block d-md-none">
                     <a href="{{ url_for('courses.search') }}"
-                       class="btn btn-sm gradient-anim-outline extra-small text-muted shadow-sm">
+                       class="btn btn-sm btn-outline-primary extra-small text-muted shadow-sm">
                         <i class="fas fa-arrow-left"></i> Back to Search
                     </a>
                 </div>
@@ -50,7 +49,7 @@
                                     <small class="text-muted d-block d-md-inline ms-0 ms-md-2">{{ review.date_posted.strftime('%b %d, %Y') }}</small>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge gradient-anim gradient-anim--yellow">
+                                    <span class="badge badge-filled">
                                         <i class="fas fa-star"></i> {{ review.rating }}/5
                                     </span>
                                     <small class="text-muted d-block mt-1">Taken in {{ review.year_taken }}</small>
@@ -82,7 +81,7 @@
                     </div>
                     
                     <div class="mt-3">
-                        <a href="{{ url_for('posts.post', post_id=review.id) }}" class="btn btn-sm gradient-anim-outline p-2">
+                        <a href="{{ url_for('posts.post', post_id=review.id) }}" class="btn btn-sm btn-outline-primary p-2">
                             Read Full Review
                         </a>
                     </div>
@@ -90,17 +89,19 @@
             {% endfor %}
             
             <!-- Pagination Controls -->
-            {% for page_num in reviews.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-                {% if page_num %}
-                    {% if reviews.page == page_num %}
-                        <a class="btn gradient-anim mb-4" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num) }}">{{ page_num }}</a>
+            <div class="d-flex justify-content-center mt-4 mb-5">
+                {% for page_num in reviews.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                    {% if page_num %}
+                        {% if reviews.page == page_num %}
+                            <a class="btn btn-primary mx-1" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num) }}">{{ page_num }}</a>
+                        {% else %}
+                            <a class="btn btn-outline-primary mx-1" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num) }}">{{ page_num }}</a>
+                        {% endif %}
                     {% else %}
-                        <a class="btn gradient-anim-outline mb-4" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num) }}">{{ page_num }}</a>
+                        <span class="btn btn-outline-primary disabled mx-1">...</span>
                     {% endif %}
-                {% else %}
-                    ...
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+            </div>
         {% else %}
             <!-- No Reviews State -->
             <div class="content-section text-center">
@@ -109,11 +110,11 @@
                 <h5 class="mb-3">._.</h5>
                 {% if auth_can_review %}
                     <p class="text-muted mb-4">Be the first to share your experience with {{ course.code }}!</p>
-                    <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn gradient-anim-outline">
+                    <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-outline-primary">
                         <i class="fas fa-plus"></i> Write the First Review
                     </a>
                 {% else %}
-                    <a href="{{ url_for('courses.search') }}" class="btn gradient-anim gradient-anim--white p-3 mb-2">
+                    <a href="{{ url_for('courses.search') }}" class="btn btn-outline-primary p-3 mb-2">
                         <i class="fas fa-arrow-left"></i> Try another course
                     </a>
                 {% endif %}
@@ -127,7 +128,7 @@
             <div class="content-section">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <span class="fw-bold">Avg Rating: </span>
-                    <span class="gradient-anim gradient-anim--yellow badge fs-6 ms-2">
+                    <span class="badge badge-filled fs-6 ms-2">
                         <i class="fas fa-star"></i> {{ "%.1f"|format(avg_rating) }}/5
                     </span>
                 </div>
@@ -152,15 +153,13 @@
             </div>
         {% else %}
             <div class="content-section text-center">
-                <!-- TODO: change text to "make course selection easier for fellow student" or something -->
-                <!-- or "no info to display yet" -->
                 <p class="text-muted">No reviews available to display.</p>
             </div>
         {% endif %}
         {% if auth_can_review %}
             <div class="content-section">
                 <div class="text-center">
-                    <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn gradient-anim gradient-shadow my-2 btn-sm">
+                    <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary my-2 btn-sm">
                         <i class="fas fa-edit"></i> Review this Course
                     </a>
                 </div>
@@ -173,7 +172,7 @@
             </div>
         {% else %}
             <div class="text-center">
-                <a href="{{ url_for('users.login', next=request.url) }}" class="btn gradient-anim-outline btn-sm shadow-sm my-3 text-muted">
+                <a href="{{ url_for('users.login', next=request.url) }}" class="btn btn-outline-primary btn-sm shadow-sm my-3 text-muted">
                     Login to write a review
                 </a>
             </div>

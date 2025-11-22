@@ -2,19 +2,19 @@
 {% block content %}
     <div class="content-section">
         <div class="d-flex align-items-center">
-            <img class="rounded-circle account-img" src="{{ image_file }}" id="profile-preview">
+            <img class="account-img" src="{{ image_file }}" id="profile-preview">
             <div>
                 <h2 class="account-heading">{{ current_user.username }}</h2>
-                <p class="text-secondary">{{ current_user.email }}</p>
-                <p class="text-secondary">Program: {{ current_user.program.name }} ({{ current_user.program.program_type.title() }})</p>
+                <p class="text-muted">{{ current_user.email }}</p>
+                <p class="text-muted">Program: {{ current_user.program.name }} ({{ current_user.program.program_type.title() }})</p>
             </div>
         </div>
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4 text-shadow">Account Info</legend> 
+                <legend class="border-bottom border-dark mb-4 pb-2">Account Info</legend> 
                 <div class="mb-3">
-                    {{ form.username.label(class="form-label") }}
+                    {{ form.username.label(class="form-label fw-bold") }}
 
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
@@ -28,7 +28,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }}
+                    {{ form.email.label(class="form-label fw-bold") }}
 
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -42,7 +42,7 @@
                     {% endif %}
                 </div>
                 <div class="mb-3">
-                    {{ form.picture.label(class="form-label") }}
+                    {{ form.picture.label(class="form-label fw-bold") }}
                     {{ form.picture(class="form-control", onchange="updateProfilePreview(this)") }}
                     {% if form.picture.errors %}
                         {% for error in form.picture.errors %}
@@ -51,8 +51,8 @@
                     {% endif %}
                 </div>
             </fieldset>
-            <div>
-                {{ form.submit(class="btn gradient-anim-outline gradient-shadow") }}
+            <div class="mt-4">
+                {{ form.submit(class="btn btn-primary") }}
             </div>
         </form>
     </div>

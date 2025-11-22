@@ -4,14 +4,14 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4 text-shadow">{{ legend }}</legend>
+                <legend class="border-bottom border-dark mb-4 pb-2">{{ legend }}</legend>
 
-                <div class="mb-5">
-                    <p class="text-muted"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u> <br> plz be <u>honest</u>, if the course was shit: say it. if you enjoyed it: tell us! </i> ( ͡° ͜ʖ ͡°)</p>
+                <div class="mb-5 alert alert-info">
+                    <p class="mb-0"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u> <br> plz be <u>honest</u>, if the course was shit: say it. if you enjoyed it: tell us!</i></p>
                 </div>
 
                 <div class="mb-4">
-                    {{ form.course.label(class="form-label") }}
+                    {{ form.course.label(class="form-label fw-bold") }}
                     {% if form.course.errors %}
                         {{ form.course(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -20,7 +20,7 @@
                                 {% if existing_review_id and "already reviewed" in error %}
                                     <div class="mt-2">
                                         <a href="{{ url_for('posts.update_post', post_id=existing_review_id) }}" 
-                                           class="btn btn-sm gradient-anim gradient-anim--red rounded-10">
+                                           class="btn btn-sm btn-danger">
                                             Edit Existing Review
                                         </a>
                                     </div>
@@ -32,85 +32,29 @@
                     {% endif %}
                 </div>
 
-                <div class="questions-section mb-4">
-                    
-                    <div class="mb-3">
-                        {{ form.answer_q1.label(class="form-label") }}
-                        {% if form.answer_q1.errors %}
-                            {{ form.answer_q1(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in form.answer_q1.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.answer_q1(class="form-control") }}
-                        {% endif %}
+                <!-- Rating Section -->
+                <div class="mb-4">
+                    <div class="form-label fw-bold mb-2">{{ form.rating.label.text }}</div>
+                    <div class="rating-group">
+                        {% for sub in form.rating %}
+                            {{ sub(class="form-check-input") }}
+                            <label for="{{ sub.id }}" class="rating-box">
+                                <span class="star">&#9733;</span>
+                                <div class="rating-number">{{ sub.label.text }}</div>
+                            </label>
+                        {% endfor %}
                     </div>
-
-                    <div class="mb-3">
-                        {{ form.answer_q2.label(class="form-label") }}
-                        {% if form.answer_q2.errors %}
-                            {{ form.answer_q2(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in form.answer_q2.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.answer_q2(class="form-control") }}
-                        {% endif %}
-                    </div>
-
-                    <div class="mb-3">
-                        {{ form.answer_q3.label(class="form-label") }}
-                        {% if form.answer_q3.errors %}
-                            {{ form.answer_q3(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in form.answer_q3.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.answer_q3(class="form-control") }}
-                        {% endif %}
-                    </div>
-
-                    <div class="mb-3">
-                        {{ form.answer_q4.label(class="form-label") }}
-                        {% if form.answer_q4.errors %}
-                            {{ form.answer_q4(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in form.answer_q4.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.answer_q4(class="form-control") }}
-                        {% endif %}
-                    </div>
-
-                    <div class="mb-3">
-                        {{ form.answer_q5.label(class="form-label") }}
-                        {% if form.answer_q5.errors %}
-                            {{ form.answer_q5(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in form.answer_q5.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.answer_q5(class="form-control") }}
-                        {% endif %}
-                    </div>
-
-                    <div class="mb-3">
-                        {{ form.answer_q6.label(class="form-label") }}
-                        {% if form.answer_q6.errors %}
-                            {{ form.answer_q6(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in form.answer_q6.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.answer_q6(class="form-control") }}
-                        {% endif %}
-                    </div>
+                    {% if form.rating.errors %}
+                        <div class="text-danger mt-2">
+                            {% for e in form.rating.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
 
                 <!-- Title Section -->
-                <div class="mb-5">
-                    <b> {{ form.title.label(class="form-label") }} </b>
-                    <small> (displayed in the main feed. make it memorable/useful)</small>
+                <div class="mb-4">
+                    <label class="form-label fw-bold">{{ form.title.label.text }}</label>
+                    <small class="text-muted d-block mb-2">(displayed in the main feed. make it memorable/useful)</small>
 
                     {% if form.title.errors %}
                         {{ form.title(class="form-control form-control-lg is-invalid") }}
@@ -124,30 +68,25 @@
                     {% endif %}
                 </div>
 
-                <!-- Rating Section -->
-                <fieldset class="mb-3" role="group" aria-labelledby="ratingGroupLabel">
-                    <div id="ratingGroupLabel" class="form-label mb-2">
-                        {{ form.rating.label.text }}
+                <div class="questions-section mb-4">
+                    {% for field in [form.answer_q1, form.answer_q2, form.answer_q3, form.answer_q4, form.answer_q5, form.answer_q6] %}
+                    <div class="mb-3">
+                        {{ field.label(class="form-label fw-bold") }}
+                        {% if field.errors %}
+                            {{ field(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for e in field.errors %}{{ e }}{% endfor %}
+                            </div>
+                        {% else %}
+                            {{ field(class="form-control") }}
+                        {% endif %}
                     </div>
-                    <div class="rating-group">
-                        {% for sub in form.rating %}
-                            {{ sub(class="form-check-input") }}
-                            <label for="{{ sub.id }}" class="rating-box">
-                                <span class="star">&#9733;</span>
-                                <div class="rating-number">{{ sub.label.text }}</div>
-                        </label>
-                        {% endfor %}
-                    </div>
-                    {% if form.rating.errors %}
-                        <div class="invalid-feedback d-block">
-                        {% for e in form.rating.errors %}{{ e }}{% endfor %}
-                        </div>
-                    {% endif %}
-                </fieldset>
+                    {% endfor %}
+                </div>
 
                 <!-- Year Taken Section -->
                 <div class="mb-4">
-                    {{ form.year_taken.label(class="form-label") }}
+                    {{ form.year_taken.label(class="form-label fw-bold") }}
                     {% if form.year_taken.errors %}
                         {{ form.year_taken(class="form-control is-invalid") }}
                         <div class="invalid-feedback">
@@ -160,11 +99,11 @@
 
             </fieldset>
             
-            <div>
+            <div class="mt-4 mb-5">
                 {% if legend.startswith('Update') %}
-                    <button type="submit" class="btn gradient-anim-outline gradient-shadow">Update</button>
+                    <button type="submit" class="btn btn-secondary">Update</button>
                 {% else %}
-                    {{ form.submit(class="btn gradient-anim gradient-anim--green gradient-shadow") }}
+                    {{ form.submit(class="btn btn-primary") }}
                 {% endif %}
             </div>
         </form>
