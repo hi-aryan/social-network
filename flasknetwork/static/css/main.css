@@ -1,4 +1,6 @@
 :root {
+  /* lighter color for main background? #FCFBF0 or #FFFDEF
+  maybe burnt-peach isn't needed */
   --eggshell: #F4F1DE;
   --burnt-peach: #E07A5F;
   --twilight-indigo: #3D405B;
@@ -30,6 +32,7 @@ a {
   color: var(--twilight-indigo);
   text-decoration: underline;
   transition: color 0.2s ease;
+  cursor: pointer;
 }
 
 a:hover {
@@ -57,6 +60,7 @@ a:hover {
   color: var(--twilight-indigo) !important;
   font-weight: 500;
   margin-left: 15px;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -144,20 +148,7 @@ a:hover {
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--twilight-indigo);
-    color: var(--eggshell);
-    border-color: var(--twilight-indigo);
-}
-
-/* Info Buttons */
-.btn-info {
     background-color: var(--apricot-cream);
-    color: var(--twilight-indigo);
-    border-color: var(--twilight-indigo);
-}
-
-.btn-info:hover {
-    background-color: var(--eggshell);
     color: var(--twilight-indigo);
     border-color: var(--twilight-indigo);
 }
@@ -169,7 +160,6 @@ a:hover {
   border-radius: var(--border-radius);
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 4px 4px 0px var(--twilight-indigo);
 }
 
 .article-title {
@@ -177,6 +167,7 @@ a:hover {
   text-decoration: none;
   font-weight: 700;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .article-title:hover {
@@ -188,42 +179,16 @@ a:hover {
   white-space: pre-line;
 }
 
-.article-metadata {
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid var(--twilight-indigo);
-}
-
-.article-metadata a {
-  margin-right: 10px;
-  color: var(--twilight-indigo);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.article-metadata a:hover {
-  color: var(--muted-teal);
-}
-
-.article-img, .review-img {
-  height: 65px;
-  width: 65px;
+.review-img {
+  height: 50px;
+  width: 50px;
   margin-right: 16px;
   border-radius: var(--border-radius) !important;
   border: 2px solid var(--twilight-indigo);
   object-fit: cover;
 }
 
-.review-img {
-    height: 50px;
-    width: 50px;
-}
 
-.review-metadata {
-    border-bottom: 1px solid var(--twilight-indigo);
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
 
 /* Forms */
 .form-control, .form-select {
@@ -302,6 +267,7 @@ a:hover {
 .course-card-hover {
     background-color: var(--eggshell);
     transition: transform 0.1s ease;
+    cursor: pointer;
 }
 .course-card-hover:hover {
     transform: translateY(2px);
@@ -355,6 +321,6 @@ a:hover {
 }
 
 .rating-group .form-check-input:checked + .rating-box .star {
-  color: var(--burnt-peach);
+  color: var(--twilight-indigo);
   opacity: 1;
 }
