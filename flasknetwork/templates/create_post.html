@@ -6,8 +6,8 @@
             <fieldset class="mb-3">
                 <legend class="border-bottom mb-4 pb-2">{{ legend }}</legend>
 
-                <div class="mb-5 alert alert-info">
-                    <p class="mb-0"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u> <br> plz be <u>honest</u>, if the course was shit: say it. if you enjoyed it: tell us!</i></p>
+                <div class="mb-5 alert alert-inline">
+                    <p class="mb-0"><i>be as serious, unserious or detailed as you wish, but pls write what you yourself would've found <u>helpful</u> <br></p>
                 </div>
 
                 <div class="mb-4">
@@ -40,7 +40,7 @@
                             {{ sub(class="form-check-input") }}
                             <label for="{{ sub.id }}" class="rating-box">
                                 <span class="star">&#9733;</span>
-                                <div class="rating-number">{{ sub.label.text }}</div>
+                                <div class="rating-number mt-3">{{ sub.label.text }}</div>
                             </label>
                         {% endfor %}
                     </div>

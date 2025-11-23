@@ -1,11 +1,13 @@
 :root {
-  /* lighter color for main background? #FCFBF0 or #FFFDEF
-  maybe burnt-peach isn't needed */
-  --eggshell: #F4F1DE;
+  /* bg color options: */
+  /* #FCFBF0 */
+  /* #FFFDEF*/
+  --main-bg: #FCFBF0;
+
+  --eggshell: #f4f2e3; /* originally F4F1DE, then f4f2e3 */
   --burnt-peach: #E07A5F;
   --twilight-indigo: #3D405B;
   --muted-teal: #81B29A;
-  --apricot-cream: #F2CC8F;
   --border-radius: 10px;
 }
 
@@ -16,7 +18,7 @@
 }
 
 body {
-  background-color: var(--eggshell);
+  background-color: var(--main-bg);
   color: var(--twilight-indigo);
   margin-top: 0; /* Reset margin */
   padding-top: 100px; /* Robust spacing for fixed navbar */
@@ -145,7 +147,7 @@ body .btn:hover {
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--apricot-cream);
+    background-color: transparent;
     color: var(--twilight-indigo);
     border-color: var(--twilight-indigo);
 }
@@ -207,13 +209,17 @@ body .btn:hover {
   border-radius: var(--border-radius);
   border: 2px solid var(--twilight-indigo);
   color: var(--twilight-indigo);
-  background-color: var(--apricot-cream);
+  background-color: var(--muted-teal); /* TODO: test this! */
 }
 
-.alert-success { background-color: var(--muted-teal); }
-.alert-info { background-color: var(--apricot-cream); }
+.alert-success { background-color: var(--muted-teal); } /* TODO: test this! */
+.alert-info { background-color: var(--muted-teal); } /* TODO: test this! */
 .alert-danger { background-color: var(--burnt-peach); color: var(--eggshell); }
 
+.alert-inline {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+}
 
 /* Account Page */
 .account-img {
@@ -258,7 +264,7 @@ body .btn:hover {
 
 /* Filled Badge (for 5 stars) */
 .badge-filled {
-    background-color: var(--apricot-cream);
+    background-color: var(--twilight-indigo);
 }
 
 /* Course Search Card */
@@ -314,21 +320,23 @@ body .btn:hover {
 
 /* Checked state */
 .rating-group .form-check-input:checked + .rating-box {
-  background-color: var(--muted-teal);
+  background-color: var(--twilight-indigo);
   border-color: var(--twilight-indigo);
 }
 
 .rating-group .form-check-input:checked + .rating-box .star {
-  color: var(--twilight-indigo);
+  color: var(--burnt-peach);
   opacity: 1;
 }
 
 /* Modal Content Override */
 .modal-content {
+    background-color: var(--eggshell);
     border-radius: var(--border-radius);
     border: 2px solid var(--twilight-indigo);
 }
 
+/* TODO: bad practice? */
 /* Borders for modals and dividers */
 .border-top, .border-bottom {
     border-color: var(--twilight-indigo) !important;
