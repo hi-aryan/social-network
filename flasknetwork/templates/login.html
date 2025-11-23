@@ -40,13 +40,13 @@
             </fieldset>
             <div>
                 {{ form.submit(class="btn gradient-anim-outline") }}
-                <small class="text-muted ms-2">
+                <small class="text-theme-secondary ms-2">
                     <a href="{{ url_for('users.reset_request') }}">
                         Forgot Password?
                     </a>
                 </small>
                 {% if request.args.get('show_verification') == 'true' %}
-                <small class="text-muted ms-2">
+                <small class="text-theme-secondary ms-2">
                     <a href="{{ url_for('users.request_verification') }}">
                         Didn't get the verification email? (-_-)
                     </a>
@@ -56,6 +56,6 @@
         </form>
     </div>
     <div class="border-top pt-3 mb-3">
-        <small class="text-muted">Don't have an account? <a class="ms-2" href="{{ url_for('users.register') }}">Register Now</a></small> <!-- 'login' refers to the login() FUNCTION -->
+        <small class="text-theme-secondary">Don't have an account? <a class="ms-2" href="{{ url_for('users.register') }}">Register Now</a></small> <!-- 'login' refers to the login() FUNCTION -->
     </div>
 {% endblock content %}

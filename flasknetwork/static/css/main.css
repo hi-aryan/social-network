@@ -39,11 +39,6 @@ a:hover {
   color: var(--burnt-peach);
 }
 
-/* Force rounded corners */
-.rounded, .rounded-1, .rounded-2, .rounded-3, .rounded-circle, .rounded-start, .rounded-end {
-    border-radius: var(--border-radius) !important;
-}
-
 /* Navbar */
 .site-header .navbar {
   background-color: var(--eggshell);
@@ -56,15 +51,16 @@ a:hover {
   height: 40px;
 }
 
-.nav-link {
-  color: var(--twilight-indigo) !important;
+/* Increased specificity to avoid !important */
+.navbar-nav .nav-link {
+  color: var(--twilight-indigo);
   font-weight: 500;
   margin-left: 15px;
   cursor: pointer;
 }
 
-.nav-link:hover {
-  color: var(--burnt-peach) !important;
+.navbar-nav .nav-link:hover {
+  color: var(--burnt-peach);
   text-decoration: none;
 }
 
@@ -97,7 +93,8 @@ a:hover {
 }
 
 /* Buttons */
-.btn {
+/* Using body selector to increase specificity over Bootstrap */
+body .btn {
   border-radius: var(--border-radius);
   border: 2px solid var(--twilight-indigo);
   padding: 8px 20px;
@@ -108,7 +105,7 @@ a:hover {
   letter-spacing: 0.5px;
 }
 
-.btn:hover {
+body .btn:hover {
   transform: translateY(2px);
 }
 
@@ -183,7 +180,7 @@ a:hover {
   height: 50px;
   width: 50px;
   margin-right: 16px;
-  border-radius: var(--border-radius) !important;
+  border-radius: var(--border-radius);
   border: 2px solid var(--twilight-indigo);
   object-fit: cover;
 }
@@ -241,10 +238,11 @@ a:hover {
 }
 
 /* Utilities */
-.text-muted {
-    color: var(--twilight-indigo) !important;
+.text-theme-secondary {
+    color: var(--twilight-indigo);
     opacity: 0.7;
 }
+
 
 /* Rating Stars */
 .fa-star { color: var(--burnt-peach); }
@@ -271,7 +269,7 @@ a:hover {
 }
 .course-card-hover:hover {
     transform: translateY(2px);
-    border-color: var(--burnt-peach) !important;
+    border-color: var(--burnt-peach);
 }
 
 /* Form Rating Selection */
@@ -323,4 +321,15 @@ a:hover {
 .rating-group .form-check-input:checked + .rating-box .star {
   color: var(--twilight-indigo);
   opacity: 1;
+}
+
+/* Modal Content Override */
+.modal-content {
+    border-radius: var(--border-radius);
+    border: 2px solid var(--twilight-indigo);
+}
+
+/* Borders for modals and dividers */
+.border-top, .border-bottom {
+    border-color: var(--twilight-indigo) !important;
 }

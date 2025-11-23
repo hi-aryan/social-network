@@ -9,11 +9,11 @@
                     {{ form.username.label(class="form-label") }}
                     <div class="input-group">
                         {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg rounded-10 is-invalid", id="username-field") }}
+                            {{ form.username(class="form-control form-control-lg is-invalid", id="username-field") }}
                         {% else %}
-                            {{ form.username(class="form-control form-control-lg rounded-10", id="username-field") }}
+                            {{ form.username(class="form-control form-control-lg", id="username-field") }}
                         {% endif %}
-                        <button type="button" class="btn btn-outline-secondary rounded-10" id="roll-username-btn" title="Generate new username">
+                        <button type="button" class="btn btn-outline-secondary" id="roll-username-btn" title="Generate new username">
                             🎲
                         </button>
                     </div>
@@ -24,7 +24,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <small class="form-text text-muted"><i>Click the dice for a random username, or type your own</i></small>
+                    <small class="form-text text-theme-secondary"><i>Click the dice for a random username, or type your own</i></small>
                 </div>
                 
                 <div class="mb-3">
@@ -92,7 +92,7 @@
         </form>
     </div>
     <div class="border-top pt-3 mb-3">
-        <small class="text-muted">Already have an account? <a class="ms-2" href="{{ url_for('users.login') }}">Login</a></small>
+        <small class="text-theme-secondary">Already have an account? <a class="ms-2" href="{{ url_for('users.login') }}">Login</a></small>
     </div>
 
     <script>

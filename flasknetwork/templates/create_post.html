@@ -4,7 +4,7 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom border-dark mb-4 pb-2">{{ legend }}</legend>
+                <legend class="border-bottom mb-4 pb-2">{{ legend }}</legend>
 
                 <div class="mb-5 alert alert-info">
                     <p class="mb-0"><i>be as serious, unserious or detailed as you wish, but only write what you yourself would've found <u>helpful</u> <br> plz be <u>honest</u>, if the course was shit: say it. if you enjoyed it: tell us!</i></p>
@@ -54,7 +54,7 @@
                 <!-- Title Section -->
                 <div class="mb-4">
                     <label class="form-label fw-bold">{{ form.title.label.text }}</label>
-                    <small class="text-muted d-block mb-2">(displayed in the main feed. make it memorable/useful)</small>
+                    <small class="text-theme-secondary d-block mb-2">(displayed in the main feed. make it memorable/useful)</small>
 
                     {% if form.title.errors %}
                         {{ form.title(class="form-control form-control-lg is-invalid") }}
