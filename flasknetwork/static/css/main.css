@@ -113,13 +113,13 @@ body .btn:hover {
 
 /* Base Teal Buttons (Hover -> Peach) */
 /* Used for: New Review, Edit, Submit, Primary Actions */
-.btn-primary, .btn-secondary {
+.btn-primary {
   background-color: var(--muted-teal);
   color: var(--twilight-indigo);
   border-color: var(--twilight-indigo);
 }
 
-.btn-primary:hover, .btn-secondary:hover {
+.btn-primary:hover {
   background-color: var(--burnt-peach);
   color: var(--eggshell);
   border-color: var(--twilight-indigo);
