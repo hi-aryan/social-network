@@ -47,10 +47,6 @@ a:hover {
   min-height: 80px; /* Ensure minimal height */
 }
 
-.navbar-brand img {
-  height: 40px;
-}
-
 /* Increased specificity to avoid !important */
 .navbar-nav .nav-link {
   color: var(--twilight-indigo);
@@ -356,8 +352,8 @@ body .btn:hover {
 }
 
 .rating-box:hover {
-    background-color: var(--apricot-cream);
-    transform: translateY(2px);
+  background-color: var(--apricot-cream);
+  transform: translateY(2px);
 }
 
 .rating-box .star {
