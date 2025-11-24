@@ -205,6 +205,14 @@ body .btn:hover {
   object-fit: cover;
 }
 
+.review-img-mobile {
+    width: 25px; 
+    height: 25px; 
+    object-fit: cover; 
+    border: 1px solid var(--twilight-indigo);
+    border-radius: var(--border-radius);
+}
+
 /* Forms */
 .form-control, .form-select {
   background-color: var(--eggshell);
