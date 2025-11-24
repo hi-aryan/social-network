@@ -49,9 +49,12 @@ def new_post():
                          legend='Course Review', existing_review_id=existing_review_id)
 
 
-@posts.route('/ty')
-def thankyou():
-    flash('Thank you for sharing your course review! Your feedback helps fellow students <33', 'success')
+@posts.route('/test-alerts')
+def test_alerts():
+    flash('This is a success message', 'success')
+    flash('This is a danger message', 'danger')
+    flash('This is a warning message', 'warning')
+    flash('This is an info message', 'info')
     return redirect(url_for('main.home'))
 
 

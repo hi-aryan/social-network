@@ -102,6 +102,7 @@ a:hover {
 body .btn {
   border-radius: var(--border-radius);
   border: 2px solid var(--twilight-indigo);
+  color: var(--twilight-indigo);
   padding: 8px 20px;
   font-weight: 600;
   transition: transform 0.1s ease, background-color 0.2s ease, color 0.2s ease;
@@ -112,6 +113,7 @@ body .btn {
 
 body .btn:hover {
   transform: translateY(2px);
+  color: var(--twilight-indigo);
 }
 
 /* Used for: New Review, Edit, Submit, Primary Actions */
@@ -226,19 +228,28 @@ body .btn:hover {
 
 /* Alerts */
 .alert {
+  display: inline-block;
   border-radius: var(--border-radius);
   border: 2px solid var(--twilight-indigo);
   color: var(--twilight-indigo);
   background-color: var(--muted-teal); /* TODO: test this! */
+  font-weight: bold;
+}
+.center-alert {
+  text-align: center;
 }
 
 .alert-success { 
-  text-align: center;
-  font-weight: bold;
+
   background-color: var(--muted-teal); 
-} /* TODO: test this! */
-.alert-info { background-color: var(--muted-teal); } /* TODO: test this! */
-.alert-danger { background-color: var(--burnt-peach); color: var(--eggshell); }
+}
+.alert-info { 
+  background-color: var(--muted-teal); 
+}
+.alert-danger { 
+  background-color: var(--burnt-peach); 
+  color: var(--twilight-indigo); 
+}
 
 .alert-inline {
   display: inline-block;
