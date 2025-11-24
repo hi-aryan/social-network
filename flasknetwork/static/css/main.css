@@ -232,7 +232,11 @@ body .btn:hover {
   background-color: var(--muted-teal); /* TODO: test this! */
 }
 
-.alert-success { background-color: var(--muted-teal); } /* TODO: test this! */
+.alert-success { 
+  text-align: center;
+  font-weight: bold;
+  background-color: var(--muted-teal); 
+} /* TODO: test this! */
 .alert-info { background-color: var(--muted-teal); } /* TODO: test this! */
 .alert-danger { background-color: var(--burnt-peach); color: var(--eggshell); }
 

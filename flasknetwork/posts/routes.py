@@ -36,7 +36,7 @@ def new_post():
             )
             db.session.add(post)
             db.session.commit()
-            flash('', 'thankyou')
+            flash('Thank you for sharing your course review! Your feedback helps fellow students <33', 'success')
             return redirect(url_for('main.home'))
     elif request.method == 'GET':
         # Handle course_id URL parameter for pre-selection
@@ -51,7 +51,7 @@ def new_post():
 
 @posts.route('/ty')
 def thankyou():
-    flash('', 'thankyou')
+    flash('Thank you for sharing your course review! Your feedback helps fellow students <33', 'success')
     return redirect(url_for('main.home'))
 
 

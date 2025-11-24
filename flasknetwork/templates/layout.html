@@ -1,4 +1,3 @@
-{% from 'macros/flash_macros.html' import thankyou_card %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,14 +76,12 @@
     <main class="container">
         <div class="row">
             <div class="col-md-12">
-                {% with flashes = get_flashed_messages(with_categories=true) %}
-                    {% for category, message in flashes %}
-                        {% if category == 'thankyou' %}
-                            {{ thankyou_card() }}
-                        {% else %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
                             <div class="alert alert-{{ category }}">{{ message }}</div>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
                 {% endwith %}
                 {% block content %}{% endblock content %}
             </div>
