@@ -41,7 +41,7 @@
                 
                 <!-- Mobile Toggle -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon" style="background-color: var(--twilight-indigo); mask: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox=%220 0 30 30%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-miterlimit=%2210%22 d=%22M4 7h22M4 15h22M4 23h22%22/%3E%3C/svg%3E'); -webkit-mask: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox=%220 0 30 30%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath stroke=%22currentColor%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-miterlimit=%2210%22 d=%22M4 7h22M4 15h22M4 23h22%22/%3E%3C/svg%3E');"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarToggle">
@@ -54,20 +54,20 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav ms-auto">
                         {% if request.endpoint != 'main.home' %}
-                            <a class="btn btn-secondary mx-3 mb-2 mb-md-0" href="{{ url_for('main.home') }}">Home</a>
+                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('main.home') }}">Home</a>
                         {% endif %}
                         <!-- Mobile Search Link -->
-                        <a class="btn btn-secondary mx-3 mb-2 mb-md-0 d-md-none" href="{{ url_for('courses.search') }}">Search</a>
+                        <a class="btn btn-secondary mb-2 d-md-none w-100" href="{{ url_for('courses.search') }}">Search</a>
 
                         {% if current_user.is_authenticated %}
-                            <a class="btn btn-primary ms-2 mb-2 mb-md-0" href="{{ url_for('posts.new_post') }}">
+                            <a class="btn btn-primary nav-action-btn" href="{{ url_for('posts.new_post') }}">
                                 <i class="fas fa-edit"></i> New Review
                             </a>
-                            <a class="btn btn-secondary mx-3 mb-2 mb-md-0" href="{{ url_for('users.account') }}">Account</a>
-                            <a class="btn btn-secondary mx-3 mb-2 mb-md-0" href="{{ url_for('users.logout') }}">Logout</a>
+                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('users.account') }}">Account</a>
+                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('users.logout') }}">Logout</a>
                         {% else %}
-                            <a class="btn btn-primary mx-3 mb-2 mb-md-0" href="{{ url_for('users.login') }}">Login</a>
-                            <a class="btn btn-secondary mx-3 mb-2 mb-md-0" href="{{ url_for('users.register') }}">Register</a>
+                            <a class="btn btn-primary nav-action-btn" href="{{ url_for('users.login') }}">Login</a>
+                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('users.register') }}">Register</a>
                         {% endif %}
                     </div>
                 </div>

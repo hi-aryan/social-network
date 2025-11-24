@@ -1,10 +1,7 @@
 :root {
-  /* bg color options: */
-  /* #FCFBF0 */
-  /* #FFFDEF*/
-  --main-bg: #FCFBF0;
+  --main-bg: #f4f2e3; /* originally eggshell */
 
-  --eggshell: #f4f2e3; /* originally F4F1DE, then f4f2e3 */
+  --eggshell: rgb(255, 255, 245); /* fake eggshell color now */
   --burnt-peach: #E07A5F;
   --twilight-indigo: #3D405B;
   --muted-teal: #8ab7a1; /* originally 81B29A */
@@ -23,6 +20,7 @@ body {
   margin-top: 0; /* Reset margin */
   padding-top: 100px; /* Robust spacing for fixed navbar */
   line-height: 1.6;
+  cursor: default; /* Body cursor default */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,6 +62,15 @@ a:hover {
 .navbar-nav .nav-link:hover {
   color: var(--burnt-peach);
   text-decoration: none;
+}
+
+/* Custom Navbar Toggler */
+.navbar-toggler {
+    border-color: var(--twilight-indigo);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%233D405B' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 /* Search Bar in Navbar */
@@ -198,8 +205,6 @@ body .btn:hover {
   object-fit: cover;
 }
 
-
-
 /* Forms */
 .form-control, .form-select {
   background-color: var(--eggshell);
@@ -249,8 +254,17 @@ body .btn:hover {
         margin: 10px 0;
         max-width: 100%;
     }
+
     .content-section {
         padding: 15px;
+    }
+    
+    /* Navbar Stack Fix */
+    .navbar-collapse {
+        background-color: var(--eggshell);
+        padding: 1rem;
+        margin-top: 10px;
+        border-radius: var(--border-radius);
     }
 }
 
@@ -271,6 +285,29 @@ body .btn:hover {
     background-color: transparent; /* Default transparent/eggshell */
     border: 1px solid var(--twilight-indigo);
     border-radius: var(--border-radius);
+}
+
+/* Course Badge - allows wrapping for long course names */
+.badge-course {
+    white-space: normal; 
+    text-align: left;
+    line-height: 1.4;
+}
+
+/* Navbar Action Buttons */
+/* Replaces: btn-secondary/primary ms-md-3 mb-2 mb-md-0 w-100 w-md-auto */
+.nav-action-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .nav-action-btn {
+        width: auto;
+        margin-bottom: 0;
+        margin-left: 1rem; /* ~ ms-md-3 */
+    }
 }
 
 /* Filled Badge (for 5 stars) */
