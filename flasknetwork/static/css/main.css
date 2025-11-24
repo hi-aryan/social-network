@@ -7,7 +7,7 @@
   --eggshell: #f4f2e3; /* originally F4F1DE, then f4f2e3 */
   --burnt-peach: #E07A5F;
   --twilight-indigo: #3D405B;
-  --muted-teal: #81B29A;
+  --muted-teal: #8ab7a1; /* originally 81B29A */
   --border-radius: 10px;
 }
 
@@ -111,7 +111,6 @@ body .btn:hover {
   transform: translateY(2px);
 }
 
-/* Base Teal Buttons (Hover -> Peach) */
 /* Used for: New Review, Edit, Submit, Primary Actions */
 .btn-primary {
   background-color: var(--muted-teal);
@@ -121,7 +120,19 @@ body .btn:hover {
 
 .btn-primary:hover {
   background-color: var(--burnt-peach);
-  color: var(--eggshell);
+  color: var(--twilight-indigo);
+  border-color: var(--twilight-indigo);
+}
+
+.btn-secondary {
+  background-color: var(--eggshell);
+  color: var(--twilight-indigo);
+  border-color: var(--twilight-indigo);
+}
+
+.btn-secondary:hover {
+  background-color: var(--burnt-peach);
+  color: var(--twilight-indigo);
   border-color: var(--twilight-indigo);
 }
 
@@ -129,7 +140,7 @@ body .btn:hover {
 /* Used for: Delete, Danger Actions */
 .btn-danger {
   background-color: var(--burnt-peach);
-  color: var(--eggshell);
+  color: var(--twilight-indigo);
   border-color: var(--twilight-indigo);
 }
 
@@ -141,13 +152,13 @@ body .btn:hover {
 
 /* Outline Buttons */
 .btn-outline-primary {
-    background-color: transparent;
+    background-color: var(--eggshell);
     color: var(--twilight-indigo);
     border-color: var(--twilight-indigo);
 }
 
 .btn-outline-primary:hover {
-    background-color: transparent;
+    background-color: var(--eggshell);
     color: var(--twilight-indigo);
     border-color: var(--twilight-indigo);
 }
