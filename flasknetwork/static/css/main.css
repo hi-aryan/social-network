@@ -2,9 +2,9 @@
   --main-bg: #f4f2e3; /* originally eggshell */
 
   --eggshell: rgb(255, 255, 245); /* fake eggshell color now */
-  --burnt-peach: #E07A5F;
+  --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */
   --twilight-indigo: #3D405B;
-  --muted-teal: #8ab7a1; /* originally 81B29A */
+  --muted-teal: #9ac7b1; /* #9ac7b1, originally 81B29A */
   --border-radius: 10px;
 }
 
@@ -346,6 +346,33 @@ body .btn:hover {
     border-color: var(--burnt-peach);
 }
 
+/* Info Tooltip Icon */
+.info-tooltip {
+  color: var(--twilight-indigo);
+  opacity: 0.5;
+  font-size: 0.85rem;
+  margin-left: 0.25rem;
+  cursor: help;
+  transition: opacity 0.2s ease;
+}
+
+.info-tooltip:hover {
+  opacity: 1;
+  color: var(--burnt-peach);
+}
+
+/* Tooltip Popup Styling */
+.tooltip-inner {
+  color: var(--eggshell);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.tooltip .tooltip-arrow::before {
+  border-top-color: var(--twilight-indigo);
+}
+
 /* Form Rating Selection */
 .rating-group .form-check-input {
   position: absolute;
@@ -364,12 +391,16 @@ body .btn:hover {
   text-align: center;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.1s ease, background-color 0.2s ease;
 }
 
 .rating-box:hover {
-  background-color: var(--apricot-cream);
   transform: translateY(2px);
+}
+
+.rating-box:hover .star {
+  color: var(--burnt-peach);
+  opacity: 1;
 }
 
 .rating-box .star {
@@ -378,6 +409,7 @@ body .btn:hover {
   opacity: 0.3;
   line-height: 1.2;
   display: block;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .rating-box .rating-number {

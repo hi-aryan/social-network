@@ -33,7 +33,7 @@ def new_post():
             )
             db.session.add(post)
             db.session.commit()
-            flash('Thank you for sharing your course review! Your feedback helps fellow students <33', 'success')
+            flash('Thank you for sharing your review! Your feedback helps fellow students <33', 'success')
             return redirect(url_for('main.home'))
     elif request.method == 'GET':
         course_id = request.args.get('course_id', type=int)

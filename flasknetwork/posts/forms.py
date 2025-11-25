@@ -100,14 +100,12 @@ class PostForm(FlaskForm):
     rating_material = RadioField('Material & Interestingness', coerce=int, 
                                  choices=RATING_CHOICES, validators=[DataRequired()])
     rating_workload = RadioField('Workload', coerce=int, 
-                                 choices=RATING_CHOICES, validators=[DataRequired()],
-                                 description='1 = Very Heavy, 5 = Very Light')
+                                 choices=RATING_CHOICES, validators=[DataRequired()])
     rating_peers = RadioField('Peers & Community', coerce=int, 
                               choices=RATING_CHOICES, validators=[DataRequired()])
     
     # Single general comment (optional)
-    content = TextAreaField('Your Thoughts', validators=[Optional(), Length(max=2000)],
-                           description='Share what you liked, what was challenging, gossip about the professor, or advice for future students')
+    content = TextAreaField('Your Thoughts', validators=[Optional(), Length(max=2000)])
     
     submit = SubmitField('Post')
 
