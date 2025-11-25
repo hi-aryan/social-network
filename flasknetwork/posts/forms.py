@@ -7,6 +7,10 @@ from flasknetwork.models import Course_Program, Post
 from flask_login import current_user
 
 
+# Rating choices used across all rating fields (1-5 scale)
+RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
+
+
 class SelectOptGroupWidget(BaseSelectWidget):
     """
     Custom widget for SelectField that supports optgroups.
@@ -20,7 +24,6 @@ class SelectOptGroupWidget(BaseSelectWidget):
         else:
             return f'<option value="{escape(value)}">{escape(label)}</option>'
 
-
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
         html = ['<select %s>' % html_params(name=field.name, **kwargs)]
@@ -30,16 +33,13 @@ class SelectOptGroupWidget(BaseSelectWidget):
                 group_label, choices = item
                 if isinstance(choices, (list, tuple)):
                     if choices:
-                        # This is a non-empty optgroup
                         html.append(f'<optgroup label="{escape(group_label)}">')
                         for value, label in choices:
                             html.append(self.render_option(value, label, field.data))
                         html.append('</optgroup>')
                     else:
-                        # Skip empty optgroups entirely to avoid rendering the label as an option
                         continue
                 else:
-                    # This is a regular option
                     html.append(self.render_option(group_label, choices, field.data))
         
         html.append('</select>')
@@ -54,7 +54,6 @@ class SelectOptGroupField(SelectField):
     widget = SelectOptGroupWidget()
 
     def process_formdata(self, valuelist):
-        # Safely coerce form data; invalid values become None instead of crashing
         if valuelist:
             try:
                 self.data = self.coerce(valuelist[0])
@@ -62,7 +61,6 @@ class SelectOptGroupField(SelectField):
                 self.data = None
 
     def _iter_flattened_choices(self):
-        # Yield (value, label) pairs from both flat and optgroup choices
         for item in self.choices:
             if isinstance(item, (list, tuple)) and len(item) == 2:
                 first, second = item
@@ -72,7 +70,6 @@ class SelectOptGroupField(SelectField):
                 else:
                     yield first, second
             else:
-                # Unexpected shape; attempt to unpack if possible
                 try:
                     value, label = item
                     yield value, label
@@ -80,7 +77,6 @@ class SelectOptGroupField(SelectField):
                     continue
 
     def pre_validate(self, form):
-        # If data is None (e.g., invalid submission or no selection), skip membership check
         if self.data is None:
             return
         for value, _ in self._iter_flattened_choices():
@@ -90,52 +86,35 @@ class SelectOptGroupField(SelectField):
 
 
 class PostForm(FlaskForm):
-    course = SelectOptGroupField('Course', coerce=int, validators=[DataRequired()])
-
-    # Questions first (all optional, but at least one required via custom validation)
-    answer_q1 = TextAreaField('Did you have fun?', 
-                             validators=[Optional(), Length(max=500)])
-    answer_q2 = TextAreaField('How was the professor?', 
-                             validators=[Optional(), Length(max=500)])
-    answer_q3 = TextAreaField('How was the workload?', 
-                             validators=[Optional(), Length(max=500)])
-    answer_q4 = TextAreaField('Did you learn anything or just memorize a bunch of stuff?', 
-                             validators=[Optional(), Length(max=500)])
-    answer_q5 = TextAreaField('What was the best part of the course?', 
-                             validators=[Optional(), Length(max=500)])
-    answer_q6 = TextAreaField('A word to enrolling students?', 
-                             validators=[Optional(), Length(max=500)])
+    """Form for creating and editing course reviews with multiple rating categories."""
     
-    # Then title, rating, year taken, course
+    course = SelectOptGroupField('Course', coerce=int, validators=[DataRequired()])
     title = StringField('Review Title', validators=[DataRequired(), Length(max=100)])
-    rating = RadioField('Course Rating', coerce=int, choices=[(i, str(i)) for i in range(1,6)], 
-                       validators=[DataRequired()])
     year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)])
-
+    
+    # Rating categories (all required, 1-5 scale)
+    rating = RadioField('Overall Rating', coerce=int, 
+                        choices=RATING_CHOICES, validators=[DataRequired()])
+    rating_professor = RadioField('Professor', coerce=int, 
+                                  choices=RATING_CHOICES, validators=[DataRequired()])
+    rating_material = RadioField('Material & Interestingness', coerce=int, 
+                                 choices=RATING_CHOICES, validators=[DataRequired()])
+    rating_workload = RadioField('Workload', coerce=int, 
+                                 choices=RATING_CHOICES, validators=[DataRequired()],
+                                 description='1 = Very Heavy, 5 = Very Light')
+    rating_peers = RadioField('Peers & Community', coerce=int, 
+                              choices=RATING_CHOICES, validators=[DataRequired()])
+    
+    # Single general comment (optional)
+    content = TextAreaField('Your Thoughts', validators=[Optional(), Length(max=2000)],
+                           description='Share what you liked, what was challenging, gossip about the professor, or advice for future students')
+    
     submit = SubmitField('Post')
 
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.course.choices = self.build_course_choices()
-    
-    def validate(self, extra_validators=None):
-        """Custom validation to ensure at least one question is answered."""
-        rv = FlaskForm.validate(self, extra_validators)
-        if not rv:
-            return False
-        
-        # Check if at least one question is answered
-        questions = [self.answer_q1.data, self.answer_q2.data, self.answer_q3.data,
-                    self.answer_q4.data, self.answer_q5.data, self.answer_q6.data]
-        
-        # Filter out None and empty strings, then check if any content exists
-        if not any(q and q.strip() for q in questions):
-            # Add error to the first question field
-            self.answer_q1.errors.append('Please answer at least one question.')
-            return False
-        
-        return True
-        
+
     def build_course_choices(self):
         # Returns the choices list for the course field
         if not current_user.is_authenticated:

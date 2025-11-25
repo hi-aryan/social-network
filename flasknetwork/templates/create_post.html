@@ -7,9 +7,10 @@
                 <legend class="border-bottom mb-4 pb-2">{{ legend }}</legend>
 
                 <div class="mb-5 alert alert-inline">
-                    <p class="mb-0"><i>be as serious, unserious or detailed as you wish, but pls write what you yourself would've found <u>helpful</u> <br></p>
+                    <p class="mb-0"><i>be as serious, unserious or detailed as you wish, but pls write what you yourself would've found <u>helpful</u></i></p>
                 </div>
 
+                <!-- Course Selection -->
                 <div class="mb-4">
                     {{ form.course.label(class="form-label fw-bold") }}
                     {% if form.course.errors %}
@@ -32,7 +33,41 @@
                     {% endif %}
                 </div>
 
-                <!-- Rating Section -->
+                <!-- Title Section -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">{{ form.title.label.text }}</label>
+                    <small class="text-theme-secondary d-block mb-2">(displayed in the main feed. make it memorable/useful)</small>
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Year Taken Section -->
+                <div class="mb-5">
+                    {{ form.year_taken.label(class="form-label fw-bold") }}
+                    {% if form.year_taken.errors %}
+                        {{ form.year_taken(class="form-control is-invalid", style="max-width: 150px;") }}
+                        <div class="invalid-feedback">
+                            {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.year_taken(class="form-control", style="max-width: 150px;") }}
+                    {% endif %}
+                </div>
+
+                <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
+
+                <!-- Ratings Section -->
+                <h5 class="mb-4 fw-bold">Rate the Course</h5>
+
+                <!-- Overall Rating -->
                 <div class="mb-4">
                     <div class="form-label fw-bold mb-2">{{ form.rating.label.text }}</div>
                     <div class="rating-group">
@@ -51,49 +86,96 @@
                     {% endif %}
                 </div>
 
-                <!-- Title Section -->
+                <!-- Professor Rating -->
                 <div class="mb-4">
-                    <label class="form-label fw-bold">{{ form.title.label.text }}</label>
-                    <small class="text-theme-secondary d-block mb-2">(displayed in the main feed. make it memorable/useful)</small>
-
-                    {% if form.title.errors %}
-                        {{ form.title(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.title.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
+                    <div class="form-label fw-bold mb-2">{{ form.rating_professor.label.text }}</div>
+                    <div class="rating-group">
+                        {% for sub in form.rating_professor %}
+                            {{ sub(class="form-check-input") }}
+                            <label for="{{ sub.id }}" class="rating-box">
+                                <span class="star">&#9733;</span>
+                                <div class="rating-number mt-3">{{ sub.label.text }}</div>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    {% if form.rating_professor.errors %}
+                        <div class="text-danger mt-2">
+                            {% for e in form.rating_professor.errors %}{{ e }}{% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.title(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
-                <div class="questions-section mb-4">
-                    {% for field in [form.answer_q1, form.answer_q2, form.answer_q3, form.answer_q4, form.answer_q5, form.answer_q6] %}
-                    <div class="mb-3">
-                        {{ field.label(class="form-label fw-bold") }}
-                        {% if field.errors %}
-                            {{ field(class="form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for e in field.errors %}{{ e }}{% endfor %}
-                            </div>
-                        {% else %}
-                            {{ field(class="form-control") }}
-                        {% endif %}
+                <!-- Material Rating -->
+                <div class="mb-4">
+                    <div class="form-label fw-bold mb-2">{{ form.rating_material.label.text }}</div>
+                    <div class="rating-group">
+                        {% for sub in form.rating_material %}
+                            {{ sub(class="form-check-input") }}
+                            <label for="{{ sub.id }}" class="rating-box">
+                                <span class="star">&#9733;</span>
+                                <div class="rating-number mt-3">{{ sub.label.text }}</div>
+                            </label>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+                    {% if form.rating_material.errors %}
+                        <div class="text-danger mt-2">
+                            {% for e in form.rating_material.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
 
-                <!-- Year Taken Section -->
+                <!-- Workload Rating -->
                 <div class="mb-4">
-                    {{ form.year_taken.label(class="form-label fw-bold") }}
-                    {% if form.year_taken.errors %}
-                        {{ form.year_taken(class="form-control is-invalid") }}
+                    <div class="form-label fw-bold mb-2">{{ form.rating_workload.label.text }}</div>
+                    <small class="text-theme-secondary d-block mb-2">{{ form.rating_workload.description }}</small>
+                    <div class="rating-group">
+                        {% for sub in form.rating_workload %}
+                            {{ sub(class="form-check-input") }}
+                            <label for="{{ sub.id }}" class="rating-box">
+                                <span class="star">&#9733;</span>
+                                <div class="rating-number mt-3">{{ sub.label.text }}</div>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    {% if form.rating_workload.errors %}
+                        <div class="text-danger mt-2">
+                            {% for e in form.rating_workload.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Peers Rating -->
+                <div class="mb-4">
+                    <div class="form-label fw-bold mb-2">{{ form.rating_peers.label.text }}</div>
+                    <div class="rating-group">
+                        {% for sub in form.rating_peers %}
+                            {{ sub(class="form-check-input") }}
+                            <label for="{{ sub.id }}" class="rating-box">
+                                <span class="star">&#9733;</span>
+                                <div class="rating-number mt-3">{{ sub.label.text }}</div>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    {% if form.rating_peers.errors %}
+                        <div class="text-danger mt-2">
+                            {% for e in form.rating_peers.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
+
+                <!-- Content/Comment Section -->
+                <div class="mb-4">
+                    {{ form.content.label(class="form-label fw-bold") }}
+                    <small class="text-theme-secondary d-block mb-2">{{ form.content.description }}</small>
+                    {% if form.content.errors %}
+                        {{ form.content(class="form-control is-invalid", rows="6", placeholder="Optional but highly appreciated!") }}
                         <div class="invalid-feedback">
-                            {% for e in form.year_taken.errors %}{{ e }}{% endfor %}
+                            {% for e in form.content.errors %}{{ e }}{% endfor %}
                         </div>
                     {% else %}
-                        {{ form.year_taken(class="form-control") }}
+                        {{ form.content(class="form-control", rows="6", placeholder="Optional but highly appreciated!") }}
                     {% endif %}
                 </div>
 

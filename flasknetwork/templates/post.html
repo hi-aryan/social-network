@@ -30,33 +30,43 @@
                 <span class="fw-bold">Year Taken:</span> {{ post.year_taken }}
             </div>
             
+            <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
+
+            <!-- Ratings Grid -->
             <div class="mb-4">
-                <span class="fw-bold">Rating:</span> 
-                <span class="badge {{ 'badge-filled' if post.rating == 5 }}">
-                    {% for i in range(1, 6) %}
-                        {% if post.rating >= i %}
-                            <i class="fas fa-star"></i>
-                        {% else %}
-                            <i class="far fa-star"></i>
-                        {% endif %}
+                <h5 class="fw-bold mb-3">Ratings</h5>
+                <div class="row g-3">
+                    {% for label, value in post.get_ratings_summary() %}
+                        <div class="col-6 col-md-4">
+                            <div class="d-flex justify-content-between align-items-center p-2" style="border: 1px solid var(--twilight-indigo); border-radius: var(--border-radius); background: var(--main-bg);">
+                                <span class="fw-bold small">{{ label }}</span>
+                                <span class="badge {{ 'badge-filled' if value == 5 }}">
+                                    {% for i in range(1, 6) %}
+                                        {% if value >= i %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        </div>
                     {% endfor %}
-                    <span class="ms-2">{{ post.rating }} / 5</span>
-                </span>
+                </div>
             </div>
             
-            <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
-            
-            <!-- Dynamic Questions Section -->
-            {% for question, answer in post.get_answered_questions() %}
+            <!-- Content Section -->
+            {% if post.content %}
+                <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
                 <div class="mb-3">
-                    <p class="mb-1 fw-bold text-decoration-underline">{{ question }}</p>
-                    <p class="ms-3" style="white-space: pre-line;">{{ answer }}</p>
+                    <h5 class="fw-bold mb-3">Review</h5>
+                    <p style="white-space: pre-line;">{{ post.content }}</p>
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </article>
 
-    <!-- Modal -->
+    <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

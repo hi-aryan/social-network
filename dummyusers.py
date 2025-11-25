@@ -30,8 +30,11 @@ for i in range(1, 6):
             title=f"{course.name} Review by dummy{i}",
             year_taken=2025,
             rating=4,
-            answer_q1="Solid course, learned a lot.",
-            answer_q2="Would recommend.",
+            rating_professor=4,
+            rating_material=3,
+            rating_workload=3,
+            rating_peers=4,
+            content="Solid course overall. The professor was engaging and the material was interesting. Workload was manageable if you stay on top of things. Great classmates to work with!",
             author=user,
             course=course
         )

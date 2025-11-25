@@ -77,50 +77,42 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    year_taken = db.Column(db.Integer, nullable=False)  # e.g., 2023
-    rating = db.Column(db.Integer, nullable=False)  # e.g., 1-5
+    year_taken = db.Column(db.Integer, nullable=False)
     
-    # All 6 questions are now optional, but at least one must be filled
-    answer_q1 = db.Column(db.Text, nullable=True)
-    answer_q2 = db.Column(db.Text, nullable=True)
-    answer_q3 = db.Column(db.Text, nullable=True)
-    answer_q4 = db.Column(db.Text, nullable=True)
-    answer_q5 = db.Column(db.Text, nullable=True)
-    answer_q6 = db.Column(db.Text, nullable=True)
+    # Rating categories (all 1-5 scale)
+    rating = db.Column(db.Integer, nullable=False)              # Overall/general rating
+    rating_professor = db.Column(db.Integer, nullable=False)    # Professor quality
+    rating_material = db.Column(db.Integer, nullable=False)     # Material & interestingness
+    rating_workload = db.Column(db.Integer, nullable=False)     # Workload (1=heavy, 5=light)
+    rating_peers = db.Column(db.Integer, nullable=False)        # Students/peers experience
+    
+    # Single general comment field
+    content = db.Column(db.Text, nullable=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
 
-    # what is this for?
     __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='one_review_per_course'),)
     
-    # TODO: are these needed? what are they for?
     course = db.relationship('Course', backref='reviews')
-    #author = db.relationship('User', backref='reviews')
 
-    def get_answered_questions(self):
+    def get_ratings_summary(self):
         """
-        Returns a list of (question, answer) tuples for only the questions that have been answered.
-        Encapsulates the logic for determining which questions to display.
+        Returns a list of (label, value) tuples for all rating categories.
+        Used for displaying ratings in templates.
         """
-        questions_map = [
-            ("Did you have fun?", self.answer_q1),
-            ("How was the professor?", self.answer_q2),
-            ("How was the workload?", self.answer_q3),
-            ("Did you learn anything or just memorize a bunch of stuff?", self.answer_q4),
-            ("What was the best part of the course?", self.answer_q5),
-            ("A word to enrolling students?", self.answer_q6),
+        return [
+            ("Overall", self.rating),
+            ("Professor", self.rating_professor),
+            ("Material", self.rating_material),
+            ("Workload", self.rating_workload),
+            ("Peers", self.rating_peers),
         ]
-        
-        # Return only questions that have non-empty answers
-        return [(question, answer) for question, answer in questions_map 
-                if answer and answer.strip()]
 
     def __repr__(self):
         author = self.author.username if self.author else "None"
         course = self.course.name if self.course else "None"
-        answered_questions = len(self.get_answered_questions())
-        return f"\n\nPost('{self.id}', '{self.title}', '{self.date_posted}', author='{author}', course='{course}', year_taken='{self.year_taken}', rating='{self.rating}', answered_questions='{answered_questions}/6')\n\n"
+        return f"Post(id={self.id}, title='{self.title}', author='{author}', course='{course}', rating={self.rating})"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??

@@ -64,21 +64,17 @@
                         </a>
                     </h4>
                     
-                    <div class="review-questions">                        
-                        {% if review.answer_q1 %}
-                            <div class="mb-2">
-                                <strong>Would you recommend this course?</strong>
-                                <p class="text-theme-secondary mb-1">{{ review.answer_q1 }}</p>
-                            </div>
-                        {% endif %}
-                        
-                        {% if review.answer_q2 %}
-                            <div class="mb-2">
-                                <strong>Additional comments:</strong>
-                                <p class="text-theme-secondary mb-1">{{ review.answer_q2 }}</p>
-                            </div>
-                        {% endif %}
+                    <!-- Ratings Summary -->
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge" title="Professor"><i class="fas fa-user-tie"></i> {{ review.rating_professor }}/5</span>
+                        <span class="badge" title="Material"><i class="fas fa-book"></i> {{ review.rating_material }}/5</span>
+                        <span class="badge" title="Workload"><i class="fas fa-tasks"></i> {{ review.rating_workload }}/5</span>
+                        <span class="badge" title="Peers"><i class="fas fa-users"></i> {{ review.rating_peers }}/5</span>
                     </div>
+                    
+                    {% if review.content %}
+                        <p class="text-theme-secondary mb-1" style="white-space: pre-line;">{{ review.content[:200] }}{% if review.content|length > 200 %}...{% endif %}</p>
+                    {% endif %}
                     
                     <div class="mt-3">
                         <a href="{{ url_for('posts.post', post_id=review.id) }}" class="btn btn-sm btn-outline-primary p-2">
