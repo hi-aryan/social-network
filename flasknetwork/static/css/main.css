@@ -63,6 +63,7 @@ a:hover {
 /* Custom Navbar Toggler */
 .navbar-toggler {
     border-color: var(--twilight-indigo);
+    border-radius: var(--border-radius);
 }
 
 .navbar-toggler-icon {
@@ -79,7 +80,7 @@ a:hover {
 
 .navbar-search-input {
   width: 100%;
-  padding: 10px 15px;
+  padding: 8px 20px;
   border: 2px solid var(--twilight-indigo);
   border-radius: var(--border-radius);
   background-color: var(--eggshell);
