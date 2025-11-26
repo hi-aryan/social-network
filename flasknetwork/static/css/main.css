@@ -60,6 +60,7 @@ a:hover {
   text-decoration: none;
 }
 
+
 /* Custom Navbar Toggler */
 .navbar-toggler {
     border-color: var(--twilight-indigo);
@@ -76,6 +77,8 @@ a:hover {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-search-input {
@@ -87,6 +90,8 @@ a:hover {
   color: var(--twilight-indigo);
   font-size: 1rem;
   outline: none;
+  transition: padding 0.2s ease, font-size 0.2s ease;
+  box-sizing: border-box;
 }
 
 .navbar-search-input::placeholder {
@@ -110,6 +115,10 @@ body .btn {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 body .btn:hover {
@@ -269,7 +278,7 @@ body .btn:hover {
 }
 
 /* Mobile Responsive */
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     .navbar-search-form {
         margin: 10px 0;
         max-width: 100%;
@@ -285,6 +294,23 @@ body .btn:hover {
         padding: 1rem;
         margin-top: 10px;
         border-radius: var(--border-radius);
+    }
+    
+    /* Navbar buttons: full width when collapsed */
+    .nav-action-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    
+    /* Account page buttons: stack on mobile for better UX */
+    .account-page-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .account-page-actions .btn {
+        width: 100%;
     }
 }
 
@@ -317,16 +343,88 @@ body .btn:hover {
 /* Navbar Action Buttons */
 /* Replaces: btn-secondary/primary ms-md-3 mb-2 mb-md-0 w-100 w-md-auto */
 .nav-action-btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
-    text-align: center;
+    white-space: nowrap;
+    min-width: fit-content;
 }
 
-@media (min-width: 768px) {
+/* Responsive icon sizing for navbar buttons */
+.nav-action-btn i {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* Medium screens (768px - 992px) - Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
     .nav-action-btn {
         width: auto;
         margin-bottom: 0;
-        margin-left: 1rem; /* ~ ms-md-3 */
+        margin-left: 0.75rem;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        gap: 0.35rem;
+    }
+    
+    .nav-action-btn i {
+        font-size: 0.75rem;
+    }
+    
+    /* Match search bar to button sizes */
+    .navbar-search-input {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+    
+    .navbar-search-form {
+        max-width: 350px;
+    }
+}
+
+/* Medium-Large screens (992px - 1200px) - Small Desktop */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .nav-action-btn {
+        width: auto;
+        margin-bottom: 0;
+        margin-left: 1rem;
+        padding: 7px 16px;
+        font-size: 0.875rem;
+        gap: 0.4rem;
+    }
+    
+    .nav-action-btn i {
+        font-size: 0.875rem;
+    }
+    
+    /* Match search bar to button sizes */
+    .navbar-search-input {
+        padding: 7px 16px;
+        font-size: 0.875rem;
+    }
+    
+    .navbar-search-form {
+        max-width: 380px;
+    }
+}
+
+/* Large screens (1200px+) - Desktop */
+@media (min-width: 1200px) {
+    .nav-action-btn {
+        width: auto;
+        margin-bottom: 0;
+        margin-left: 1rem;
+    }
+    
+    .nav-action-btn i {
+        font-size: 1rem;
+    }
+    
+    /* Match search bar to button sizes */
+    .navbar-search-input {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
+    
+    .navbar-search-form {
+        max-width: 400px;
     }
 }
 
