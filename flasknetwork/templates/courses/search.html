@@ -68,7 +68,7 @@
                     </h5>
                     <p class="card-text mb-0">
                         <small class="text-theme-secondary">
-                            <i class="fas fa-star text-warning me-1"></i>
+                            <i class="fas fa-star me-1"></i>
                             <span class="review-count"></span>
                         </small>
                     </p>
@@ -118,9 +118,10 @@ class CourseSearch {
         if (query) {
             this.searchInput.value = query;
             this.handleSearchInput(query);
-        } else {
-            this.searchInput.focus();
         }
+        // Always focus and select the input for easy editing
+        this.searchInput.focus();
+        this.searchInput.select();
     }
     
     handleSearchInput(query) {

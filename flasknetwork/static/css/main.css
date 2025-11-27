@@ -79,6 +79,8 @@ a:hover {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .navbar-search-input {
@@ -90,18 +92,16 @@ a:hover {
   color: var(--twilight-indigo);
   font-size: 1rem;
   outline: none;
-  transition: padding 0.2s ease, font-size 0.2s ease;
+  transition: padding 0.2s ease, font-size 0.2s ease, border-color 0.2s ease;
   box-sizing: border-box;
-}
-
-.navbar-search-input::placeholder {
-  color: var(--twilight-indigo);
   opacity: 0.6;
 }
 
-.navbar-search-input:focus {
+.navbar-search-form:hover .navbar-search-input {
   border-color: var(--burnt-peach);
+  opacity: 1;
 }
+
 
 /* Buttons */
 /* Using body selector to increase specificity over Bootstrap */
@@ -431,6 +431,7 @@ body .btn:hover {
 /* Filled Badge (for 5 stars) */
 .badge-filled {
     background-color: var(--twilight-indigo);
+    color: var(--eggshell);
 }
 
 /* Course Search Card */

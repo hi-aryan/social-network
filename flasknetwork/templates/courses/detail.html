@@ -10,7 +10,7 @@
                 <div class="flex-grow-1">
                     <h2 class="mb-2"><b>{{ course.code }}</b> - {{ course.name }}</h2>
                     <p class="text-theme-secondary mb-3">
-                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star"></i>
                         {% if reviews.total == 0 %}
                             No reviews yet
                         {% elif reviews.total == 1 %}
@@ -141,7 +141,7 @@
                             {{ review.author.username }}
                             </a>
                             <small class="text-theme-secondary">
-                                <i class="fas fa-star text-warning"></i> {{ review.rating }}/5
+                                <i class="fas fa-star"></i> {{ review.rating }}/5
                             </small>
                         </div>
                     </div>
