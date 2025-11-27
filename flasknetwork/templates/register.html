@@ -6,14 +6,13 @@
             <fieldset class="mb-3">
                 <legend class="border-bottom mb-4 text-shadow">Register</legend> 
                 <div class="mb-3">
-                    {{ form.username.label(class="form-label") }}
                     <div class="input-group">
                         {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid", id="username-field") }}
+                            {{ form.username(class="form-control form-control-lg is-invalid", id="username-field", placeholder="Username") }}
                         {% else %}
-                            {{ form.username(class="form-control form-control-lg", id="username-field") }}
+                            {{ form.username(class="form-control form-control-lg", id="username-field", placeholder="Username") }}
                         {% endif %}
-                        <button type="button" class="btn btn-outline-secondary" id="roll-username-btn" title="Generate new username">
+                        <button type="button" class="btn btn-outline-primary" id="roll-username-btn" title="Generate new username">
                             🎲
                         </button>
                     </div>
@@ -28,8 +27,6 @@
                 </div>
                 
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }}
-
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">

@@ -149,21 +149,17 @@
                 <!-- Content/Comment Section -->
                 <div class="mb-4">
                     {{ form.content.label(class="form-label fw-bold") }}
-                    <small class="text-theme-secondary d-block mb-2">Share what you liked, what was challenging, gossip about the professor, or advice for future students. <br>Be as serious, unserious or detailed as you wish.</small>
+                    {{ form.content(class="form-control mt-2", rows="6", placeholder="Share what you liked, what was challenging, gossip about the professor, or advice for future students. Be as serious, unserious or detailed as you wish :)") }}
                     {% if form.content.errors %}
-                        {{ form.content(class="form-control is-invalid mt-2", rows="6", placeholder="Optional but highly appreciated!") }}
                         <div class="invalid-feedback">
                             {% for e in form.content.errors %}{{ e }}{% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.content(class="form-control mt-2", rows="6", placeholder="Optional but highly appreciated!") }}
                     {% endif %}
                 </div>
 
                 <!-- Title Section -->
                 <div class="mb-4">
                     <label class="form-label fw-bold mb-0">{{ form.title.label.text }}</label>
-                    <small class="text-theme-secondary d-block mb-2">Displayed in the main feed. Make it memorable.</small>
                     {% if form.title.errors %}
                         {{ form.title(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -172,7 +168,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.title(class="form-control form-control-lg") }}
+                        {{ form.title(class="form-control form-control-lg", placeholder="Displayed in the main feed. Make it memorable!") }}
                     {% endif %}
                 </div>
 

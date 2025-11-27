@@ -6,8 +6,6 @@
             <fieldset class="mb-3">
                 <legend class="border-bottom mb-4 text-shadow">Sign In</legend> 
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }}
-
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -19,7 +17,7 @@
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="mb-3">
+                <div class="mb-4">
                     {{ form.password.label(class="form-label") }}
                     
                     {% if form.password.errors %}

@@ -24,8 +24,8 @@
                 <!-- RIGHT: always flush to the far right -->
                 <div class="ms-3 d-block d-md-none">
                     <a href="{{ url_for('courses.search') }}"
-                       class="btn btn-sm btn-outline-primary extra-small text-theme-secondary shadow-sm">
-                        <i class="fas fa-arrow-left"></i> Back to Search
+                       class="btn btn-sm btn-outline-primary extra-small shadow-sm">
+                        <i class="fas fa-arrow-left"></i> BACK
                     </a>
                 </div>
             </div>
@@ -122,30 +122,12 @@
     <div class="col-lg-3 d-none d-md-block">
         {% if reviews.items %}
             <div class="content-section">
-                <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center justify-content-center">
                     <span class="fw-bold">Avg Rating: </span>
                     <span class="badge badge-filled fs-6 ms-2">
                         <i class="fas fa-star"></i> {{ "%.1f"|format(avg_rating) }}/5
                     </span>
                 </div>
-                <hr>
-                <h6 class="mt-3">Recent Reviews</h6>
-                {% for review in reviews.items[:3] %}
-                    <div class="d-flex align-items-center mb-2">
-                        <img class="review-img" 
-                             src="{{ url_for('static', filename='profile_pics/' + review.author.image_file) }}" 
-                             alt="Profile" style="width: 30px; height: 30px;">
-                        <div class="ms-2 flex-grow-1">
-                            <a class="d-block fw-bold author-link"
-                            href="{{ url_for('users.user_posts', username=review.author.username) }}">
-                            {{ review.author.username }}
-                            </a>
-                            <small class="text-theme-secondary">
-                                <i class="fas fa-star"></i> {{ review.rating }}/5
-                            </small>
-                        </div>
-                    </div>
-                {% endfor %}
             </div>
         {% else %}
             <div class="content-section text-center">
@@ -160,15 +142,31 @@
                     </a>
                 </div>
             </div>
-        {% elif auth_but_cannot_review %}
+        {% elif already_reviewed %}
+            <div class="content-section">
+                <div class="text-center">
+                    <small class="text-theme-secondary">You've already reviewed this course!</small>
+                </div>
+            </div>
+            <div class="text-center my-3">
+                <a href="{{ url_for('courses.search') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> BACK
+                </a>
+            </div>
+        {% elif not_in_program %}
             <div class="content-section">
                 <div class="text-center">
                     <small class="text-theme-secondary">You can't review this course because it's not in your program :/</small>
                 </div>
             </div>
+            <div class="text-center my-3">
+                <a href="{{ url_for('courses.search') }}" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> BACK
+                </a>
+            </div>
         {% else %}
             <div class="text-center">
-                <a href="{{ url_for('users.login', next=request.url) }}" class="btn btn-outline-primary btn-sm shadow-sm my-3 text-theme-secondary">
+                <a href="{{ url_for('users.login', next=request.url) }}" class="btn btn-outline-primary btn-sm shadow-sm my-3">
                     Login to write a review
                 </a>
             </div>

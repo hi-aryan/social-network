@@ -94,7 +94,6 @@ a:hover {
   outline: none;
   transition: padding 0.2s ease, font-size 0.2s ease, border-color 0.2s ease;
   box-sizing: border-box;
-  opacity: 0.6;
 }
 
 .navbar-search-form:hover .navbar-search-input {
@@ -165,17 +164,20 @@ body .btn:hover {
   border-color: var(--twilight-indigo);
 }
 
-/* Outline Buttons */
-.btn-outline-primary {
+/* Outline Buttons - using body for specificity over Bootstrap */
+body .btn-outline-primary {
     background-color: var(--eggshell);
     color: var(--twilight-indigo);
     border-color: var(--twilight-indigo);
 }
 
-.btn-outline-primary:hover {
-    background-color: var(--eggshell);
+body .btn-outline-primary:hover,
+body .btn-outline-primary:focus,
+body .btn-outline-primary:active {
+    background-color: var(--burnt-peach);
     color: var(--twilight-indigo);
     border-color: var(--twilight-indigo);
+    box-shadow: none;
 }
 
 /* Cards / Content Sections */
@@ -197,6 +199,14 @@ body .btn:hover {
 
 .article-title:hover {
   color: var(--burnt-peach);
+  text-decoration: none;
+}
+
+.review-title {
+  text-decoration: none;
+}
+
+.author-link {
   text-decoration: none;
 }
 
@@ -234,6 +244,13 @@ body .btn:hover {
   border-color: var(--burnt-peach);
   box-shadow: none;
   color: var(--twilight-indigo);
+}
+
+/* Smaller placeholder text */
+.form-control::placeholder {
+  font-size: 0.875rem;
+  color: var(--twilight-indigo);
+  opacity: 0.6;
 }
 
 /* Alerts */

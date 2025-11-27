@@ -126,8 +126,14 @@ def course_detail(course_id):
             current_user.is_authenticated and current_user.can_review(course)
         )
 
-        auth_but_cannot_review = (
-            current_user.is_authenticated and not current_user.can_review(course)
+        already_reviewed = (
+            current_user.is_authenticated and course.is_reviewed_by(current_user)
+        )
+
+        not_in_program = (
+            current_user.is_authenticated 
+            and not already_reviewed 
+            and not course.course_is_available_for_program(current_user.program_id)
         )
 
         return render_template('courses/detail.html', 
@@ -136,7 +142,8 @@ def course_detail(course_id):
                              reviews=reviews,
                              avg_rating=avg_rating,
                              auth_can_review=auth_can_review,
-                             auth_but_cannot_review=auth_but_cannot_review)
+                             already_reviewed=already_reviewed,
+                             not_in_program=not_in_program)
 
     except SQLAlchemyError as e:
         current_app.logger.error(f"Database error loading course {course_id}: {str(e)}")
