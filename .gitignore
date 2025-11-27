@@ -1,21 +1,45 @@
-social_network-venv/
-
-flasknetwork/__pycache__/
-__pycache__/
-
-# Environments
-.env
-.venv
+# Virtual environments
 venv/
+.venv/
+social_network-venv/
 social-network-venv/
 
-# Instance folder
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Instance folder (local database, config overrides)
 instance/
 
-# VSCode
-.vscode/
+# Environment variables (CRITICAL - contains secrets!)
+.env
+.env.*
 
-# Documentation
+# macOS
+.DS_Store
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Personal notes (may contain passwords/secrets)
 plan.md
 usefulSHELL.md
 process.md
+
+# User uploads (if you don't want to track new profile pics)
+# Uncomment if you want to ignore user-uploaded images:
+# flasknetwork/static/profile_pics/*
+# !flasknetwork/static/profile_pics/default*.png
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
