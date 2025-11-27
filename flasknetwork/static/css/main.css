@@ -259,8 +259,9 @@ body .btn-outline-primary:active {
   border-radius: var(--border-radius);
   border: 2px solid var(--twilight-indigo);
   color: var(--twilight-indigo);
-  background-color: var(--muted-teal); /* TODO: test this! */
+  background-color: var(--muted-teal);
   font-weight: bold;
+  padding: 0.5rem 1rem;
 }
 .center-alert {
   text-align: center;
@@ -556,4 +557,73 @@ body .btn-outline-primary:active {
 /* Borders for modals and dividers */
 .border-top, .border-bottom {
     border-color: var(--twilight-indigo) !important;
+}
+
+/* Fixed Feedback Button */
+.feedback-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--eggshell);
+    border: 2px solid var(--twilight-indigo);
+    color: var(--twilight-indigo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.feedback-btn:hover {
+    background-color: var(--muted-teal);
+    color: var(--twilight-indigo);
+    transform: translateY(-2px);
+}
+
+.feedback-btn i {
+    font-size: 1.1rem;
+}
+
+/* Feedback button - Large screens (1200px+) */
+@media (min-width: 1200px) {
+    .feedback-btn {
+        width: 48px;
+        height: 48px;
+        bottom: 20px;
+        left: 20px;
+    }
+    .feedback-btn i {
+        font-size: 1.1rem;
+    }
+}
+
+/* Feedback button - Medium screens (768px - 1199px) */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .feedback-btn {
+        width: 42px;
+        height: 42px;
+        bottom: 16px;
+        left: 16px;
+    }
+    .feedback-btn i {
+        font-size: 1rem;
+    }
+}
+
+/* Feedback button - Small screens (<768px) */
+@media (max-width: 767.98px) {
+    .feedback-btn {
+        width: 36px;
+        height: 36px;
+        bottom: 12px;
+        left: 12px;
+    }
+    .feedback-btn i {
+        font-size: 0.85rem;
+    }
 }

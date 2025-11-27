@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="mb-3">
+                <legend class="border-bottom mb-4">Feedback</legend>
+                <p class="text-theme-secondary mb-4">We'd love to hear your thoughts, suggestions, or bug reports!</p>
+                <div class="mb-4">
+                    {% if form.message.errors %}
+                        {{ form.message(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.message.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.message(class="form-control") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="d-flex gap-2">
+                {{ form.submit(class="btn btn-primary") }}
+                <a href="{{ redirect_url }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
