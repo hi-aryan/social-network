@@ -4,15 +4,15 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4 text-shadow">Register</legend> 
-                <div class="mb-3">
+                <legend class="border-bottom mb-5 text-shadow">Register</legend> 
+                <div class="mb-4">
                     <div class="input-group">
                         {% if form.username.errors %}
                             {{ form.username(class="form-control form-control-lg is-invalid", id="username-field", placeholder="Username") }}
                         {% else %}
                             {{ form.username(class="form-control form-control-lg", id="username-field", placeholder="Username") }}
                         {% endif %}
-                        <button type="button" class="btn btn-outline-primary" id="roll-username-btn" title="Generate new username">
+                        <button type="button" class="btn btn-outline-primary" id="roll-username-btn" data-bs-toggle="tooltip" title="Click the dice for a random username, or type your own">
                             🎲
                         </button>
                     </div>
@@ -23,10 +23,9 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <small class="form-text text-theme-secondary"><i>Click the dice for a random username, or type your own</i></small>
                 </div>
                 
-                <div class="mb-3">
+                <div class="mb-4">
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -39,8 +38,7 @@
                     {% endif %}
                 </div>
                 
-                <div class="mb-3">
-                    {{ form.program.label(class="form-label") }}
+                <div class="mb-4">
                     {% if form.program.errors %}
                         {{ form.program(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -53,9 +51,7 @@
                     {% endif %}
                 </div>
                 
-                <div class="mb-3">
-                    {{ form.password.label(class="form-label") }}
-
+                <div class="mb-4">
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -68,9 +64,7 @@
                     {% endif %}
                 </div>
                 
-                <div class="mb-4">
-                    {{ form.confirm_password.label(class="form-label") }}
-
+                <div class="mb-5">
                     {% if form.confirm_password.errors %}
                         {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -94,6 +88,11 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Bootstrap tooltips
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            new bootstrap.Tooltip(el);
+        });
+
         const rollBtn = document.getElementById('roll-username-btn');
         const usernameField = document.getElementById('username-field');
         

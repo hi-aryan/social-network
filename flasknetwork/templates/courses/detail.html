@@ -110,7 +110,7 @@
                         <i class="fas fa-plus"></i> Write the First Review
                     </a>
                 {% else %}
-                    <a href="{{ url_for('courses.search') }}" class="btn btn-outline-primary p-3 mb-2">
+                    <a href="{{ url_for('courses.search') }}" class="btn btn-sm btn-outline-primary mb-2">
                         <i class="fas fa-arrow-left"></i> Try another course
                     </a>
                 {% endif %}
@@ -166,7 +166,7 @@
             </div>
         {% else %}
             <div class="text-center">
-                <a href="{{ url_for('users.login', next=request.url) }}" class="btn btn-outline-primary btn-sm shadow-sm my-3">
+                <a href="{{ url_for('users.login', next=request.url) }}" class="btn btn-outline-primary btn-sm">
                     Login to write a review
                 </a>
             </div>

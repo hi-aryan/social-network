@@ -4,8 +4,8 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4 text-shadow">Sign In</legend> 
-                <div class="mb-3">
+                <legend class="border-bottom mb-5 text-shadow">Sign In</legend> 
+                <div class="mb-4">
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -18,8 +18,6 @@
                     {% endif %}
                 </div>
                 <div class="mb-4">
-                    {{ form.password.label(class="form-label") }}
-                    
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
