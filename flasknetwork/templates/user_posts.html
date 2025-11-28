@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <span class="badge badge-course">{{ post.course.code }} - {{ post.course.name }}</span>
+                            <a class="badge badge-course" href="{{ url_for('courses.course_detail', course_id=post.course.id) }}">{{ post.course.code }} - {{ post.course.name }}</a>
                         </div>
                     </div>
                 </div>

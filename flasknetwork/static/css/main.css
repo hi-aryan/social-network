@@ -1,11 +1,13 @@
 :root {
   --main-bg: #f4f2e3; /* originally eggshell */
 
-  --eggshell: rgb(255, 255, 245); /* fake eggshell color now */
+  --eggshell: rgb(255, 255, 250); /* fake eggshell color now */
   --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */
   --twilight-indigo: #3D405B;
   --muted-teal: #9ac7b1; /* #9ac7b1, originally 81B29A */
   --border-radius: 10px;
+  --border-width: 2px; /* Main border width for buttons, content sections, forms, etc. */
+  --border-width-thin: 1px; /* Thinner border width for badges, small images, etc. */
 }
 
 /* Reset & Global Font */
@@ -42,7 +44,7 @@ a:hover {
 /* Navbar */
 .site-header .navbar {
   background-color: var(--eggshell);
-  border-bottom: 2px solid var(--twilight-indigo);
+  border-bottom: var(--border-width-thin) solid var(--twilight-indigo); /* todo */
   padding: 15px 0;
   min-height: 80px; /* Ensure minimal height */
 }
@@ -86,7 +88,7 @@ a:hover {
 .navbar-search-input {
   width: 100%;
   padding: 8px 20px;
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   border-radius: var(--border-radius);
   background-color: var(--eggshell);
   color: var(--twilight-indigo);
@@ -106,7 +108,7 @@ a:hover {
 /* Using body selector to increase specificity over Bootstrap */
 body .btn {
   border-radius: var(--border-radius);
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   color: var(--twilight-indigo);
   padding: 8px 20px;
   font-weight: 600;
@@ -183,7 +185,7 @@ body .btn-outline-primary:active {
 /* Cards / Content Sections */
 .content-section {
   background-color: var(--eggshell);
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   border-radius: var(--border-radius);
   padding: 20px;
   margin-bottom: 20px;
@@ -219,7 +221,7 @@ body .btn-outline-primary:active {
   width: 50px;
   margin-right: 16px;
   border-radius: var(--border-radius);
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   object-fit: cover;
 }
 
@@ -227,14 +229,14 @@ body .btn-outline-primary:active {
     width: 25px; 
     height: 25px; 
     object-fit: cover; 
-    border: 1px solid var(--twilight-indigo);
+    border: var(--border-width-thin) solid var(--twilight-indigo);
     border-radius: var(--border-radius);
 }
 
 /* Forms */
 .form-control, .form-select {
   background-color: var(--eggshell);
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   border-radius: var(--border-radius);
   color: var(--twilight-indigo);
 }
@@ -257,7 +259,7 @@ body .btn-outline-primary:active {
 .alert {
   display: inline-block;
   border-radius: var(--border-radius);
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   color: var(--twilight-indigo);
   background-color: var(--muted-teal);
   font-weight: bold;
@@ -291,7 +293,7 @@ body .btn-outline-primary:active {
   margin-right: 20px;
   margin-bottom: 16px;
   border-radius: var(--border-radius);
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   object-fit: cover;
 }
 
@@ -347,7 +349,7 @@ body .btn-outline-primary:active {
 .badge {
     color: var(--twilight-indigo);
     background-color: transparent; /* Default transparent/eggshell */
-    border: 1px solid var(--twilight-indigo);
+    border: var(--border-width-thin) solid var(--twilight-indigo);
     border-radius: var(--border-radius);
 }
 
@@ -356,6 +358,13 @@ body .btn-outline-primary:active {
     white-space: normal; 
     text-align: left;
     line-height: 1.4;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.badge-course:hover {
+    color: var(--burnt-peach);
+    border-color: var(--burnt-peach);
 }
 
 /* Navbar Action Buttons */
@@ -502,7 +511,7 @@ body .btn-outline-primary:active {
   height: 3rem;
   margin: 0.25rem;
   padding: 0.25rem;
-  border: 2px solid var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
   border-radius: var(--border-radius);
   background: var(--eggshell);
   text-align: center;
@@ -550,7 +559,7 @@ body .btn-outline-primary:active {
 .modal-content {
     background-color: var(--eggshell);
     border-radius: var(--border-radius);
-    border: 2px solid var(--twilight-indigo);
+    border: var(--border-width-thin) solid var(--twilight-indigo);
 }
 
 /* TODO: bad practice? */
@@ -569,7 +578,7 @@ body .btn-outline-primary:active {
     height: 48px;
     border-radius: 50%;
     background-color: var(--eggshell);
-    border: 2px solid var(--twilight-indigo);
+    border: var(--border-width-thin) solid var(--twilight-indigo);
     color: var(--twilight-indigo);
     display: flex;
     align-items: center;
