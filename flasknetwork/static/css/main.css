@@ -286,6 +286,15 @@ body .btn-outline-primary:active {
   padding: 0.5rem 1rem;
 }
 
+.text-danger-custom,
+.post-settings-dropdown .dropdown-item.text-danger-custom {
+  color: var(--burnt-peach);
+}
+.text-success-custom,
+.post-settings-dropdown .dropdown-item.text-success-custom {
+  color: var(--muted-teal);
+}
+
 /* Account Page */
 .account-img {
   height: 125px;
@@ -577,6 +586,54 @@ body .btn-outline-primary:active {
   }
 }
 
+/* Rating card for post detail page */
+.rating-card {
+  border: 1px solid var(--twilight-indigo);
+  border-radius: var(--border-radius);
+  background: var(--eggshell);
+  padding: 0.5rem;
+}
+
+/* Post settings dropdown */
+.post-settings-dropdown {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.post-settings-dropdown .btn {
+  color: var(--twilight-indigo);
+  padding: 0.5rem 0.6rem;
+  opacity: 1;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.post-settings-dropdown .btn:hover {
+  transform: translateY(2px);
+  background-color: var(--burnt-peach);
+} 
+
+.post-settings-dropdown .dropdown-menu {
+  background-color: var(--eggshell);
+  border: 1px solid var(--twilight-indigo);
+  border-radius: var(--border-radius);
+}
+
+.post-settings-dropdown .dropdown-item {
+  color: var(--twilight-indigo);
+}
+
+.post-settings-dropdown .dropdown-item:hover {
+  background-color: var(--eggshell);
+}
+
+.post-settings-items {
+  transition: transform 0.1s ease;
+}
+.post-settings-items:hover {
+  transform: translateY(2px);
+}
+
 /* Modal Content Override */
 .modal-content {
     background-color: var(--eggshell);
@@ -630,6 +687,9 @@ body .btn-outline-primary:active {
     }
     .feedback-btn i {
         font-size: 1.1rem;
+    }
+    .post-settings-dropdown .btn {
+        padding: 0.7rem 0.8rem;
     }
 }
 

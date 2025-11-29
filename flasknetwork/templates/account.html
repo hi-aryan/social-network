@@ -45,7 +45,7 @@
                     {{ form.picture(class="form-control", onchange="updateProfilePreview(this)") }}
                     {% if form.picture.errors %}
                         {% for error in form.picture.errors %}
-                            <span class="text-danger">{{ error }}</span><br>
+                            <span class="text-danger-custom">{{ error }}</span><br>
                         {% endfor %}
                     {% endif %}
                 </div>
