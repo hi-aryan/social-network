@@ -72,31 +72,42 @@ def search():
 @courses.route('/api/search')
 def api_search():
     """
-    API endpoint for course search.
+    API endpoint for course search and browse.
     
     Query Parameters:
-        q (str): Search query (required, min 2 chars)
-        limit (int): Maximum results to return (optional, default 50, max 100)
+        q (str): Search query (optional - if empty, returns all courses)
+        limit (int): Maximum results to return (optional, default 20, max 100)
+        offset (int): Number of results to skip for pagination (optional, default 0)
         
     Returns:
-        JSON response with courses data or error message
+        JSON response with courses data and has_more flag
     """
-    # TODO: what is this "q" parameter?? how does it work?
     query = request.args.get('q', '').strip()
+    limit = request.args.get('limit', 20, type=int)
+    offset = request.args.get('offset', 0, type=int)
     
-    # Early return for empty queries
-    if not query:
-        return jsonify([]), 200
+    # Validate limit and offset
+    limit = max(1, min(limit, 100))
+    offset = max(0, offset)
     
-    limit = request.args.get('limit')
-    
-    # Use service class for business logic
-    success, data, status_code = CourseSearchService.search_courses(query, limit)
-    
-    if success:
-        return jsonify(data), status_code
-    else:
-        return jsonify({'error': data}), status_code
+    try:
+        if not query:
+            # Browse mode: return all courses with pagination
+            courses_list, has_more = Course.get_all(limit=limit, offset=offset)
+            courses_data = [course.to_dict() for course in courses_list]
+            return jsonify({'courses': courses_data, 'has_more': has_more}), 200
+        
+        # Search mode: use existing search logic
+        success, data, status_code = CourseSearchService.search_courses(query, limit)
+        
+        if success:
+            return jsonify({'courses': data, 'has_more': False}), status_code
+        else:
+            return jsonify({'error': data}), status_code
+            
+    except SQLAlchemyError as e:
+        current_app.logger.error(f"Database error in course API: {str(e)}")
+        return jsonify({'error': 'Database error occurred'}), 500
 
 
 @courses.route('/course/<int:course_id>')

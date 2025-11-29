@@ -182,6 +182,30 @@ class Course(db.Model):
         
         return cls.query.filter(search_filter).limit(max(1, min(limit, 100))).all()
     
+    @classmethod
+    def get_all(cls, limit=20, offset=0):
+        """
+        Get all courses with pagination, ordered by name.
+        
+        Args:
+            limit (int): Maximum number of results to return (default 20, max 100)
+            offset (int): Number of results to skip (for pagination)
+            
+        Returns:
+            tuple: (list of Course objects, has_more boolean)
+        """
+        limit = max(1, min(limit, 100))
+        offset = max(0, offset)
+        
+        # Fetch one extra to check if there are more results
+        courses = cls.query.order_by(cls.name).offset(offset).limit(limit + 1).all()
+        
+        has_more = len(courses) > limit
+        if has_more:
+            courses = courses[:limit]  # Remove the extra item
+            
+        return courses, has_more
+    
     def to_dict(self):
         """
         Convert Course instance to dictionary for JSON serialization.

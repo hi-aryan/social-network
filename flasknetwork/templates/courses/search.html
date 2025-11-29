@@ -5,8 +5,7 @@
     <div class="col-lg-8">
         <div class="content-section">
             <div class="text-center mb-4">
-                <h2 class="article-title mb-2">Search Courses</h2>
-                <p class="text-theme-primary">Read reviews from fellow students</p>
+                <h2 class="article-title mb-2">Search or Browse Courses</h2>
             </div>
             <!-- Search Form -->
             <div class="mb-4">
@@ -42,15 +41,26 @@
                 </div>
                 
                 <div id="resultsContainer" class="d-none">
-                    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-                        <h5 id="resultsCount" class="mb-0"></h5>
+                    <div class="mb-3 border-bottom pb-2">
                         <small class="text-theme-primary" id="searchQuery"></small>
                     </div>
                     <div id="coursesList"></div>
+                    
+                    <!-- Sentinel for infinite scroll -->
+                    <div id="scrollSentinel"></div>
+                    
+                    <!-- Bottom loading spinner -->
+                    <div id="loadingMore" class="text-center py-3 d-none">
+                        <div class="spinner-border spinner-border-sm text-theme-primary" role="status">
+                            <span class="visually-hidden">Loading more...</span>
+                        </div>
+                    </div>
+                    
+                    <!-- End of results message -->
+                    <div id="endOfResults" class="text-center text-theme-primary py-3 d-none">
+                        <small>All courses loaded</small>
+                    </div>
                 </div>
-            </div>
-            
-            <div id="initialHelp" class="text-center text-theme-primary">
             </div>
         </div>
     </div>
@@ -95,13 +105,21 @@ class CourseSearch {
         this.noResults = document.getElementById('noResults');
         this.resultsContainer = document.getElementById('resultsContainer');
         this.coursesList = document.getElementById('coursesList');
-        this.resultsCount = document.getElementById('resultsCount');
         this.searchQuery = document.getElementById('searchQuery');
-        this.initialHelp = document.getElementById('initialHelp');
         this.courseTemplate = document.getElementById('courseItemTemplate');
+        this.scrollSentinel = document.getElementById('scrollSentinel');
+        this.loadingMore = document.getElementById('loadingMore');
+        this.endOfResults = document.getElementById('endOfResults');
         
         this.searchTimeout = null;
         this.currentRequest = null;
+        
+        // Infinite scroll state
+        this.mode = 'browse'; // 'browse' or 'search'
+        this.offset = 0;
+        this.limit = 20;
+        this.hasMore = true;
+        this.isLoading = false;
         
         this.init();
     }
@@ -112,16 +130,41 @@ class CourseSearch {
             this.handleSearchInput(e.target.value);
         });
         
+        // Setup IntersectionObserver for infinite scroll
+        this.setupInfiniteScroll();
+        
         // Check URL params
         const urlParams = new URLSearchParams(window.location.search);
         const query = urlParams.get('q');
         if (query) {
             this.searchInput.value = query;
             this.handleSearchInput(query);
+        } else {
+            // Load all courses by default (browse mode)
+            this.loadCourses();
         }
+        
         // Always focus and select the input for easy editing
         this.searchInput.focus();
         this.searchInput.select();
+    }
+    
+    setupInfiniteScroll() {
+        const options = {
+            root: null, // viewport
+            rootMargin: '100px', // trigger 100px before sentinel is visible
+            threshold: 0
+        };
+        
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && this.hasMore && !this.isLoading && this.mode === 'browse') {
+                    this.loadCourses();
+                }
+            });
+        }, options);
+        
+        this.observer.observe(this.scrollSentinel);
     }
     
     handleSearchInput(query) {
@@ -135,21 +178,23 @@ class CourseSearch {
             this.currentRequest.abort();
         }
         
-        // Clear previous results and errors
-        this.hideAllStates();
-        
         // Trim query
         query = query.trim();
         
         if (query.length === 0) {
-            this.showInitialState();
+            // Switch back to browse mode
+            this.resetState();
+            this.mode = 'browse';
+            this.loadCourses();
             return;
         }
         
         if (query.length < 2) {
-            // this.showError('Please enter at least 2 characters');
             return;
         }
+        
+        // Switch to search mode
+        this.mode = 'search';
         
         // Debounce search
         this.searchTimeout = setTimeout(() => {
@@ -157,8 +202,90 @@ class CourseSearch {
         }, 300);
     }
     
+    resetState() {
+        this.offset = 0;
+        this.hasMore = true;
+        this.coursesList.innerHTML = '';
+        this.hideAllStates();
+    }
+    
+    async loadCourses() {
+        if (this.isLoading || !this.hasMore) return;
+        
+        this.isLoading = true;
+        
+        try {
+            // Show initial loading or bottom loading
+            if (this.offset === 0) {
+                this.showLoading();
+            } else {
+                this.loadingMore.classList.remove('d-none');
+            }
+            
+            // Create AbortController for request cancellation
+            const controller = new AbortController();
+            this.currentRequest = controller;
+            
+            const response = await fetch(`/courses/api/search?limit=${this.limit}&offset=${this.offset}`, {
+                signal: controller.signal
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `HTTP ${response.status}`);
+            }
+            
+            const data = await response.json();
+            this.appendCourses(data.courses, data.has_more);
+            
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                return;
+            }
+            console.error('Load error:', error);
+            this.showError(error.message || 'Failed to load courses');
+        } finally {
+            this.isLoading = false;
+            this.currentRequest = null;
+            this.loadingMore.classList.add('d-none');
+        }
+    }
+    
+    appendCourses(courses, hasMore) {
+        this.loadingIndicator.classList.add('d-none');
+        
+        if (courses.length === 0 && this.offset === 0) {
+            this.noResults.classList.remove('d-none');
+            return;
+        }
+        
+        // Append course items
+        courses.forEach(course => {
+            const courseElement = this.createCourseElement(course);
+            this.coursesList.appendChild(courseElement);
+        });
+        
+        // Update state
+        this.offset += courses.length;
+        this.hasMore = hasMore;
+        
+        // Update header
+        this.searchQuery.textContent = 'Browse all courses';
+        
+        // Show results container
+        this.resultsContainer.classList.remove('d-none');
+        
+        // Show end of results if no more
+        if (!hasMore) {
+            this.endOfResults.classList.remove('d-none');
+        } else {
+            this.endOfResults.classList.add('d-none');
+        }
+    }
+    
     async performSearch(query) {
         try {
+            this.resetState();
             this.showLoading();
             
             // Create AbortController for request cancellation
@@ -174,15 +301,13 @@ class CourseSearch {
                 throw new Error(errorData.error || `HTTP ${response.status}`);
             }
             
-            const courses = await response.json();
-            this.displayResults(courses, query);
+            const data = await response.json();
+            this.displaySearchResults(data.courses, query);
             
         } catch (error) {
             if (error.name === 'AbortError') {
-                // Request was cancelled, ignore
                 return;
             }
-            
             console.error('Search error:', error);
             this.showError(error.message || 'Failed to search courses');
         } finally {
@@ -190,7 +315,7 @@ class CourseSearch {
         }
     }
     
-    displayResults(courses, query) {
+    displaySearchResults(courses, query) {
         this.hideAllStates();
         
         if (courses.length === 0) {
@@ -201,15 +326,18 @@ class CourseSearch {
         // Clear previous results
         this.coursesList.innerHTML = '';
         
-        // Update results info
-        this.resultsCount.textContent = `${courses.length} course${courses.length !== 1 ? 's' : ''} found`;
-        this.searchQuery.textContent = `for "${query}"`;
+        // Update header
+        this.searchQuery.textContent = `Results for "${query}"`;
         
         // Create course items
         courses.forEach(course => {
             const courseElement = this.createCourseElement(course);
             this.coursesList.appendChild(courseElement);
         });
+        
+        // No infinite scroll for search results (they're all loaded at once)
+        this.hasMore = false;
+        this.endOfResults.classList.add('d-none');
         
         this.resultsContainer.classList.remove('d-none');
     }
@@ -246,17 +374,12 @@ class CourseSearch {
         this.errorMessage.classList.remove('d-none');
     }
     
-    showInitialState() {
-        this.hideAllStates();
-        this.initialHelp.classList.remove('d-none');
-    }
-    
     hideAllStates() {
         this.loadingIndicator.classList.add('d-none');
         this.errorMessage.classList.add('d-none');
         this.noResults.classList.add('d-none');
         this.resultsContainer.classList.add('d-none');
-        this.initialHelp.classList.add('d-none');
+        this.endOfResults.classList.add('d-none');
     }
 }
 
