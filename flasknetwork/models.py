@@ -80,10 +80,10 @@ class Post(db.Model):
     year_taken = db.Column(db.Integer, nullable=False)
     
     # Rating categories (all 1-5 scale)
-    rating = db.Column(db.Integer, nullable=False)              # Overall/general rating
+    # Note: overall rating is computed via @property, not stored
     rating_professor = db.Column(db.Integer, nullable=False)    # Professor quality
     rating_material = db.Column(db.Integer, nullable=False)     # Material & interestingness
-    rating_workload = db.Column(db.Integer, nullable=False)     # Workload (1=heavy, 5=light)
+    rating_workload = db.Column(db.Integer, nullable=False)     # Workload (1=light, 5=heavy)
     rating_peers = db.Column(db.Integer, nullable=False)        # Students/peers experience
     
     # Single general comment field
@@ -95,6 +95,26 @@ class Post(db.Model):
     __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='one_review_per_course'),)
     
     course = db.relationship('Course', backref='reviews')
+
+    @property
+    def rating(self):
+        """
+        Computed overall rating as the average of the other 4 ratings.
+        Returns rounded integer (1-5 scale).
+        """
+        if all([self.rating_professor, self.rating_material, self.rating_workload, self.rating_peers]):
+            avg = (self.rating_professor + self.rating_material + self.rating_workload + self.rating_peers) / 4
+            return round(avg)
+        return None
+    
+    @rating.setter
+    def rating(self, value):
+        """
+        Setter for backward compatibility - ignore attempts to set the rating directly.
+        The rating is now computed from the other ratings.
+        """
+        pass  # Rating is computed, not stored
+
 
     def get_ratings_summary(self):
         """
@@ -187,12 +207,18 @@ class Course(db.Model):
 
     def get_average_rating(self):
         """
-        Calculate the average rating for this course efficiently.
+        Calculate the average overall rating for this course.
+        Computes from the 4 rating categories (professor, material, workload, peers).
         
         Returns:
             float: Average rating, or None if no reviews exist
         """
-        result = db.session.query(db.func.avg(Post.rating)).filter_by(course_id=self.id).scalar()
+        result = db.session.query(
+            db.func.avg(
+                (Post.rating_professor + Post.rating_material + 
+                 Post.rating_workload + Post.rating_peers) / 4.0
+            )
+        ).filter_by(course_id=self.id).scalar()
         return result if result is not None else None
 
     def is_reviewed_by(self, user):

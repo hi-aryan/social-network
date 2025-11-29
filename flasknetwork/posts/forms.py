@@ -93,15 +93,13 @@ class PostForm(FlaskForm):
     year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)])
     
     # Rating categories (all required, 1-5 scale)
-    rating = RadioField('Overall Rating', coerce=int, 
-                        choices=RATING_CHOICES, validators=[DataRequired()])
-    rating_professor = RadioField('Professor', coerce=int, 
+    rating_professor = RadioField('Professor', coerce=int,
                                   choices=RATING_CHOICES, validators=[DataRequired()])
-    rating_material = RadioField('Material & Interestingness', coerce=int, 
+    rating_material = RadioField('Material & Interestingness', coerce=int,
                                  choices=RATING_CHOICES, validators=[DataRequired()])
-    rating_workload = RadioField('Workload', coerce=int, 
+    rating_workload = RadioField('Workload', coerce=int,
                                  choices=RATING_CHOICES, validators=[DataRequired()])
-    rating_peers = RadioField('Peers & Community', coerce=int, 
+    rating_peers = RadioField('Peers', coerce=int,
                               choices=RATING_CHOICES, validators=[DataRequired()])
     
     # Single general comment (optional)

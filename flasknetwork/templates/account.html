@@ -5,8 +5,8 @@
             <img class="account-img" src="{{ image_file }}" id="profile-preview">
             <div>
                 <h2 class="account-heading">{{ current_user.username }}</h2>
-                <p class="text-theme-secondary">{{ current_user.email }}</p>
-                <p class="text-theme-secondary">Program: {{ current_user.program.name }} ({{ current_user.program.program_type.title() }})</p>
+                <p class="text-theme-primary">{{ current_user.email }}</p>
+                <p class="text-theme-primary">Program: {{ current_user.program.name }} ({{ current_user.program.program_type.title() }})</p>
             </div>
         </div>
         <form method="POST" action="" autocomplete="off">

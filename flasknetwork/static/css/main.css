@@ -335,7 +335,7 @@ body .btn-outline-primary:active {
 }
 
 /* Utilities */
-.text-theme-secondary {
+.text-theme-primary {
     color: var(--twilight-indigo);
     opacity: 0.7;
 }
@@ -524,11 +524,6 @@ body .btn-outline-primary:active {
   transform: translateY(2px);
 }
 
-.rating-box:hover .star {
-  color: var(--burnt-peach);
-  opacity: 1;
-}
-
 .rating-box .star {
   font-size: 1.5rem;
   color: var(--twilight-indigo);
@@ -544,15 +539,25 @@ body .btn-outline-primary:active {
   color: var(--twilight-indigo);
 }
 
-/* Checked state */
-.rating-group .form-check-input:checked + .rating-box {
-  background-color: var(--twilight-indigo);
-  border-color: var(--twilight-indigo);
-}
-
 .rating-group .form-check-input:checked + .rating-box .star {
   color: var(--burnt-peach);
   opacity: 1;
+}
+
+.rating-group .rating-box.rating-overall {
+  /* Computed overall rating styling */
+  background-color: var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
+}
+
+.rating-group .rating-box.rating-overall .star {
+  color: var(--burnt-peach);
+  opacity: 1;
+}
+
+.rating-group .rating-box.rating-overall .rating-number {
+  color: var(--twilight-indigo);
+  font-weight: bold;
 }
 
 /* Modal Content Override */

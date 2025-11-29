@@ -60,7 +60,7 @@
                 <div class="mb-4">
                     <div class="form-label fw-bold mb-2">
                         {{ form.rating_material.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Super boring, 5 = Very interesting"></i>
+                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Boring course, 5 = Very interesting"></i>
                     </div>
                     <div class="rating-group">
                         {% for sub in form.rating_material %}
@@ -82,7 +82,7 @@
                 <div class="mb-4">
                     <div class="form-label fw-bold mb-2">
                         {{ form.rating_workload.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Very heavy, 5 = Very light"></i>
+                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Light, 5 = Heavy"></i>
                     </div>
                     <div class="rating-group">
                         {% for sub in form.rating_workload %}
@@ -104,7 +104,7 @@
                 <div class="mb-4">
                     <div class="form-label fw-bold mb-2">
                         {{ form.rating_peers.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = No community, 5 = Great classmates"></i>
+                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not my usual crowd, 5 = Great classmates"></i>
                     </div>
                     <div class="rating-group">
                         {% for sub in form.rating_peers %}
@@ -122,26 +122,16 @@
                     {% endif %}
                 </div>
 
-                <!-- Overall Rating -->
+                <!-- Overall Rating (computed, not selectable) -->
                 <div class="mb-4">
                     <div class="form-label fw-bold mb-2">
-                        {{ form.rating.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="Your overall impression of the course"></i>
+                        Overall Rating
+                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="Automatically calculated from your other ratings"></i>
                     </div>
-                    <div class="rating-group">
-                        {% for sub in form.rating %}
-                            {{ sub(class="form-check-input") }}
-                            <label for="{{ sub.id }}" class="rating-box">
-                                <span class="star">&#9733;</span>
-                                <div class="rating-number mt-3">{{ sub.label.text }}</div>
-                            </label>
-                        {% endfor %}
+                    <div class="rating-group" id="overall-rating-display">
+                        <!-- This will be populated by JavaScript -->
+                        <div class="text-muted small">Select the other ratings above to see your overall rating</div>
                     </div>
-                    {% if form.rating.errors %}
-                        <div class="text-danger mt-2">
-                            {% for e in form.rating.errors %}{{ e }}{% endfor %}
-                        </div>
-                    {% endif %}
                 </div>
 
                 <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
@@ -168,7 +158,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.title(class="form-control form-control-lg", placeholder="Displayed in the main feed. Make it memorable!") }}
+                        {{ form.title(class="form-control form-control-lg", placeholder="Displayed in the feed. Make it memorable!") }}
                     {% endif %}
                 </div>
 
@@ -204,5 +194,43 @@
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
         new bootstrap.Tooltip(el);
     });
+
+    // Function to calculate and display overall rating
+    function updateOverallRating() {
+        const prof = document.querySelector('input[name="rating_professor"]:checked');
+        const material = document.querySelector('input[name="rating_material"]:checked');
+        const workload = document.querySelector('input[name="rating_workload"]:checked');
+        const peers = document.querySelector('input[name="rating_peers"]:checked');
+
+        const overallDisplay = document.getElementById('overall-rating-display');
+
+        if (prof && material && workload && peers) {
+            const profVal = parseInt(prof.value);
+            const materialVal = parseInt(material.value);
+            const workloadVal = parseInt(workload.value);
+            const peersVal = parseInt(peers.value);
+
+            const overall = Math.round((profVal + materialVal + workloadVal + peersVal) / 4);
+
+            overallDisplay.innerHTML = `
+                <div class="rating-group">
+                    <div class="rating-box rating-overall">
+                        <span class="star">&#9733;</span>
+                        <div class="rating-number mt-3">${overall}/5</div>
+                    </div>
+                </div>
+            `;
+        } else {
+            overallDisplay.innerHTML = '<div class="text-muted small">Select all other ratings to see your overall rating</div>';
+        }
+    }
+
+    // Add event listeners to rating inputs
+    document.querySelectorAll('input[name^="rating_"]').forEach(input => {
+        input.addEventListener('change', updateOverallRating);
+    });
+
+    // Initial check in case form is pre-populated (for editing)
+    document.addEventListener('DOMContentLoaded', updateOverallRating);
 </script>
 {% endblock scripts %}

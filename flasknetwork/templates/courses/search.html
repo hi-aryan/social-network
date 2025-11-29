@@ -6,7 +6,7 @@
         <div class="content-section">
             <div class="text-center mb-4">
                 <h2 class="article-title mb-2">Search Courses</h2>
-                <p class="text-theme-secondary">Read reviews from fellow students</p>
+                <p class="text-theme-primary">Read reviews from fellow students</p>
             </div>
             <!-- Search Form -->
             <div class="mb-4">
@@ -16,16 +16,16 @@
                        placeholder="Search by course name or code"
                        autocomplete="off">
                 <div class="form-text mt-2">
-                    <small class="text-theme-secondary">Enter at least 2 characters to search</small>
+                    <small class="text-theme-primary">Enter at least 2 characters to search</small>
                 </div>
             </div>
             
             <!-- Loading Indicator -->
             <div id="loadingIndicator" class="text-center d-none">
-                <div class="spinner-border text-theme-secondary" role="status">
+                <div class="spinner-border text-theme-primary" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                <p class="mt-2 text-theme-secondary">Searching courses...</p>
+                <p class="mt-2 text-theme-primary">Searching courses...</p>
             </div>
             
             <!-- Error Message -->
@@ -35,7 +35,7 @@
             
             <!-- Search Results -->
             <div id="searchResults">
-                <div id="noResults" class="text-center text-theme-secondary d-none">
+                <div id="noResults" class="text-center text-theme-primary d-none">
                     <i class="fas fa-search fa-3x mb-3"></i>
                     <h5>No courses found</h5>
                     <p>Try adjusting your search terms</p>
@@ -44,13 +44,13 @@
                 <div id="resultsContainer" class="d-none">
                     <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
                         <h5 id="resultsCount" class="mb-0"></h5>
-                        <small class="text-theme-secondary" id="searchQuery"></small>
+                        <small class="text-theme-primary" id="searchQuery"></small>
                     </div>
                     <div id="coursesList"></div>
                 </div>
             </div>
             
-            <div id="initialHelp" class="text-center text-theme-secondary">
+            <div id="initialHelp" class="text-center text-theme-primary">
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                         <span class="course-name"></span>
                     </h5>
                     <p class="card-text mb-0">
-                        <small class="text-theme-secondary">
+                        <small class="text-theme-primary">
                             <i class="fas fa-star me-1"></i>
                             <span class="review-count"></span>
                         </small>

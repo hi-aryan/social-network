@@ -11,7 +11,7 @@
                 <div class="d-flex align-items-center">
                     <img class="review-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="{{ post.author.username }}'s profile picture">
                     <a class="me-2 author-link" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-                    <small class="text-theme-secondary">{{ post.date_posted.strftime('%b %d, %Y') }}</small>
+                    <small class="text-theme-primary">{{ post.date_posted.strftime('%b %d, %Y') }}</small>
                 </div>
 
                 {% if post.author == current_user %}
