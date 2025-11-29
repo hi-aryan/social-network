@@ -176,13 +176,18 @@
                 </div>
 
             </fieldset>
-            
+
             <div>
-                {% if legend.startswith('Update') %}
-                    <button type="submit" class="btn btn-primary">Update</button>
-                {% else %}
-                    {{ form.submit(class="btn btn-primary") }}
-                {% endif %}
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <span class="spinner-border spinner-border-sm d-none me-2" id="submitSpinner" role="status" aria-hidden="true"></span>
+                    <span id="submitText">
+                        {% if legend.startswith('Update') %}
+                            Update Review
+                        {% else %}
+                            Create Review
+                        {% endif %}
+                    </span>
+                </button>
             </div>
         </form>
     </div>
@@ -193,6 +198,34 @@
     // Initialize Bootstrap tooltips
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
         new bootstrap.Tooltip(el);
+    });
+
+    // Handle form submission loading state
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('submitBtn');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const submitText = document.getElementById('submitText');
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitSpinner.classList.remove('d-none');
+        submitText.textContent = 'Submitting...';
+
+        // Re-enable after a short delay if validation fails (form doesn't actually submit)
+        // This handles client-side validation failures
+        setTimeout(() => {
+            if (!e.target.checkValidity() || e.defaultPrevented) {
+                submitBtn.disabled = false;
+                submitSpinner.classList.add('d-none');
+                submitText.textContent = submitText.textContent.replace('Submitting...', submitBtn.dataset.originalText || 'Create Review');
+            }
+        }, 100);
+    });
+
+    // Store original button text for validation failure recovery
+    document.addEventListener('DOMContentLoaded', function() {
+        const submitText = document.getElementById('submitText');
+        submitText.dataset.originalText = submitText.textContent.trim();
     });
 
     // Function to calculate and display overall rating
