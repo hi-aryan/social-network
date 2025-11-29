@@ -560,6 +560,17 @@ body .btn-outline-primary:active {
   font-weight: bold;
 }
 
+/* Rating info container - positioned icon in top right */
+.rating-info-container {
+  position: relative;
+}
+
+.rating-info-icon {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
 /* Modal Content Override */
 .modal-content {
     background-color: var(--eggshell);
