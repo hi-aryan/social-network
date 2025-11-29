@@ -11,9 +11,9 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()], 
                         render_kw={'placeholder': 'email@kth.se (your email won\'t be displayed publicly, only your username)'})
     password = PasswordField('', validators=[DataRequired(), Length(min=6, max=30)],
-                        render_kw={'placeholder': 'Password'})
+                        render_kw={'placeholder': 'password'})
     confirm_password = PasswordField('', validators=[DataRequired(), EqualTo('password')],
-                                render_kw={'placeholder': 'Confirm Password'})
+                                render_kw={'placeholder': 'confirm password'})
     program = SelectField('Program', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
@@ -41,7 +41,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()], 
                         render_kw={'placeholder': 'email@kth.se'})
     password = PasswordField('', validators=[DataRequired()],
-                        render_kw={'placeholder': 'Password'})
+                        render_kw={'placeholder': 'password'})
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
@@ -93,9 +93,9 @@ class RequestResetForm(FlaskForm):
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('', validators=[DataRequired(), Length(min=6, max=30)],
-                        render_kw={'placeholder': 'Password'})
+                        render_kw={'placeholder': 'password'})
     confirm_password = PasswordField('', validators=[DataRequired(), EqualTo('password')],
-                                render_kw={'placeholder': 'Confirm Password'})
+                                render_kw={'placeholder': 'confirm password'})
     submit = SubmitField('Reset Password')
 
 

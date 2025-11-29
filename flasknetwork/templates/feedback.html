@@ -4,9 +4,8 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-4">Feedback</legend>
-                <p class="text-theme-primary mb-4">I'd love to hear your thoughts, suggestions, or bug reports!</p>
-                <div class="mb-4">
+                <legend class="mb-2">Feedback</legend>
+                <div class="mb-2">
                     {% if form.message.errors %}
                         {{ form.message(class="form-control is-invalid") }}
                         <div class="invalid-feedback">

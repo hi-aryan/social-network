@@ -139,7 +139,7 @@
                 <!-- Content/Comment Section -->
                 <div class="mb-4">
                     {{ form.content.label(class="form-label fw-bold") }}
-                    {{ form.content(class="form-control mt-2", rows="6", placeholder="Share what you liked, what was challenging, gossip about the professor, or advice for future students. Be as serious, unserious or detailed as you wish :)") }}
+                    {{ form.content(class="form-control mt-2", rows="6", placeholder="share what you liked, what was challenging, gossip about the professor, or advice for future students. be as serious, unserious or detailed as you wish :)") }}
                     {% if form.content.errors %}
                         <div class="invalid-feedback">
                             {% for e in form.content.errors %}{{ e }}{% endfor %}
@@ -158,7 +158,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.title(class="form-control form-control-lg", placeholder="Displayed in the feed. Make it memorable!") }}
+                        {{ form.title(class="form-control form-control-lg", placeholder="displayed in the feed. make it memorable!") }}
                     {% endif %}
                 </div>
 

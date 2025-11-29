@@ -9,7 +9,7 @@ services:
         generateValue: true
       - key: DATABASE_URL
         fromDatabase:
-          name: ratekth-db
+          name: ratekth_db
           property: connectionString
       - key: FLASK_EMAIL_USER
         sync: false
@@ -19,6 +19,6 @@ services:
         value: 3.11.0
 
 databases:
-  - name: ratekth-db
+  - name: ratekth_db
     plan: free
 

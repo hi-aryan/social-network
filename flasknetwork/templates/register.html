@@ -8,9 +8,9 @@
                 <div class="mb-4">
                     <div class="input-group">
                         {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid", id="username-field", placeholder="Username") }}
+                            {{ form.username(class="form-control form-control-lg is-invalid", id="username-field", placeholder="username") }}
                         {% else %}
-                            {{ form.username(class="form-control form-control-lg", id="username-field", placeholder="Username") }}
+                            {{ form.username(class="form-control form-control-lg", id="username-field", placeholder="username") }}
                         {% endif %}
                         <button type="button" class="btn btn-outline-primary" id="roll-username-btn" data-bs-toggle="tooltip" title="Click the dice for a random username, or type your own">
                             🎲
