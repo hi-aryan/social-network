@@ -4,7 +4,7 @@
         <form method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             <fieldset class="mb-3">
-                <legend class="border-bottom mb-5 text-shadow">Sign In</legend> 
+                <legend class="border-bottom mb-4">Sign In</legend> 
                 <div class="mb-4">
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -44,7 +44,7 @@
                 {% if request.args.get('show_verification') == 'true' %}
                 <small class="text-theme-primary ms-2">
                     <a href="{{ url_for('users.request_verification') }}">
-                        Didn't get the verification email? (-_-)
+                        Didn't get the verification email?
                     </a>
                 </small>
                 {% endif %}
