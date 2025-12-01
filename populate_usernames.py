@@ -14,20 +14,20 @@ def create_username_pool(limit=None):
     
     # Reddit-style username components
     adjectives = [
-        'Awesome', 'Crazy', 'Clever', 'Daring', 'Epic', 'Fantastic', 'Glorious', 'Happy',
-        'Incredible', 'Jolly', 'Kind', 'Lucky', 'Mysterious', 'Noble', 'Outstanding', 'Peaceful',
-        'Quirky', 'Radiant', 'Stellar', 'Tremendous', 'Ultimate', 'Vibrant', 'Wonderful', 
-        'Ancient', 'Bold', 'Cosmic', 'Divine', 'Electric', 'Fierce', 'Golden', 'Hidden',
-        'Infinite', 'Majestic', 'Nimble', 'Organic', 'Pristine',
+        'Awesome', 'Crazy', 'Clever', 'Daring', 'Epic', 'Glorious', 'Happy',
+        'Mysterious', 'Noble', 'Outstanding', 'Peaceful',
+        'Quirky', 'Radiant', 'Vibrant', 'Wonderful', 
+        'Ancient', 'Bold', 'Cosmic', 'Divine', 'Electric', 'Golden',
+        'Majestic', 'Nimble', 'Organic', 'Pristine',
         'Quantum', 'Royal', 'Sacred', 'Timeless', 'Unique', 'Wild'
     ]
     
     nouns = [
-        'Panda', 'Student', 'Dragon', 'Phoenix', 'Tiger', 'Eagle', 'Wolf', 'Bear', 'Lion',
+        'Panda', 'Student', 'Dragon', 'Tiger', 'Eagle', 'Wolf', 'Bear', 'Lion',
         'Falcon', 'Shark', 'Dolphin', 'Owl', 'Fox', 'Raven', 'Hawk',
-        'Penguin', 'Koala', 'Octopus', 'Wizard', 'Ninja', 'Scholar', 'Artist', 'Explorer',
-        'Coder', 'Hacker', 'Gamer', 'Dreamer', 'Thinker', 'Creator', 'Builder', 'Seeker',
-        'Storm', 'Thunder', 'Lightning', 'Comet', 'Galaxy', 'Nebula', 'Meteor', 'Aurora'
+        'Penguin', 'Koala', 'Octopus', 'Wizard', 'Ninja', 'Artist', 'Explorer',
+        'Coder', 'Hacker', 'Gamer', 'Dreamer', 'Thinker', 'Builder', 'Seeker',
+        'Comet'
     ]
     # TODO: add "Reviewer" and such words
     

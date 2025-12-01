@@ -18,15 +18,22 @@
                     {% endif %}
                 </div>
                 <div class="mb-4">
+                    <div class="input-group">
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-lg is-invalid", id="password-field") }}
+                        {% else %}
+                            {{ form.password(class="form-control form-control-lg", id="password-field") }}
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" id="toggle-password-btn" aria-label="Show password">
+                            <i class="fas fa-eye" id="password-icon"></i>
+                        </button>
+                    </div>
                     {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.password.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-check mb-3">
@@ -54,4 +61,24 @@
     <div class="border-top pt-3 mb-3">
         <small class="text-theme-primary">Don't have an account? <a class="ms-2" href="{{ url_for('users.register') }}">Register Now</a></small> <!-- 'login' refers to the login() FUNCTION -->
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordField = document.getElementById('password-field');
+        const toggleBtn = document.getElementById('toggle-password-btn');
+        const passwordIcon = document.getElementById('password-icon');
+        
+        toggleBtn.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            }
+        });
+    });
+    </script>
 {% endblock content %}

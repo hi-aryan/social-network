@@ -24,7 +24,7 @@ def get_available_profile_pictures():
             for filename in sorted(os.listdir(profile_pics_dir)):
                 if any(filename.lower().endswith(ext) for ext in allowed_extensions):
                     # Create display name by removing extension and formatting
-                    display_name = os.path.splitext(filename)[0].replace('_', ' ').title()
+                    display_name = os.path.splitext(filename)[0].replace('_', ' ')
                     picture_choices.append((filename, display_name))
         
         # Ensure we always have at least a default option

@@ -182,6 +182,11 @@ body .btn-outline-primary:active {
     box-shadow: none;
 }
 
+/* Form input-group buttons - no transform on hover */
+.input-group .btn-outline-primary:hover {
+    transform: none;
+}
+
 /* Disabled Buttons */
 body .btn:disabled,
 body .btn.disabled {

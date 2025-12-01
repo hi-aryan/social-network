@@ -52,28 +52,42 @@
                 </div>
                 
                 <div class="mb-4">
+                    <div class="input-group">
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-lg is-invalid", id="password-field") }}
+                        {% else %}
+                            {{ form.password(class="form-control form-control-lg", id="password-field") }}
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" id="toggle-password-btn" aria-label="Show password">
+                            <i class="fas fa-eye" id="password-icon"></i>
+                        </button>
+                    </div>
                     {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.password.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 
                 <div class="mb-4">
+                    <div class="input-group">
+                        {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="form-control form-control-lg is-invalid", id="confirm-password-field") }}
+                        {% else %}
+                            {{ form.confirm_password(class="form-control form-control-lg", id="confirm-password-field") }}
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" id="toggle-confirm-password-btn" aria-label="Show password">
+                            <i class="fas fa-eye" id="confirm-password-icon"></i>
+                        </button>
+                    </div>
                     {% if form.confirm_password.errors %}
-                        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.confirm_password.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.confirm_password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>
@@ -93,6 +107,7 @@
             new bootstrap.Tooltip(el);
         });
 
+        // Username roll functionality
         const rollBtn = document.getElementById('roll-username-btn');
         const usernameField = document.getElementById('username-field');
         
@@ -118,6 +133,31 @@
                 rollBtn.disabled = false;
             }
         });
+
+        // Password visibility toggle functionality
+        function setupPasswordToggle(passwordFieldId, toggleBtnId, iconId) {
+            const passwordField = document.getElementById(passwordFieldId);
+            const toggleBtn = document.getElementById(toggleBtnId);
+            const passwordIcon = document.getElementById(iconId);
+            
+            if (passwordField && toggleBtn && passwordIcon) {
+                toggleBtn.addEventListener('click', function() {
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        passwordIcon.classList.remove('fa-eye');
+                        passwordIcon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordField.type = 'password';
+                        passwordIcon.classList.remove('fa-eye-slash');
+                        passwordIcon.classList.add('fa-eye');
+                    }
+                });
+            }
+        }
+
+        // Setup toggles for both password fields
+        setupPasswordToggle('password-field', 'toggle-password-btn', 'password-icon');
+        setupPasswordToggle('confirm-password-field', 'toggle-confirm-password-btn', 'confirm-password-icon');
     });
     </script>
 {% endblock content %}

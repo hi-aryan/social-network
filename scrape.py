@@ -14,8 +14,8 @@ from bs4 import BeautifulSoup
 import time
 
 driver = webdriver.Chrome()
-#driver.get("https://www.kth.se/student/kurser/program/TCOMK/20252/arskurs1?l=en") # added to prod db
-#driver.get("https://www.kth.se/student/kurser/program/CTKEM/20252/arskurs1?l=en")
+#driver.get("https://www.kth.se/student/kurser/program/TCOMK/20252/arskurs1?l=en") # added to prod db (only åk1)
+#driver.get("https://www.kth.se/student/kurser/program/CTKEM/20252/arskurs1?l=en") # added to prod db (only åk1)
 #driver.get("https://www.kth.se/student/kurser/program/CDATE/20252/arskurs1?l=en")
 # all of the above are done ^
 
