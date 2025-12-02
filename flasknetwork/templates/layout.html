@@ -48,21 +48,21 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav ms-auto">
                         {% if request.endpoint not in ['main.home', 'users.user_posts'] %}
-                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('main.home') }}">Home</a>
+                            <a class="btn btn-sm btn-secondary nav-action-btn" href="{{ url_for('main.home') }}">Home</a>
                         {% endif %}
                         <!-- Mobile Search Link -->
-                        <a class="btn btn-secondary mb-2 d-md-none w-100" href="{{ url_for('courses.search') }}">Search</a>
+                        <a class="btn btn-sm btn-secondary mb-2 d-md-none w-100" href="{{ url_for('courses.search') }}">Search</a>
 
                         {% if current_user.is_authenticated %}
                             {% if request.endpoint not in ['posts.new_post', 'posts.update_post'] %}
-                                <a class="btn btn-primary nav-action-btn" href="{{ url_for('posts.new_post') }}">
+                                <a class="btn btn-sm btn-primary nav-action-btn" href="{{ url_for('posts.new_post') }}">
                                     <i class="fas fa-edit"></i> New Review
                                 </a>
                             {% endif %}
-                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('users.account') }}">Account</a>
+                            <a class="btn btn-sm btn-secondary nav-action-btn" href="{{ url_for('users.account') }}">Account</a>
                         {% else %}
-                            <a class="btn btn-primary nav-action-btn" href="{{ url_for('users.login') }}">Login</a>
-                            <a class="btn btn-secondary nav-action-btn" href="{{ url_for('users.register') }}">Register</a>
+                            <a class="btn btn-sm btn-primary nav-action-btn" href="{{ url_for('users.login') }}">Login</a>
+                            <a class="btn btn-sm btn-secondary nav-action-btn" href="{{ url_for('users.register') }}">Register</a>
                         {% endif %}
                     </div>
                 </div>
