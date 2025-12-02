@@ -197,6 +197,13 @@ body .btn.disabled {
     cursor: not-allowed;
 }
 
+body .btn-dimmed {
+  opacity: 0.6;
+}
+body .btn-dimmed:hover {
+  opacity: 1;
+}
+
 /* Cards / Content Sections */
 .content-section {
   background-color: var(--eggshell);
@@ -361,7 +368,7 @@ body .btn.disabled {
 /* Utilities */
 .text-theme-primary {
     color: var(--twilight-indigo);
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 
