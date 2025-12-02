@@ -360,11 +360,43 @@ body .btn-dimmed:hover {
         width: 100%;
     }
     
-    /* Smaller Full Review buttons on mobile */
-    body .btn.btn-sm.btn-outline-primary {
-        font-weight: 500;
-        padding: 6px 14px;
-        font-size: 0.75rem;
+    /* Make entire post clickable on mobile */
+    .post-section {
+        position: relative;
+    }
+    
+    .post-section .post-link-mobile {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        border: none;
+        background: transparent;
+        padding: 0;
+    }
+    
+    .post-section .post-link-mobile .d-md-none {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        line-height: 1;
+    }
+    
+    /* Ensure course badge doesn't collide with ">" indicator */
+    .post-section .badge-course {
+        margin-right: 2rem;
+    }
+    
+    /* Allow nested links to work */
+    .post-section .article-title,
+    .post-section .author-link,
+    .post-section .badge-course {
+        position: relative;
+        z-index: 2;
     }
 }
 
