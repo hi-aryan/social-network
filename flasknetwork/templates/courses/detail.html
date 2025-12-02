@@ -7,7 +7,7 @@
         <!-- Course Header -->
         <div class="content-section mb-4 rating-info-container">
             {% if reviews.items %}
-                <i class="fas fa-info-circle info-tooltip rating-info-icon" data-bs-toggle="tooltip" title="Average of all ratings (professor, material, workload, peers) across all reviews"></i>
+                <i class="fas fa-info-circle info-tooltip rating-info-icon" data-bs-toggle="tooltip" title="Average of professor, material, and peers ratings across all reviews"></i>
             {% endif %}
             
             <div class="d-flex justify-content-between align-items-start">
@@ -80,7 +80,7 @@
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         <span class="badge" title="Professor"><i class="fas fa-user-tie"></i> {{ review.rating_professor }}/5</span>
                         <span class="badge" title="Material"><i class="fas fa-book"></i> {{ review.rating_material }}/5</span>
-                        <span class="badge" title="Workload"><i class="fas fa-tasks"></i> {{ review.rating_workload }}/5</span>
+                        <span class="badge workload-badge workload-{{ review.workload_display|lower }}" title="Workload"><i class="fas fa-tasks"></i> {{ review.workload_display }}</span>
                         <span class="badge" title="Peers"><i class="fas fa-users"></i> {{ review.rating_peers }}/5</span>
                     </div>
                     

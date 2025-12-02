@@ -4,6 +4,19 @@ from flask import current_app
 from datetime import datetime
 from flask_login import UserMixin # 4 default methods for user authentication
 import random
+import enum
+
+
+class WorkloadLevel(enum.Enum):
+    """Enum for workload levels in course reviews."""
+    light = 'light'
+    medium = 'medium'
+    heavy = 'heavy'
+    
+    @classmethod
+    def choices(cls):
+        """Returns list of (value, label) tuples for form fields."""
+        return [(level.value, level.value.capitalize()) for level in cls]
 
 # the extension has to know how to find/load a user from the user ID stored in the session
 # @login_manager.user_loader is the decorator so Flask-Login recognizes the function
@@ -79,11 +92,11 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     year_taken = db.Column(db.Integer, nullable=False)
     
-    # Rating categories (all 1-5 scale)
-    # Note: overall rating is computed via @property, not stored
+    # Rating categories (professor, material, peers: 1-5 scale; workload: enum)
+    # Note: overall rating is computed via @property from professor, material, peers only
     rating_professor = db.Column(db.Integer, nullable=False)    # Professor quality
     rating_material = db.Column(db.Integer, nullable=False)     # Material & interestingness
-    rating_workload = db.Column(db.Integer, nullable=False)     # Workload (1=light, 5=heavy)
+    rating_workload = db.Column(db.Enum(WorkloadLevel), nullable=False)  # Workload level
     rating_peers = db.Column(db.Integer, nullable=False)        # Students/peers experience
     
     # Single general comment field
@@ -99,11 +112,12 @@ class Post(db.Model):
     @property
     def rating(self):
         """
-        Computed overall rating as the average of the other 4 ratings.
+        Computed overall rating as the average of professor, material, and peers ratings.
+        Excludes workload since it's a categorical enum, not a numeric scale.
         Returns rounded integer (1-5 scale).
         """
-        if all([self.rating_professor, self.rating_material, self.rating_workload, self.rating_peers]):
-            avg = (self.rating_professor + self.rating_material + self.rating_workload + self.rating_peers) / 4
+        if all([self.rating_professor, self.rating_material, self.rating_peers]):
+            avg = (self.rating_professor + self.rating_material + self.rating_peers) / 3
             return round(avg)
         return None
     
@@ -115,17 +129,19 @@ class Post(db.Model):
         """
         pass  # Rating is computed, not stored
 
+    @property
+    def workload_display(self):
+        """Returns the workload level as a display-friendly string (e.g., 'Light', 'Medium', 'Heavy')."""
+        if self.rating_workload:
+            return self.rating_workload.value.capitalize()
+        return None
 
-    def get_ratings_summary(self):
-        """
-        Returns a list of (label, value) tuples for all rating categories.
-        Used for displaying ratings in templates.
-        """
+    def get_star_ratings(self):
+        """Returns list of (label, value) tuples for numeric star ratings only."""
         return [
             ("Overall", self.rating),
             ("Professor", self.rating_professor),
             ("Material", self.rating_material),
-            ("Workload", self.rating_workload),
             ("Peers", self.rating_peers),
         ]
 
@@ -232,15 +248,15 @@ class Course(db.Model):
     def get_average_rating(self):
         """
         Calculate the average overall rating for this course.
-        Computes from the 4 rating categories (professor, material, workload, peers).
+        Computes from 3 rating categories (professor, material, peers).
+        Excludes workload since it's a categorical enum, not a numeric scale.
         
         Returns:
             float: Average rating, or None if no reviews exist
         """
         result = db.session.query(
             db.func.avg(
-                (Post.rating_professor + Post.rating_material + 
-                 Post.rating_workload + Post.rating_peers) / 4.0
+                (Post.rating_professor + Post.rating_material + Post.rating_peers) / 3.0
             )
         ).filter_by(course_id=self.id).scalar()
         return result if result is not None else None

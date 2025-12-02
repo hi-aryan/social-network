@@ -1,7 +1,7 @@
 from flask import (render_template, url_for, flash, redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flasknetwork import db
-from flasknetwork.models import Post
+from flasknetwork.models import Post, WorkloadLevel
 from flasknetwork.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
@@ -24,10 +24,10 @@ def new_post():
                 author=current_user,
                 course_id=form.course.data,
                 year_taken=form.year_taken.data,
-                # rating is now computed from the other ratings
+                # rating is computed from professor, material, and peers ratings
                 rating_professor=form.rating_professor.data,
                 rating_material=form.rating_material.data,
-                rating_workload=form.rating_workload.data,
+                rating_workload=WorkloadLevel(form.rating_workload.data),
                 rating_peers=form.rating_peers.data,
                 content=form.content.data.strip() if form.content.data else None
             )
@@ -75,10 +75,10 @@ def update_post(post_id):
             post.course_id = form.course.data
             post.title = form.title.data
             post.year_taken = form.year_taken.data
-            # rating is computed from other ratings
+            # rating is computed from professor, material, and peers ratings
             post.rating_professor = form.rating_professor.data
             post.rating_material = form.rating_material.data
-            post.rating_workload = form.rating_workload.data
+            post.rating_workload = WorkloadLevel(form.rating_workload.data)
             post.rating_peers = form.rating_peers.data
             post.content = form.content.data.strip() if form.content.data else None
             db.session.commit()
@@ -91,7 +91,7 @@ def update_post(post_id):
         # rating is computed, no need to set form.rating.data
         form.rating_professor.data = post.rating_professor
         form.rating_material.data = post.rating_material
-        form.rating_workload.data = post.rating_workload
+        form.rating_workload.data = post.rating_workload.value if post.rating_workload else None
         form.rating_peers.data = post.rating_peers
         form.content.data = post.content
 

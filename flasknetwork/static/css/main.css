@@ -5,7 +5,7 @@
   --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */
   --twilight-indigo: #3D405B;
   --muted-teal: #9ac7b1; /* #9ac7b1, originally 81B29A */
-  --border-radius: 10px;
+  --border-radius: 8px;
   --border-width: 2px; /* Main border width for buttons, content sections, forms, etc. */
   --border-width-thin: 1px; /* Thinner border width for badges, small images, etc. */
 }
@@ -558,9 +558,19 @@ body .btn.disabled {
 }
 
 .rating-box .rating-number {
-  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  text-align: center;
   font-size: 0.8rem;
   color: var(--twilight-indigo);
+  margin-top: 0.1rem;
+  transition: transform 0.1s ease;
+}
+
+.rating-box:hover .rating-number {
+  transform: translateY(-2px);
 }
 
 .rating-group .form-check-input:checked + .rating-box .star {
@@ -607,6 +617,29 @@ body .btn.disabled {
   border-radius: var(--border-radius);
   background: var(--eggshell);
   padding: 0.5rem;
+}
+
+/* Workload Text Badges (for display in post detail/course pages) */
+.workload-badge {
+  font-weight: 500;
+}
+
+.workload-badge.workload-light {
+  background-color: var(--muted-teal);
+  color: var(--eggshell);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
+}
+
+.workload-badge.workload-medium {
+  background-color: rgba(154, 199, 177, 0.4);
+  color: var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
+}
+
+.workload-badge.workload-heavy {
+  background-color: var(--burnt-peach);
+  color: var(--twilight-indigo);
+  border: var(--border-width-thin) solid var(--twilight-indigo);
 }
 
 /* Post settings dropdown */

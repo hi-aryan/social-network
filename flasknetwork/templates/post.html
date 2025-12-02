@@ -48,7 +48,7 @@
             <div class="mb-4">
                 <h5 class="fw-bold mb-3">Ratings</h5>
                 <div class="row g-3">
-                    {% for label, value in post.get_ratings_summary() %}
+                    {% for label, value in post.get_star_ratings() %}
                         <div class="col-6 col-md-4">
                             <div class="rating-card">
                                 <span class="fw-bold small d-block text-center mb-1">{{ label }}</span>
@@ -64,6 +64,15 @@
                             </div>
                         </div>
                     {% endfor %}
+                    <!-- Workload (displayed as text badge) -->
+                    <div class="col-6 col-md-4">
+                        <div class="rating-card">
+                            <span class="fw-bold small d-block text-center mb-1">Workload</span>
+                            <span class="badge workload-badge workload-{{ post.workload_display|lower }} d-block text-center">
+                                {{ post.workload_display }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             

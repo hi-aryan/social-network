@@ -3,11 +3,11 @@ from wtforms import StringField, TextAreaField, SubmitField, SelectField, Intege
 from wtforms.validators import DataRequired, Length, NumberRange, ValidationError, Optional
 from wtforms.widgets import Select as BaseSelectWidget, html_params
 from markupsafe import escape, Markup
-from flasknetwork.models import Course_Program, Post
+from flasknetwork.models import Course_Program, Post, WorkloadLevel
 from flask_login import current_user
 
 
-# Rating choices used across all rating fields (1-5 scale)
+# Rating choices used across numeric rating fields (1-5 scale)
 RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
 
@@ -92,13 +92,13 @@ class PostForm(FlaskForm):
     title = StringField('Review Title', validators=[DataRequired(), Length(max=100)])
     year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)])
     
-    # Rating categories (all required, 1-5 scale)
+    # Rating categories (professor, material, peers: 1-5 scale; workload: categorical)
     rating_professor = RadioField('Professor', coerce=int,
                                   choices=RATING_CHOICES, validators=[DataRequired()])
     rating_material = RadioField('Material & Interestingness', coerce=int,
                                  choices=RATING_CHOICES, validators=[DataRequired()])
-    rating_workload = RadioField('Workload', coerce=int,
-                                 choices=RATING_CHOICES, validators=[DataRequired()])
+    rating_workload = RadioField('Workload', coerce=str,
+                                 choices=WorkloadLevel.choices(), validators=[DataRequired()])
     rating_peers = RadioField('Peers', coerce=int,
                               choices=RATING_CHOICES, validators=[DataRequired()])
     
