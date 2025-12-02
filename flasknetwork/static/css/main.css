@@ -339,15 +339,11 @@ body .btn-dimmed:hover {
         padding: 15px;
     }
     
-    /* Navbar Stack Fix */
-    .navbar-collapse {
-        background-color: var(--eggshell);
-        padding: 1rem;
-        margin-top: 10px;
-        border-radius: var(--border-radius);
+    /* Navbar buttons: full width when collapsed */
+    .navbar-collapse .navbar-nav {
+        padding-top: 1rem;
     }
     
-    /* Navbar buttons: full width when collapsed */
     .nav-action-btn {
         width: 100%;
         margin-bottom: 0.5rem;
@@ -398,8 +394,8 @@ body .btn-dimmed:hover {
     line-height: 1.4;
     text-decoration: none;
     transition: border-color 0.2s ease, color 0.2s ease;
+    opacity: 0.6;
 }
-
 .badge-course:hover {
     color: var(--burnt-peach);
     border-color: var(--burnt-peach);

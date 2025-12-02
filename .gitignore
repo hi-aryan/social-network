@@ -43,3 +43,5 @@ process.md
 .pytest_cache/
 .coverage
 htmlcov/
+
+.cursor/
