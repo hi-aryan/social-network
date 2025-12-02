@@ -363,6 +363,13 @@ body .btn-dimmed:hover {
     .account-page-actions .btn {
         width: 100%;
     }
+    
+    /* Smaller Full Review buttons on mobile */
+    body .btn.btn-sm.btn-outline-primary {
+        font-weight: 500;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+    }
 }
 
 /* Utilities */
