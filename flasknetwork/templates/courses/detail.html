@@ -76,7 +76,7 @@
                     </h4>
                     
                     <!-- Ratings Summary -->
-                    <div class="d-flex flex-wrap gap-2 mb-3">
+                    <div class="d-flex flex-wrap gap-2 mb-3"> <!-- TODO: add opacity to these -->
                         <span class="badge" title="Professor"><i class="fas fa-user-tie"></i> {{ review.rating_professor }}/5</span>
                         <span class="badge" title="Material"><i class="fas fa-book"></i> {{ review.rating_material }}/5</span>
                         <span class="badge workload-badge workload-{{ review.workload_display|lower }}" title="Workload"><i class="fas fa-tasks"></i> {{ review.workload_display }}</span>
