@@ -15,7 +15,7 @@
                 <div class="d-flex align-items-start">
                     <div class="flex-grow-1">
                         <div class="d-flex justify-content-between align-items-start">
-                            <div>
+                            <div class="post-title-container">
                                 <a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
                                 <div class="d-flex align-items-center text-theme-primary small mt-1">
                                     <img class="review-img-mobile me-2" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="{{ post.author.username }}">
@@ -28,7 +28,7 @@
                             </div>
                             
                             <!-- Rating Badge -->
-                            <div class="badge p-2 {{ 'badge-filled' if post.rating == 5 }}">
+                            <div class="post-rating-badge badge p-2 {{ 'badge-filled' if post.rating == 5 }}">
                                 {% for i in range(1, 6) %}
                                     {% if post.rating >= i %}
                                         <i class="fas fa-star"></i>
