@@ -71,22 +71,9 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const passwordField = document.getElementById('password-field');
-        const toggleBtn = document.getElementById('toggle-password-btn');
-        const passwordIcon = document.getElementById('password-icon');
+        // Setup password toggle
+        setupPasswordToggle('password-field', 'toggle-password-btn', 'password-icon');
         
-        toggleBtn.addEventListener('click', function() {
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                passwordIcon.classList.remove('fa-eye');
-                passwordIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordField.type = 'password';
-                passwordIcon.classList.remove('fa-eye-slash');
-                passwordIcon.classList.add('fa-eye');
-            }
-        });
-
         // Setup email domain button
         setupEmailDomainButton('email-field', 'add-domain-btn');
     });

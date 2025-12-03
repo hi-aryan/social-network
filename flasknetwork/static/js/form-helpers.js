@@ -28,3 +28,24 @@ function setupEmailDomainButton(emailFieldId, buttonId) {
     }
 }
 
+// Password visibility toggle functionality
+function setupPasswordToggle(passwordFieldId, toggleBtnId, iconId) {
+    const passwordField = document.getElementById(passwordFieldId);
+    const toggleBtn = document.getElementById(toggleBtnId);
+    const passwordIcon = document.getElementById(iconId);
+    
+    if (passwordField && toggleBtn && passwordIcon) {
+        toggleBtn.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            }
+        });
+    }
+}
+
