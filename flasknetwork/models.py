@@ -88,7 +88,7 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     year_taken = db.Column(db.Integer, nullable=False)
     
