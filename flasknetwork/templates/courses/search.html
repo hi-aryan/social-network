@@ -8,15 +8,12 @@
                 <h2 class="article-title mb-2">Search or Browse Courses</h2>
             </div>
             <!-- Search Form -->
-            <div class="mb-4">
+            <div class="mb-5">
                 <input type="text" 
                        class="form-control form-control-lg" 
                        id="courseSearchInput" 
                        placeholder="search by course name or code"
                        autocomplete="off">
-                <div class="form-text mt-2">
-                    <small class="text-theme-primary">Enter at least 2 characters to search</small>
-                </div>
             </div>
             
             <!-- Loading Indicator -->
@@ -69,9 +66,9 @@
 <!-- Course Item Template (Hidden) -->
 <template id="courseItemTemplate">
     <a href="#" class="course-item d-block text-decoration-none mb-3">
-        <div class="card-body p-3 course-card-hover">
+        <div class="card-body p-3 course-card-hover position-relative">
             <div class="row align-items-center">
-                <div class="col-md-8">
+                <div class="col">
                     <h5 class="card-title mb-1 text-dark">
                         <span class="course-code fw-bold"></span> - 
                         <span class="course-name"></span>
@@ -83,12 +80,8 @@
                         </small>
                     </p>
                 </div>
-                <div class="col-md-4 text-md-end">
-                    <span class="btn btn-sm btn-primary mt-2 mt-md-0">
-                        View Reviews
-                    </span>
-                </div>
             </div>
+            <span class="d-md-none">></span>
         </div>
     </a>
 </template>

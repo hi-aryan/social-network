@@ -26,15 +26,22 @@
                 </div>
                 
                 <div class="mb-4">
+                    <div class="input-group">
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid", id="email-field") }}
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg", id="email-field") }}
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" id="add-domain-btn" aria-label="Add @kth.se">
+                            <i class="fas fa-at"></i>
+                        </button>
+                    </div>
                     {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.email.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 
@@ -158,6 +165,9 @@
         // Setup toggles for both password fields
         setupPasswordToggle('password-field', 'toggle-password-btn', 'password-icon');
         setupPasswordToggle('confirm-password-field', 'toggle-confirm-password-btn', 'confirm-password-icon');
+        
+        // Setup email domain button
+        setupEmailDomainButton('email-field', 'add-domain-btn');
     });
     </script>
 {% endblock content %}

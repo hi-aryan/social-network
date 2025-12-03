@@ -393,13 +393,19 @@ body .btn-dimmed:hover {
         padding: 0;
     }
     
-    .post-section .post-link-mobile .d-md-none {
+    .post-section .post-link-mobile .d-md-none,
+    .course-item .d-md-none {
         position: absolute;
         bottom: 15px;
         right: 15px;
         font-size: 1rem;
         font-weight: bold;
         line-height: 1;
+    }
+    
+    /* Course card ">" needs opacity (home page inherits from btn-dimmed) */
+    .course-item .d-md-none {
+        opacity: 0.6;
     }
     
     /* Ensure course badge doesn't collide with ">" indicator */
@@ -413,6 +419,11 @@ body .btn-dimmed:hover {
     .post-section .badge-course {
         position: relative;
         z-index: 2;
+    }
+    
+    /* Course card positioning */
+    .course-item {
+        position: relative;
     }
 }
 

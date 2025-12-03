@@ -28,16 +28,22 @@
                 </div>
                 <div class="mb-3">
                     {{ form.email.label(class="form-label fw-bold") }}
-
+                    <div class="input-group">
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid", id="email-field") }}
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg", id="email-field") }}
+                        {% endif %}
+                        <button type="button" class="btn btn-outline-primary" id="add-domain-btn" aria-label="Add @kth.se">
+                            <i class="fas fa-at"></i>
+                        </button>
+                    </div>
                     {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.email.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="mb-3">
@@ -51,8 +57,8 @@
                 </div>
             </fieldset>
             <div class="mt-4 d-flex justify-content-between align-items-center account-page-actions">
-                {{ form.submit(class="btn btn-primary") }}
-                <a href="{{ url_for('users.logout') }}" class="btn btn-danger">Logout</a>
+                {{ form.submit(class="btn btn-sm btn-primary") }}
+                <a href="{{ url_for('users.logout') }}" class="btn btn-sm btn-danger">Logout</a>
             </div>
         </form>
     </div>
@@ -65,5 +71,10 @@
                 preview.src = "{{ url_for('static', filename='profile_pics/') }}" + selectedImage;
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup email domain button
+            setupEmailDomainButton('email-field', 'add-domain-btn');
+        });
     </script>
 {% endblock content %}
