@@ -238,6 +238,18 @@ body .btn-dimmed:hover {
   white-space: pre-line;
 }
 
+/* Content Preview - 2-line truncation with ellipsis */
+.content-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  max-height: 3em; /* 2 lines * 1.5 line-height */
+}
+
 .review-img {
   height: 50px;
   width: 50px;
@@ -525,7 +537,7 @@ body .btn-dimmed:hover {
 
 /* Filled Badge (for 5 stars) */
 .badge-filled {
-    background-color: var(--twilight-indigo);
+    background-color: rgba(234, 144, 119, 0.1); /* burnt-peach with opacity */
     color: var(--eggshell);
 }
 

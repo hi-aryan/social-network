@@ -145,6 +145,28 @@ class Post(db.Model):
             ("Peers", self.rating_peers),
         ]
 
+    def get_content_preview(self, max_words=30):
+        """
+        Returns a word-based preview of the post content.
+        Truncates intelligently at word boundaries, not mid-word.
+        Adds "..." to indicate content was truncated.
+        CSS handles the final 2-line visual truncation.
+        
+        Args:
+            max_words (int): Maximum number of words to include (default: 30, ensures ~2 lines)
+            
+        Returns:
+            str: Preview text truncated at word boundary with "..." if truncated, or empty string if no content
+        """
+        if not self.content:
+            return ""
+        
+        words = self.content.split()
+        if len(words) <= max_words:
+            return self.content
+        
+        return " ".join(words[:max_words]) + "..."
+
     def __repr__(self):
         author = self.author.username if self.author else "None"
         course = self.course.name if self.course else "None"
