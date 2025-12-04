@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, jsonify, current_app
 from flasknetwork.models import Course, Post
 from sqlalchemy.exc import SQLAlchemyError
 from flask_login import current_user
-import logging
 
 courses = Blueprint('courses', __name__)
 

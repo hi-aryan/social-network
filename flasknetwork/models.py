@@ -3,6 +3,7 @@ from itsdangerous import URLSafeTimedSerializer as Serializer
 from flask import current_app
 from datetime import datetime
 from flask_login import UserMixin # 4 default methods for user authentication
+from sqlalchemy import func
 import random
 import enum
 
@@ -103,7 +104,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False, index=True)
 
     __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='one_review_per_course'),)
     
@@ -192,13 +193,14 @@ class Course(db.Model):
     def search(cls, query, limit=50):
         """
         Search courses by name or code with case-insensitive matching.
+        Returns courses with review_count attached as attribute.
         
         Args:
             query (str): Search term to match against course name or code
             limit (int): Maximum number of results to return
             
         Returns:
-            List[Course]: List of matching courses
+            List[Course]: List of Course objects with review_count attribute
             
         Raises:
             ValueError: If query is invalid
@@ -218,44 +220,82 @@ class Course(db.Model):
             cls.code.ilike(f'%{sanitized_query}%')
         )
         
-        return cls.query.filter(search_filter).limit(max(1, min(limit, 100))).all()
+        # Batch review counts using LEFT JOIN and GROUP BY
+        results = db.session.query(
+            cls,
+            func.count(Post.id).label('review_count')
+        ).outerjoin(Post, cls.id == Post.course_id)\
+         .filter(search_filter)\
+         .group_by(cls.id)\
+         .order_by(cls.name)\
+         .limit(max(1, min(limit, 100))).all()
+        
+        # Attach review_count to each course object
+        courses = []
+        for course, count in results:
+            course.review_count = count or 0
+            courses.append(course)
+        
+        return courses
     
     @classmethod
     def get_all(cls, limit=20, offset=0):
         """
         Get all courses with pagination, ordered by name.
+        Returns courses with review_count attached as attribute.
         
         Args:
             limit (int): Maximum number of results to return (default 20, max 100)
             offset (int): Number of results to skip (for pagination)
             
         Returns:
-            tuple: (list of Course objects, has_more boolean)
+            tuple: (list of Course objects with review_count attribute, has_more boolean)
         """
         limit = max(1, min(limit, 100))
         offset = max(0, offset)
         
+        # Batch review counts using LEFT JOIN and GROUP BY
         # Fetch one extra to check if there are more results
-        courses = cls.query.order_by(cls.name).offset(offset).limit(limit + 1).all()
+        results = db.session.query(
+            cls,
+            func.count(Post.id).label('review_count')
+        ).outerjoin(Post, cls.id == Post.course_id)\
+         .group_by(cls.id)\
+         .order_by(cls.name)\
+         .offset(offset)\
+         .limit(limit + 1).all()
         
-        has_more = len(courses) > limit
+        has_more = len(results) > limit
         if has_more:
-            courses = courses[:limit]  # Remove the extra item
+            results = results[:limit]  # Remove the extra item
+        
+        # Attach review_count to each course object
+        courses = []
+        for course, count in results:
+            course.review_count = count or 0
+            courses.append(course)
             
         return courses, has_more
     
     def to_dict(self):
         """
         Convert Course instance to dictionary for JSON serialization.
+        Uses pre-attached review_count if available, otherwise queries database.
         
         Returns:
             dict: Course data as dictionary
         """
+        # Use pre-attached review_count if available (from batched queries)
+        # Otherwise fall back to querying database
+        review_count = getattr(self, 'review_count', None)
+        if review_count is None:
+            review_count = self.get_review_count()
+        
         return {
             'id': self.id,
             'name': self.name,
             'code': self.code,
-            'review_count': self.get_review_count()
+            'review_count': review_count
         }
 
     def get_review_count(self):

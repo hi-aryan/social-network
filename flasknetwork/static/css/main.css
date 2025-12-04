@@ -5,7 +5,7 @@
   --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */
   --twilight-indigo: #3D405B;
   --muted-teal: #9ac7b1; /* #9ac7b1, originally 81B29A */
-  --border-radius: 8px;
+  --border-radius: 6px;
   --border-width: 2px; /* Main border width for buttons, content sections, forms, etc. */
   --border-width-thin: 1px; /* Thinner border width for badges, small images, etc. */
 }

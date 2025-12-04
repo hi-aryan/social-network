@@ -43,8 +43,12 @@
                     </div>
                     <div id="coursesList"></div>
                     
-                    <!-- Sentinel for infinite scroll -->
-                    <div id="scrollSentinel"></div>
+                    <!-- Load More Button -->
+                    <div id="loadMoreContainer" class="text-center py-3 d-none">
+                        <button id="loadMoreBtn" class="btn btn-primary">
+                            Load More
+                        </button>
+                    </div>
                     
                     <!-- Bottom loading spinner -->
                     <div id="loadingMore" class="text-center py-3 d-none">
@@ -100,14 +104,15 @@ class CourseSearch {
         this.coursesList = document.getElementById('coursesList');
         this.searchQuery = document.getElementById('searchQuery');
         this.courseTemplate = document.getElementById('courseItemTemplate');
-        this.scrollSentinel = document.getElementById('scrollSentinel');
+        this.loadMoreContainer = document.getElementById('loadMoreContainer');
+        this.loadMoreBtn = document.getElementById('loadMoreBtn');
         this.loadingMore = document.getElementById('loadingMore');
         this.endOfResults = document.getElementById('endOfResults');
         
         this.searchTimeout = null;
         this.currentRequest = null;
         
-        // Infinite scroll state
+        // Pagination state
         this.mode = 'browse'; // 'browse' or 'search'
         this.offset = 0;
         this.limit = 20;
@@ -123,8 +128,10 @@ class CourseSearch {
             this.handleSearchInput(e.target.value);
         });
         
-        // Setup IntersectionObserver for infinite scroll
-        this.setupInfiniteScroll();
+        // Load More button click handler
+        this.loadMoreBtn.addEventListener('click', () => {
+            this.loadCourses();
+        });
         
         // Check URL params
         const urlParams = new URLSearchParams(window.location.search);
@@ -140,24 +147,6 @@ class CourseSearch {
         // Always focus and select the input for easy editing
         this.searchInput.focus();
         this.searchInput.select();
-    }
-    
-    setupInfiniteScroll() {
-        const options = {
-            root: null, // viewport
-            rootMargin: '100px', // trigger 100px before sentinel is visible
-            threshold: 0
-        };
-        
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && this.hasMore && !this.isLoading && this.mode === 'browse') {
-                    this.loadCourses();
-                }
-            });
-        }, options);
-        
-        this.observer.observe(this.scrollSentinel);
     }
     
     handleSearchInput(query) {
@@ -212,8 +201,12 @@ class CourseSearch {
             if (this.offset === 0) {
                 this.showLoading();
             } else {
+                this.loadMoreContainer.classList.add('d-none');
                 this.loadingMore.classList.remove('d-none');
             }
+            
+            // Disable button while loading
+            this.loadMoreBtn.disabled = true;
             
             // Create AbortController for request cancellation
             const controller = new AbortController();
@@ -241,6 +234,7 @@ class CourseSearch {
             this.isLoading = false;
             this.currentRequest = null;
             this.loadingMore.classList.add('d-none');
+            this.loadMoreBtn.disabled = false;
         }
     }
     
@@ -268,10 +262,12 @@ class CourseSearch {
         // Show results container
         this.resultsContainer.classList.remove('d-none');
         
-        // Show end of results if no more
+        // Show/hide Load More button and end of results message
         if (!hasMore) {
+            this.loadMoreContainer.classList.add('d-none');
             this.endOfResults.classList.remove('d-none');
         } else {
+            this.loadMoreContainer.classList.remove('d-none');
             this.endOfResults.classList.add('d-none');
         }
     }
@@ -328,8 +324,9 @@ class CourseSearch {
             this.coursesList.appendChild(courseElement);
         });
         
-        // No infinite scroll for search results (they're all loaded at once)
+        // No pagination for search results (they're all loaded at once)
         this.hasMore = false;
+        this.loadMoreContainer.classList.add('d-none');
         this.endOfResults.classList.add('d-none');
         
         this.resultsContainer.classList.remove('d-none');
@@ -372,6 +369,7 @@ class CourseSearch {
         this.errorMessage.classList.add('d-none');
         this.noResults.classList.add('d-none');
         this.resultsContainer.classList.add('d-none');
+        this.loadMoreContainer.classList.add('d-none');
         this.endOfResults.classList.add('d-none');
     }
 }
