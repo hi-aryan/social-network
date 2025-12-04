@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField, IntegerField, RadioField
+from wtforms import StringField, TextAreaField, SubmitField, SelectField, IntegerField, RadioField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, NumberRange, ValidationError, Optional
-from wtforms.widgets import Select as BaseSelectWidget, html_params
+from wtforms.widgets import Select as BaseSelectWidget, html_params, ListWidget, CheckboxInput
 from markupsafe import escape, Markup
-from flasknetwork.models import Course_Program, Post, WorkloadLevel
+from flasknetwork.models import Course_Program, Post, WorkloadLevel, Tag
 from flask_login import current_user
 
 
@@ -105,11 +105,37 @@ class PostForm(FlaskForm):
     # Single general comment (optional)
     content = TextAreaField('Your Thoughts', validators=[Optional(), Length(max=2000)])
     
+    # Tags (optional, max 3)
+    tags = SelectMultipleField('Tags', coerce=int, validators=[Optional()],
+                              widget=ListWidget(prefix_label=False),
+                              option_widget=CheckboxInput())
+    
     submit = SubmitField('Post')
 
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.course.choices = self.build_course_choices()
+        self.tags.choices = self.build_tag_choices()
+
+    def build_tag_choices(self):
+        """Returns the choices list for the tags field."""
+        try:
+            tags = Tag.query.order_by(Tag.name).all()
+            return [(tag.id, tag.name) for tag in tags]
+        except Exception:
+            return []
+
+    def get_tags_with_sentiment(self):
+        """Returns list of Tag objects with sentiment for template rendering."""
+        try:
+            return Tag.query.order_by(Tag.name).all()
+        except Exception:
+            return []
+
+    def validate_tags(self, field):
+        """Validate that maximum 3 tags are selected."""
+        if field.data and len(field.data) > 3:
+            raise ValidationError('You can select a maximum of 3 tags.')
 
     def build_course_choices(self):
         # Returns the choices list for the course field

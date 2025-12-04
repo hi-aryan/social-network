@@ -142,6 +142,38 @@
 
                 <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
 
+                <!-- Tags Section -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold mb-2">
+                        Select up to 3 tags
+                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="Choose tags that best describe your experience"></i>
+                    </label>
+                    <div class="tags-container d-flex flex-wrap gap-2">
+                        {% for tag in form.get_tags_with_sentiment() %}
+                            <div class="tag-check-wrapper">
+                                <input type="checkbox" 
+                                       name="tags" 
+                                       value="{{ tag.id }}" 
+                                       id="tag-{{ tag.id }}" 
+                                       class="tag-checkbox"
+                                       {% if tag.id in (form.tags.data or []) %}checked{% endif %}>
+                                <label for="tag-{{ tag.id }}" 
+                                       class="tag-chip tag-{{ tag.sentiment.value }}">
+                                    {{ tag.name }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if form.tags.errors %}
+                        <div class="text-danger-custom mt-2">
+                            {% for e in form.tags.errors %}{{ e }}{% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="text-muted small mt-2" id="tag-count-message"></div>
+                </div>
+
+                <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
+
                 <!-- Content/Comment Section -->
                 <div class="mb-4">
                     {{ form.content.label(class="form-label fw-bold") }}
@@ -269,5 +301,42 @@
 
     // Initial check in case form is pre-populated (for editing)
     document.addEventListener('DOMContentLoaded', updateOverallRating);
+
+    // Tag selection limit (max 3 tags)
+    const MAX_TAGS = 3;
+    const tagCheckboxes = document.querySelectorAll('.tag-checkbox');
+    const tagCountMessage = document.getElementById('tag-count-message');
+
+    function updateTagCount() {
+        const checked = document.querySelectorAll('.tag-checkbox:checked');
+        const count = checked.length;
+        
+        if (count === 0) {
+            tagCountMessage.textContent = '';
+        } else if (count === MAX_TAGS) {
+            tagCountMessage.textContent = `Maximum ${MAX_TAGS} tags selected`;
+            tagCountMessage.classList.remove('text-muted');
+            tagCountMessage.classList.add('text-theme-primary');
+        } else {
+            tagCountMessage.textContent = `${count} of ${MAX_TAGS} tags selected`;
+            tagCountMessage.classList.remove('text-theme-primary');
+            tagCountMessage.classList.add('text-muted');
+        }
+    }
+
+    tagCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const checked = document.querySelectorAll('.tag-checkbox:checked');
+            if (checked.length > MAX_TAGS) {
+                this.checked = false;
+                updateTagCount();
+                return;
+            }
+            updateTagCount();
+        });
+    });
+
+    // Initial tag count update
+    document.addEventListener('DOMContentLoaded', updateTagCount);
 </script>
 {% endblock scripts %}

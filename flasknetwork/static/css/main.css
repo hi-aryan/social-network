@@ -848,3 +848,60 @@ body .btn-dimmed:hover {
         font-size: 0.85rem;
     }
 }
+
+/* Tag Chips */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-check-wrapper {
+    position: relative;
+}
+
+.tag-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tag-chip {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border: var(--border-width-thin) solid var(--twilight-indigo);
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    user-select: none;
+}
+
+.tag-chip:hover {
+    transform: translateY(2px);
+}
+
+.tag-checkbox:checked + .tag-chip {
+    opacity: 1;
+}
+
+.tag-checkbox:not(:checked) + .tag-chip {
+    opacity: 0.6;
+}
+
+.tag-chip.tag-positive {
+    background-color: var(--muted-teal);
+    color: var(--eggshell);
+}
+
+.tag-chip.tag-negative {
+    background-color: var(--burnt-peach);
+    color: var(--twilight-indigo);
+}
+
+/* Small tag chips for feed display */
+.tag-chip-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}

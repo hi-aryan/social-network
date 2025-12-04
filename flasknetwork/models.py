@@ -18,6 +18,17 @@ class WorkloadLevel(enum.Enum):
         """Returns list of (value, label) tuples for form fields."""
         return [(level.value, level.value.capitalize()) for level in cls]
 
+
+class TagSentiment(enum.Enum):
+    """Enum for tag sentiment classification."""
+    positive = 'positive'
+    negative = 'negative'
+    
+    @classmethod
+    def choices(cls):
+        """Returns list of (value, label) tuples for form fields."""
+        return [(sentiment.value, sentiment.value.capitalize()) for sentiment in cls]
+
 # the extension has to know how to find/load a user from the user ID stored in the session
 # @login_manager.user_loader is the decorator so Flask-Login recognizes the function
 @login_manager.user_loader
@@ -129,6 +140,13 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
         return f"User properties: (ID: '{self.id}', '{self.username}', '{self.email}', '{self.image_file}', '{self.email_verified}', program ID: '{self.program_id}')"
 
 
+# Association table for many-to-many relationship between Post and Tag
+post_tags = db.Table('post_tags',
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True)
+)
+
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
@@ -151,6 +169,7 @@ class Post(db.Model):
     __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='one_review_per_course'),)
     
     course = db.relationship('Course', backref='reviews')
+    tags = db.relationship('Tag', secondary=post_tags, lazy='subquery', backref=db.backref('posts', lazy=True))
 
     @property
     def rating(self):
@@ -391,3 +410,12 @@ class Course_Program(db.Model):
 
     def __repr__(self):
         return f"Course_Program('{self.id}', '{self.course_id}', '{self.program_id}')"
+
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
+    sentiment = db.Column(db.Enum(TagSentiment), nullable=False)
+
+    def __repr__(self):
+        return f"Tag('{self.name}', sentiment='{self.sentiment.value}')"

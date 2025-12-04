@@ -1,7 +1,7 @@
 from flask import (render_template, url_for, flash, redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flasknetwork import db
-from flasknetwork.models import Post, WorkloadLevel
+from flasknetwork.models import Post, WorkloadLevel, Tag
 from flasknetwork.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
@@ -32,6 +32,12 @@ def new_post():
                 content=form.content.data.strip() if form.content.data else None
             )
             db.session.add(post)
+            db.session.flush()  # Flush to get post.id before assigning tags
+            
+            # Assign tags if provided
+            if form.tags.data:
+                post.tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+            
             db.session.commit()
             flash('Thank you for sharing your review! Your feedback helps fellow students <33', 'success')
             return redirect(url_for('main.home'))
@@ -81,6 +87,13 @@ def update_post(post_id):
             post.rating_workload = WorkloadLevel(form.rating_workload.data)
             post.rating_peers = form.rating_peers.data
             post.content = form.content.data.strip() if form.content.data else None
+            
+            # Update tags
+            if form.tags.data:
+                post.tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+            else:
+                post.tags = []
+            
             db.session.commit()
             flash('Your post has been updated!', 'success')
             return redirect(url_for('posts.post', post_id=post.id))
@@ -94,6 +107,7 @@ def update_post(post_id):
         form.rating_workload.data = post.rating_workload.value if post.rating_workload else None
         form.rating_peers.data = post.rating_peers
         form.content.data = post.content
+        form.tags.data = [tag.id for tag in post.tags]
 
     return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
 
