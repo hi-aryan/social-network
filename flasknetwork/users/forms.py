@@ -2,12 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
-from flasknetwork.models import User, Program, RandomUsername
+from flasknetwork.models import User, Program
 from flasknetwork.users.utils import is_kth_domain, get_available_profile_pictures, validate_profile_picture
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()], 
                         render_kw={'placeholder': 'email@kth.se (your email won\'t be displayed publicly, only your username)'})
     password = PasswordField('', validators=[DataRequired(), Length(min=6, max=30)],
@@ -22,11 +21,6 @@ class RegistrationForm(FlaskForm):
         # Populate program choices from database
         self.program.choices = [(p.id, f"{p.name} ({p.program_type.title()})") 
                                for p in Program.query.order_by(Program.name).all()]
-
-    def validate_username(self, username):
-        # Use our centralized availability check
-        if not RandomUsername.is_username_available(username.data):
-            raise ValidationError('That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -47,7 +41,6 @@ class LoginForm(FlaskForm):
 
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()], 
                         render_kw={'placeholder': 'email@kth.se'})
     picture = SelectField('Profile Picture', coerce=str, validators=[DataRequired()])
@@ -62,12 +55,6 @@ class UpdateAccountForm(FlaskForm):
         """Validate that the selected picture exists"""
         if picture.data and not validate_profile_picture(picture.data):
             raise ValidationError('Selected profile picture is not available.')
-
-    def validate_username(self, username):
-        if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
-            if user:  
-                raise ValidationError('That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
         if email.data != current_user.email:

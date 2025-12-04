@@ -18,16 +18,20 @@ for i in range(1, 6):
     if User.query.filter_by(email=email).first():
         continue
 
-    # create dummy user
+    # create dummy user with temporary username (required for NOT NULL constraint)
     hashed_password = bcrypt.generate_password_hash("password").decode('utf-8')
-    user = User(username=f"dummy{i}", email=email, password=hashed_password, program=prog)
+    user = User(username='TEMP', email=email, password=hashed_password, program=prog)
     db.session.add(user)
     db.session.flush()  # so user.id is available
+    
+    # Generate username using the encapsulated method
+    username = User.generate_username(prog.code, user.id)
+    user.username = username
 
     # now create one post per course in our list
     for course in courses:
         post = Post(
-            title=f"{course.name} Review by dummy{i}",
+            title=f"{course.name} Review by {username}",
             year_taken=2025,
             # rating is computed from professor, material, and peers ratings
             rating_professor=4,

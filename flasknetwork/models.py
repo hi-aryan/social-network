@@ -4,7 +4,6 @@ from flask import current_app
 from datetime import datetime
 from flask_login import UserMixin # 4 default methods for user authentication
 from sqlalchemy import func
-import random
 import enum
 
 
@@ -67,6 +66,49 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
         except:
             return None
         return User.query.get(user_id)
+
+    @classmethod
+    def generate_username(cls, program_code, user_id):
+        """
+        Generate a username from program code and user ID.
+        
+        Args:
+            program_code (str): The program code (e.g., "TF")
+            user_id (int): The user ID
+            
+        Returns:
+            str: Generated username (e.g., "TF123")
+            
+        Raises:
+            ValueError: If program_code is None or empty, or if generated username exceeds 20 characters
+        """
+        if not program_code or not isinstance(program_code, str) or not program_code.strip():
+            raise ValueError("Program code must be a non-empty string")
+        
+        if not isinstance(user_id, int) or user_id <= 0:
+            raise ValueError("User ID must be a positive integer")
+        
+        user_id_str = str(user_id)
+        program_code_clean = program_code.strip()
+        
+        # Calculate maximum allowed length for program code
+        # Username max length is 20, so we need to leave room for user_id
+        max_program_code_length = 20 - len(user_id_str)
+        
+        if max_program_code_length <= 0:
+            raise ValueError(f"User ID {user_id} is too large to generate a valid username (max length 20)")
+        
+        # Truncate program code if needed
+        if len(program_code_clean) > max_program_code_length:
+            program_code_clean = program_code_clean[:max_program_code_length]
+        
+        username = f"{program_code_clean}{user_id_str}"
+        
+        # Final validation
+        if len(username) > 20:
+            raise ValueError(f"Generated username '{username}' exceeds maximum length of 20 characters")
+        
+        return username
 
     def can_review(self, course):
         """
@@ -349,76 +391,3 @@ class Course_Program(db.Model):
 
     def __repr__(self):
         return f"Course_Program('{self.id}', '{self.course_id}', '{self.program_id}')"
-
-class RandomUsername(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    is_used = db.Column(db.Boolean, nullable=False, default=False)
-    
-    @classmethod
-    def get_random_unused(cls):
-        """
-        Get a random unused username from the pool.
-        
-        Returns:
-            str: A random unused username, or None if pool is exhausted
-        """
-        unused_usernames = cls.query.filter_by(is_used=False).all()
-        if not unused_usernames:
-            return None
-        
-        random_username = random.choice(unused_usernames)
-        return random_username.username
-    
-    @classmethod
-    def mark_as_used(cls, username):
-        """
-        Mark a username as used.
-        
-        Args:
-            username (str): The username to mark as used
-            
-        Returns:
-            bool: True if successfully marked, False if username not found
-        """
-        username_obj = cls.query.filter_by(username=username, is_used=False).first()
-        if username_obj:
-            username_obj.is_used = True
-            db.session.commit()
-            return True
-        return False
-    
-    @classmethod
-    def get_unused_count(cls):
-        """
-        Get the count of unused usernames in the pool.
-        
-        Returns:
-            int: Number of unused usernames available
-        """
-        return cls.query.filter_by(is_used=False).count()
-    
-    @classmethod
-    def is_username_available(cls, username):
-        """
-        Check if a username is available (either not in pool or in pool but unused).
-        
-        Args:
-            username (str): Username to check
-            
-        Returns:
-            bool: True if available, False if taken
-        """
-        # Check if username exists in User table
-        if User.query.filter_by(username=username).first():
-            return False
-        
-        # Check if username exists in RandomUsername table and is used
-        random_username = cls.query.filter_by(username=username).first()
-        if random_username and random_username.is_used:
-            return False
-            
-        return True
-    
-    def __repr__(self):
-        return f"RandomUsername('{self.id}', '{self.username}', used={self.is_used})"

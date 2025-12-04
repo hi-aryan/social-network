@@ -1,24 +1,11 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
+from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flasknetwork import db, bcrypt
-from flasknetwork.models import User, Post, RandomUsername
+from flasknetwork.models import User, Post, Program
 from flasknetwork.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, RequestVerificationForm
 from flasknetwork.users.utils import send_reset_email, send_verification_email, validate_profile_picture
 
 users = Blueprint('users', __name__)
-
-
-@users.route('/api/generate-username')
-def generate_username():
-    """API endpoint to generate a random unused username."""
-    try:
-        username = RandomUsername.get_random_unused()
-        if username:
-            return jsonify({'success': True, 'username': username})
-        else:
-            return jsonify({'success': False, 'error': 'No available usernames in pool'})
-    except Exception as e:
-        return jsonify({'success': False, 'error': 'Server error'})
 
 
 @users.route('/register', methods=['GET', 'POST'])
@@ -28,24 +15,44 @@ def register():
     
     form = RegistrationForm()
     
-    # Auto-fill username on GET request
-    if request.method == 'GET' and not form.username.data:
-        random_username = RandomUsername.get_random_unused()
-        if random_username:
-            form.username.data = random_username
-    
     if form.validate_on_submit():
-        # Mark username as used if it's from our pool
-        if RandomUsername.query.filter_by(username=form.username.data).first():
-            RandomUsername.mark_as_used(form.username.data)
-        
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password, program_id=form.program.data)
-        db.session.add(user)
-        db.session.commit()
-        send_verification_email(user)
-        flash('Verification email sent! Check your KTH email to activate your account.', 'info')
-        return redirect(url_for('users.login'))
+        try:
+            # Fetch Program object to get program code
+            program = Program.query.get(form.program.data)
+            if not program:
+                flash('Invalid program selected. Please try again.', 'danger')
+                return render_template('register.html', title='Register', form=form)
+            
+            # Create user with temporary username (required for NOT NULL constraint)
+            # Will be replaced with generated username after flush
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(username='TEMP', email=form.email.data, password=hashed_password, program_id=form.program.data)
+            db.session.add(user)
+            
+            # Flush to get user.id without committing
+            db.session.flush()
+            
+            # Generate username using the encapsulated method
+            try:
+                username = User.generate_username(program.code, user.id)
+                user.username = username
+            except ValueError as e:
+                # Rollback user creation if username generation fails
+                db.session.rollback()
+                flash(f'Error generating username: {str(e)}. Please try again.', 'danger')
+                return render_template('register.html', title='Register', form=form)
+            
+            # Commit once with real username set
+            db.session.commit()
+            send_verification_email(user)
+            flash('Verification email sent! Check your KTH email to activate your account.', 'info')
+            return redirect(url_for('users.login'))
+        except Exception as e:
+            # Rollback on any unexpected error
+            db.session.rollback()
+            flash('An error occurred during registration. Please try again.', 'danger')
+            return render_template('register.html', title='Register', form=form)
+    
     return render_template('register.html', title='Register', form=form)
 
 
@@ -88,13 +95,11 @@ def account():
             current_user.image_file = 'default1.png'
             flash('Selected profile picture was not available. Using default.', 'warning')
         
-        current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account')) # post-get-redirect pattern
     elif request.method == 'GET':
-        form.username.data = current_user.username
         form.email.data = current_user.email
         
         # Ensure current user's image file is valid, fallback to default if not

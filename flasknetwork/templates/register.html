@@ -7,26 +7,6 @@
                 <legend class="border-bottom mb-4">Register</legend> 
                 <div class="mb-4">
                     <div class="input-group">
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid", id="username-field", placeholder="username") }}
-                        {% else %}
-                            {{ form.username(class="form-control form-control-lg", id="username-field", placeholder="username") }}
-                        {% endif %}
-                        <button type="button" class="btn btn-outline-primary" id="roll-username-btn" data-bs-toggle="tooltip" title="Click the dice for a random username, or type your own">
-                            🎲
-                        </button>
-                    </div>
-                    {% if form.username.errors %}
-                        <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                
-                <div class="mb-4">
-                    <div class="input-group">
                         {% if form.email.errors %}
                             {{ form.email(class="form-control form-control-lg is-invalid", id="email-field") }}
                         {% else %}
@@ -109,38 +89,6 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Bootstrap tooltips
-        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
-            new bootstrap.Tooltip(el);
-        });
-
-        // Username roll functionality
-        const rollBtn = document.getElementById('roll-username-btn');
-        const usernameField = document.getElementById('username-field');
-        
-        rollBtn.addEventListener('click', async function() {
-            rollBtn.innerHTML = '⏳';
-            rollBtn.disabled = true;
-            
-            try {
-                const response = await fetch('{{ url_for("users.generate_username") }}');
-                const data = await response.json();
-                
-                if (data.success) {
-                    usernameField.value = data.username;
-                    // Remove any error styling
-                    usernameField.classList.remove('is-invalid');
-                } else {
-                    alert('No more usernames available. Please enter your own.');
-                }
-            } catch (error) {
-                alert('Error generating username. Please try again.');
-            } finally {
-                rollBtn.innerHTML = '🎲';
-                rollBtn.disabled = false;
-            }
-        });
-
         // Setup toggles for both password fields
         setupPasswordToggle('password-field', 'toggle-password-btn', 'password-icon');
         setupPasswordToggle('confirm-password-field', 'toggle-confirm-password-btn', 'confirm-password-icon');
