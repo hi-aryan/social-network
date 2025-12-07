@@ -345,8 +345,10 @@ class CourseSearch {
                           `${course.review_count} reviews`;
         template.querySelector('.review-count').textContent = reviewText;
 
-        // Set root href so whole card links to course detail
-        const courseUrl = `/courses/course/${course.id}`;
+        // Set root href so whole card links to course detail, preserving search context
+        // Note: return_to is not consumed after course->post now; kept if we reintroduce back-to-search preference.
+        const returnTo = encodeURIComponent(`${window.location.pathname}${window.location.search}`);
+        const courseUrl = `/courses/course/${course.id}?return_to=${returnTo}`;
         const root = template.querySelector('.course-item');
         if (root) root.href = courseUrl;
 

@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from flask import (render_template, url_for, flash, redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flasknetwork import db
@@ -5,6 +6,35 @@ from flasknetwork.models import Post, WorkloadLevel, Tag
 from flasknetwork.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
+
+class BackLinkResolver:
+    """Resolve a safe internal back-link with a graceful fallback."""
+
+    @staticmethod
+    def get_back_url(request_obj, default_url):
+        host = request_obj.host
+
+        return_to = request_obj.args.get('return_to')
+        if BackLinkResolver._is_safe_path(return_to, host):
+            return return_to
+
+        referrer = request_obj.referrer
+        if BackLinkResolver._is_safe_path(referrer, host):
+            return referrer
+
+        return default_url
+
+    @staticmethod
+    def _is_safe_path(target, host):
+        if not target:
+            return False
+
+        parsed = urlparse(target)
+
+        if parsed.scheme:
+            return parsed.netloc == host
+
+        return target.startswith('/') and not parsed.netloc
 
 
 @posts.route('/post/new', methods=['GET', 'POST'])
@@ -62,7 +92,8 @@ def test_alerts():
 @posts.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    back_url = BackLinkResolver.get_back_url(request, url_for('main.home'))
+    return render_template('post.html', title=post.title, post=post, back_url=back_url)
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
