@@ -81,9 +81,9 @@
                 <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
                 <div class="mb-3">
                     <h5 class="fw-bold mb-2">Tags</h5>
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="d-flex flex-wrap gap-2 post-tag-list">
                         {% for tag in post.tags %}
-                            <span class="tag-chip tag-{{ tag.sentiment.value }}">{{ tag.name }}</span>
+                            <span class="tag-chip tag-chip-static tag-{{ tag.sentiment.value }}">{{ tag.name }}</span>
                         {% endfor %}
                     </div>
                 </div>

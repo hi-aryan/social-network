@@ -1,5 +1,5 @@
 :root {
-  --main-bg: #f4f2e3; /* originally eggshell */
+  --main-bg: rgb(246, 246, 230); /* originally (244, 242, 227) */
 
   --eggshell: rgb(255, 255, 250); /* fake eggshell color now */
   --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */
@@ -564,7 +564,7 @@ body .btn-dimmed:hover {
 /* Filled Badge (for 5 stars) */
 .badge-filled {
     background-color: rgba(234, 144, 119, 0.1); /* burnt-peach with opacity */
-    color: var(--eggshell);
+    color: var(--twilight-indigo);
 }
 
 /* Course Search Card */
@@ -887,12 +887,42 @@ body .btn-dimmed:hover {
 }
 
 .tag-checkbox:not(:checked) + .tag-chip {
-    opacity: 0.6;
+    opacity: 0.5;
+}
+
+.tag-chip-static {
+    cursor: default;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    transform: none;
+}
+
+.tag-chip-static:hover {
+    transform: none;
+    opacity: 0.7;
+}
+
+.post-tag-list .tag-chip-static {
+    opacity: 1;
+    color: var(--twilight-indigo);
+    transform: none;
+}
+
+.post-tag-list .tag-chip-static:hover {
+    opacity: 1;
+}
+
+.post-tag-list .tag-chip-static.tag-positive {
+    background-color: rgba(154, 199, 177, 0.7);
+}
+
+.post-tag-list .tag-chip-static.tag-negative {
+    background-color: rgba(234, 144, 119, 0.7);
 }
 
 .tag-chip.tag-positive {
     background-color: var(--muted-teal);
-    color: var(--eggshell);
+    color: var(--twilight-indigo);
 }
 
 .tag-chip.tag-negative {
