@@ -18,10 +18,6 @@ class BackLinkResolver:
         if BackLinkResolver._is_safe_path(return_to, host):
             return return_to
 
-        referrer = request_obj.referrer
-        if BackLinkResolver._is_safe_path(referrer, host):
-            return referrer
-
         return default_url
 
     @staticmethod
