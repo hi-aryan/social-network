@@ -127,6 +127,13 @@ body .btn:hover {
   color: var(--twilight-indigo);
 }
 
+/* Extra Small Button */
+body .btn-xs {
+  padding: 10px 16px;
+  font-size: 0.75rem;
+  line-height: 1.1;
+}
+
 /* Used for: New Review, Edit, Submit, Primary Actions */
 .btn-primary {
   background-color: var(--muted-teal);

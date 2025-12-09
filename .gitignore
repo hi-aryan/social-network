@@ -45,3 +45,5 @@ process.md
 htmlcov/
 
 .cursor/
+
+.agent/
