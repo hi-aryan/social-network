@@ -398,6 +398,19 @@ body .btn-dimmed:hover {
         border: none;
         background: transparent;
         padding: 0;
+        -webkit-tap-highlight-color: transparent; /* Remove standard mobile tap highlight */
+    }
+
+    /* Override generic button hover/active effects for this specific overlay */
+    /* Using 'body' to match the specificity of the button rules */
+    body .post-section .post-link-mobile:hover,
+    body .post-section .post-link-mobile:active,
+    body .post-section .post-link-mobile:focus {
+        background-color: transparent;
+        color: var(--twilight-indigo); /* Keep text/icon visible */
+        border-color: transparent;
+        transform: none; /* simple touch, no movement */
+        box-shadow: none;
     }
     
     .post-section .post-link-mobile .d-md-none,

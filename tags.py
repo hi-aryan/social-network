@@ -1,3 +1,9 @@
+# note: current script tries to add ALL tags.
+# works if ran on a fresh DB
+# if ran on a DB that already has tags, it will crash (IntegrityError) because of unique=True ??
+
+# ran this on both prod db and local db
+
 from dotenv import load_dotenv
 load_dotenv()
   # seeding after migration
