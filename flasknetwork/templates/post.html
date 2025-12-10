@@ -45,25 +45,25 @@
                 <div class="row g-3">
                     {% for label, value in post.get_star_ratings(include_overall=False) %}
                         <div class="col-6 col-md-3">
-                            <div class="rating-card">
-                                <span class="fw-bold small d-block text-center mb-1">{{ label }}</span>
-                                <span class="badge {{ 'badge-filled' if value == 5 }} d-block text-center">
+                            <div class="rating-card text-center d-flex flex-column h-100 justify-content-center">
+                                <span class="fw-bold small d-block mb-1">{{ label }}</span>
+                                <div class="star-rating-static">
                                     {% for i in range(1, 6) %}
                                         {% if value >= i %}
-                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star active"></i>
                                         {% else %}
-                                            <i class="far fa-star"></i>
+                                            <i class="fas fa-star"></i>
                                         {% endif %}
                                     {% endfor %}
-                                </span>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
                     <!-- Workload (displayed as text badge) -->
                     <div class="col-6 col-md-3">
-                        <div class="rating-card">
-                            <span class="fw-bold small d-block text-center mb-1">Workload</span>
-                            <span class="badge workload-badge workload-{{ post.workload_display|lower }} d-block text-center">
+                        <div class="rating-card text-center d-flex flex-column h-100 justify-content-center">
+                            <span class="fw-bold small d-block mb-1">Workload</span>
+                            <span class="badge workload-badge workload-{{ post.workload_display|lower }} d-block text-center mx-auto" style="width: fit-content;">
                                 {{ post.workload_display }}
                             </span>
                         </div>

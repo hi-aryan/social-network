@@ -766,6 +766,25 @@ body .btn-dimmed:hover {
   transform: scale(1.1);
 }
 
+/* Static Star Rating (View Mode) */
+.star-rating-static {
+    display: flex;
+    flex-direction: row; /* Normal order */
+    justify-content: center;
+    gap: 0.1rem;
+}
+
+.star-rating-static i {
+    font-size: 1.25rem; /* Smaller than input (2rem) */
+    color: var(--twilight-indigo);
+    opacity: 0.3;
+}
+
+.star-rating-static i.active {
+    color: var(--burnt-peach);
+    opacity: 1;
+}
+
 /* Modal Content Override */
 .modal-content {
     background-color: var(--eggshell);

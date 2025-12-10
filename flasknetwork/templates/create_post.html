@@ -202,12 +202,12 @@
             const overall = Math.round((profVal + materialVal + peersVal) / 3);
 
             overallDisplay.innerHTML = `
-                <div class="rating-card text-center d-inline-block px-4 py-2">
-                    <span class="badge d-block text-center mb-0">
+                <div class="text-center d-inline-block px-4 py-2">
+                    <div class="star-rating-static">
                         ${Array(5).fill(0).map((_, i) => 
-                            i < overall ? '<i class="fas fa-star text-warning"></i>' : '<i class="far fa-star text-muted"></i>'
+                            i < overall ? '<i class="fas fa-star active"></i>' : '<i class="fas fa-star"></i>'
                         ).join('')}
-                    </span>
+                    </div>
                     <div class="small fw-bold mt-1 text-muted">${overall}/5</div>
                 </div>
             `;
