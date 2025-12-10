@@ -32,105 +32,113 @@
                 <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
 
                 <!-- Ratings Section -->
-                <h5 class="mb-4 fw-bold">Ratings</h5>
-
-                <!-- Professor Rating -->
-                <div class="mb-4">
-                    <div class="form-label fw-bold mb-2">
-                        {{ form.rating_professor.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not great, 5 = Amazing professor"></i>
-                    </div>
-                    <div class="rating-group">
-                        {% for sub in form.rating_professor %}
-                            {{ sub(class="form-check-input") }}
-                            <label for="{{ sub.id }}" class="rating-box">
-                                <span class="star">&#9733;</span>
-                                <div class="rating-number">{{ sub.label.text }}</div>
-                            </label>
-                        {% endfor %}
-                    </div>
-                    {% if form.rating_professor.errors %}
-                        <div class="text-danger-custom mt-2">
-                            {% for e in form.rating_professor.errors %}{{ e }}{% endfor %}
+                <div class="row g-3">
+                    <!-- Professor Rating -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="rating-card h-100 text-center py-3">
+                            <div class="form-label fw-bold mb-2">
+                                {{ form.rating_professor.label.text }}
+                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not great, 5 = Amazing professor"></i>
+                            </div>
+                            <div class="rating-group justify-content-center d-flex">
+                                {% for sub in form.rating_professor %}
+                                    {{ sub(class="form-check-input") }}
+                                    <label for="{{ sub.id }}" class="rating-box">
+                                        <span class="star">&#9733;</span>
+                                        <div class="rating-number">{{ sub.label.text }}</div>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {% if form.rating_professor.errors %}
+                                <div class="text-danger-custom mt-2">
+                                    {% for e in form.rating_professor.errors %}{{ e }}{% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
 
-                <!-- Material Rating -->
-                <div class="mb-4">
-                    <div class="form-label fw-bold mb-2">
-                        {{ form.rating_material.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Boring course, 5 = Very interesting"></i>
-                    </div>
-                    <div class="rating-group">
-                        {% for sub in form.rating_material %}
-                            {{ sub(class="form-check-input") }}
-                            <label for="{{ sub.id }}" class="rating-box">
-                                <span class="star">&#9733;</span>
-                                <div class="rating-number">{{ sub.label.text }}</div>
-                            </label>
-                        {% endfor %}
-                    </div>
-                    {% if form.rating_material.errors %}
-                        <div class="text-danger-custom mt-2">
-                            {% for e in form.rating_material.errors %}{{ e }}{% endfor %}
+                    <!-- Material Rating -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="rating-card h-100 text-center py-3">
+                            <div class="form-label fw-bold mb-2">
+                                {{ form.rating_material.label.text }}
+                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Boring course, 5 = Very interesting"></i>
+                            </div>
+                            <div class="rating-group justify-content-center d-flex">
+                                {% for sub in form.rating_material %}
+                                    {{ sub(class="form-check-input") }}
+                                    <label for="{{ sub.id }}" class="rating-box">
+                                        <span class="star">&#9733;</span>
+                                        <div class="rating-number">{{ sub.label.text }}</div>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {% if form.rating_material.errors %}
+                                <div class="text-danger-custom mt-2">
+                                    {% for e in form.rating_material.errors %}{{ e }}{% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
 
-                <!-- Workload Rating -->
-                <div class="mb-4">
-                    <div class="form-label fw-bold mb-2">
-                        {{ form.rating_workload.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="How demanding is this course?"></i>
-                    </div>
-                    <div class="rating-group">
-                        {% for sub in form.rating_workload %}
-                            {{ sub(class="form-check-input") }}
-                            <label for="{{ sub.id }}" class="rating-box workload-option">
-                                {% if loop.index == 1 %}
-                                    <span class="star"><i class="fas fa-feather"></i></span>
-                                {% elif loop.index == 2 %}
-                                    <span class="star"><i class="fas fa-balance-scale"></i></span>
-                                {% else %}
-                                    <span class="star"><i class="fas fa-weight-hanging"></i></span>
-                                {% endif %}
-                                <div class="rating-number">{{ sub.label.text }}</div>
-                            </label>
-                        {% endfor %}
-                    </div>
-                    {% if form.rating_workload.errors %}
-                        <div class="text-danger-custom mt-2">
-                            {% for e in form.rating_workload.errors %}{{ e }}{% endfor %}
+                    <!-- Workload Rating -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="rating-card h-100 text-center py-3">
+                            <div class="form-label fw-bold mb-2">
+                                {{ form.rating_workload.label.text }}
+                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="How demanding is this course?"></i>
+                            </div>
+                            <div class="rating-group justify-content-center d-flex">
+                                {% for sub in form.rating_workload %}
+                                    {{ sub(class="form-check-input") }}
+                                    <label for="{{ sub.id }}" class="rating-box workload-option">
+                                        {% if loop.index == 1 %}
+                                            <span class="star"><i class="fas fa-feather"></i></span>
+                                        {% elif loop.index == 2 %}
+                                            <span class="star"><i class="fas fa-balance-scale"></i></span>
+                                        {% else %}
+                                            <span class="star"><i class="fas fa-weight-hanging"></i></span>
+                                        {% endif %}
+                                        <div class="rating-number">{{ sub.label.text }}</div>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {% if form.rating_workload.errors %}
+                                <div class="text-danger-custom mt-2">
+                                    {% for e in form.rating_workload.errors %}{{ e }}{% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
 
-                <!-- Peers Rating -->
-                <div class="mb-4">
-                    <div class="form-label fw-bold mb-2">
-                        {{ form.rating_peers.label.text }}
-                        <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not my usual crowd, 5 = Great classmates"></i>
-                    </div>
-                    <div class="rating-group">
-                        {% for sub in form.rating_peers %}
-                            {{ sub(class="form-check-input") }}
-                            <label for="{{ sub.id }}" class="rating-box">
-                                <span class="star">&#9733;</span>
-                                <div class="rating-number">{{ sub.label.text }}</div>
-                            </label>
-                        {% endfor %}
-                    </div>
-                    {% if form.rating_peers.errors %}
-                        <div class="text-danger-custom mt-2">
-                            {% for e in form.rating_peers.errors %}{{ e }}{% endfor %}
+                    <!-- Peers Rating -->
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="rating-card h-100 text-center py-3">
+                            <div class="form-label fw-bold mb-2">
+                                {{ form.rating_peers.label.text }}
+                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not my usual crowd, 5 = Great classmates"></i>
+                            </div>
+                            <div class="rating-group justify-content-center d-flex">
+                                {% for sub in form.rating_peers %}
+                                    {{ sub(class="form-check-input") }}
+                                    <label for="{{ sub.id }}" class="rating-box">
+                                        <span class="star">&#9733;</span>
+                                        <div class="rating-number">{{ sub.label.text }}</div>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {% if form.rating_peers.errors %}
+                                <div class="text-danger-custom mt-2">
+                                    {% for e in form.rating_peers.errors %}{{ e }}{% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                    </div>
                 </div>
 
                 <!-- Overall Rating (computed, not selectable) -->
                 <div class="mb-4">
-                    <div class="form-label fw-bold mb-2">
+                    <div class="form-label fw-bold mt-3">
                         Overall Rating
                         <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="Automatically calculated from Professor, Material, and Peers ratings"></i>
                     </div>

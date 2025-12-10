@@ -1,10 +1,19 @@
 :root {
-  --main-bg: rgb(240, 240, 230); /* more plain now. originally (244, 242, 227) */
+  --main-bg: #f0f3ee; /* more plain now. originally (244, 242, 227) */
 
-  --eggshell: rgb(255, 255, 250); /* fake eggshell color now */
+  --eggshell: #FBFEF9; /* fake eggshell color now */
   --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */
   --twilight-indigo: #3D405B;
   --muted-teal: #9ac7b1; /* #9ac7b1, originally 81B29A */
+
+  /* candidate color palette */
+  /*  --main-bg: #f0f3ee;
+  /*  --eggshell: #FBFEF9;
+  /*  --burnt-peach: #F76C5E;
+  /*  --twilight-indigo: #1F2421;
+  /*  --muted-teal: #60A561;
+  /* #60A561 1954A6 */
+
   --border-radius: 6px;
   --border-width: 2px; /* Main border width for buttons, content sections, forms, etc. */
   --border-width-thin: 1px; /* Thinner border width for badges, small images, etc. */

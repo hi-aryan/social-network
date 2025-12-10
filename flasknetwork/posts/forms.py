@@ -90,7 +90,7 @@ class PostForm(FlaskForm):
     
     course = SelectOptGroupField('Course', coerce=int, validators=[DataRequired()])
     title = StringField('Review Title', validators=[DataRequired(), Length(max=50)])
-    year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)])
+    year_taken = IntegerField('Year Taken', validators=[DataRequired(), NumberRange(min=2000, max=2100)], default=2025)
     
     # Rating categories (professor, material, peers: 1-5 scale; workload: categorical)
     rating_professor = RadioField('Professor', coerce=int,
