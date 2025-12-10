@@ -31,109 +31,21 @@
 
                 <hr class="my-4" style="border-color: var(--twilight-indigo); opacity: 0.2;">
 
+                {% from 'macros.html' import render_rating_input %}
+
                 <!-- Ratings Section -->
                 <div class="row g-3">
                     <!-- Professor Rating -->
-                    <div class="col-12 col-md-6 col-xl-3">
-                        <div class="rating-card h-100 text-center py-3">
-                            <div class="form-label fw-bold mb-2">
-                                {{ form.rating_professor.label.text }}
-                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not great, 5 = Amazing professor"></i>
-                            </div>
-                            <div class="rating-group justify-content-center d-flex">
-                                {% for sub in form.rating_professor %}
-                                    {{ sub(class="form-check-input") }}
-                                    <label for="{{ sub.id }}" class="rating-box">
-                                        <span class="star">&#9733;</span>
-                                        <div class="rating-number">{{ sub.label.text }}</div>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                            {% if form.rating_professor.errors %}
-                                <div class="text-danger-custom mt-2">
-                                    {% for e in form.rating_professor.errors %}{{ e }}{% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {{ render_rating_input(form.rating_professor, form.rating_professor.label.text, "1 = Not great, 5 = Amazing professor") }}
 
                     <!-- Material Rating -->
-                    <div class="col-12 col-md-6 col-xl-3">
-                        <div class="rating-card h-100 text-center py-3">
-                            <div class="form-label fw-bold mb-2">
-                                {{ form.rating_material.label.text }}
-                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Boring course, 5 = Very interesting"></i>
-                            </div>
-                            <div class="rating-group justify-content-center d-flex">
-                                {% for sub in form.rating_material %}
-                                    {{ sub(class="form-check-input") }}
-                                    <label for="{{ sub.id }}" class="rating-box">
-                                        <span class="star">&#9733;</span>
-                                        <div class="rating-number">{{ sub.label.text }}</div>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                            {% if form.rating_material.errors %}
-                                <div class="text-danger-custom mt-2">
-                                    {% for e in form.rating_material.errors %}{{ e }}{% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {{ render_rating_input(form.rating_material, form.rating_material.label.text, "1 = Boring course, 5 = Very interesting") }}
 
                     <!-- Workload Rating -->
-                    <div class="col-12 col-md-6 col-xl-3">
-                        <div class="rating-card h-100 text-center py-3">
-                            <div class="form-label fw-bold mb-2">
-                                {{ form.rating_workload.label.text }}
-                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="How demanding is this course?"></i>
-                            </div>
-                            <div class="rating-group justify-content-center d-flex">
-                                {% for sub in form.rating_workload %}
-                                    {{ sub(class="form-check-input") }}
-                                    <label for="{{ sub.id }}" class="rating-box workload-option">
-                                        {% if loop.index == 1 %}
-                                            <span class="star"><i class="fas fa-feather"></i></span>
-                                        {% elif loop.index == 2 %}
-                                            <span class="star"><i class="fas fa-balance-scale"></i></span>
-                                        {% else %}
-                                            <span class="star"><i class="fas fa-weight-hanging"></i></span>
-                                        {% endif %}
-                                        <div class="rating-number">{{ sub.label.text }}</div>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                            {% if form.rating_workload.errors %}
-                                <div class="text-danger-custom mt-2">
-                                    {% for e in form.rating_workload.errors %}{{ e }}{% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {{ render_rating_input(form.rating_workload, form.rating_workload.label.text, "How demanding is this course?", is_workload=True) }}
 
                     <!-- Peers Rating -->
-                    <div class="col-12 col-md-6 col-xl-3">
-                        <div class="rating-card h-100 text-center py-3">
-                            <div class="form-label fw-bold mb-2">
-                                {{ form.rating_peers.label.text }}
-                                <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="1 = Not my usual crowd, 5 = Great classmates"></i>
-                            </div>
-                            <div class="rating-group justify-content-center d-flex">
-                                {% for sub in form.rating_peers %}
-                                    {{ sub(class="form-check-input") }}
-                                    <label for="{{ sub.id }}" class="rating-box">
-                                        <span class="star">&#9733;</span>
-                                        <div class="rating-number">{{ sub.label.text }}</div>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                            {% if form.rating_peers.errors %}
-                                <div class="text-danger-custom mt-2">
-                                    {% for e in form.rating_peers.errors %}{{ e }}{% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {{ render_rating_input(form.rating_peers, form.rating_peers.label.text, "1 = Not my usual crowd, 5 = Great classmates") }}
                 </div>
 
                 <!-- Overall Rating (computed, not selectable) -->
@@ -290,11 +202,13 @@
             const overall = Math.round((profVal + materialVal + peersVal) / 3);
 
             overallDisplay.innerHTML = `
-                <div class="rating-group">
-                    <div class="rating-box rating-overall">
-                        <span class="star">&#9733;</span>
-                        <div class="rating-number">${overall}/5</div>
-                    </div>
+                <div class="rating-card text-center d-inline-block px-4 py-2">
+                    <span class="badge d-block text-center mb-0">
+                        ${Array(5).fill(0).map((_, i) => 
+                            i < overall ? '<i class="fas fa-star text-warning"></i>' : '<i class="far fa-star text-muted"></i>'
+                        ).join('')}
+                    </span>
+                    <div class="small fw-bold mt-1 text-muted">${overall}/5</div>
                 </div>
             `;
         } else {

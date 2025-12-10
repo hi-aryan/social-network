@@ -1,0 +1,37 @@
+{% macro render_rating_input(field, title, tooltip, is_workload=False) %}
+<div class="col-12 col-md-6 col-xl-3">
+    <div class="rating-card h-100 text-center py-3">
+        <div class="form-label fw-bold mb-2">
+            {{ title }}
+            <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="{{ tooltip }}"></i>
+        </div>
+        
+        <div class="star-rating-input">
+            {# Iterate in reverse order (5,4,3,2,1) for CSS sibling selector trick #}
+            {% for sub in field | reverse %}
+                {{ sub(class="form-check-input visually-hidden") }}
+                <label for="{{ sub.id }}" class="star-label">
+                    {% if is_workload %}
+                        {% if sub.data == 'Light' %}
+                            <i class="fas fa-feather"></i>
+                        {% elif sub.data == 'Medium' %}
+                            <i class="fas fa-balance-scale"></i>
+                        {% else %} {# Heavy #}
+                            <i class="fas fa-weight-hanging"></i>
+                        {% endif %}
+                    {% else %}
+                        {# Normal Star Rating #}
+                        <i class="fas fa-star"></i>
+                    {% endif %}
+                </label>
+            {% endfor %}
+        </div>
+
+        {% if field.errors %}
+            <div class="text-danger-custom mt-2">
+                {% for e in field.errors %}{{ e }}{% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}

@@ -634,76 +634,8 @@ body .btn-dimmed:hover {
   border-top-color: var(--twilight-indigo);
 }
 
-/* Form Rating Selection */
-.rating-group .form-check-input {
-  position: absolute;
-  clip: rect(0 0 0 0);
-}
+/* Form Rating Selection - Old rating-box styles removed */
 
-.rating-box {
-  display: inline-block;
-  width: 3rem;
-  height: 3rem;
-  margin: 0.25rem;
-  padding: 0.25rem;
-  border: var(--border-width-thin) solid var(--twilight-indigo);
-  border-radius: var(--border-radius);
-  background: var(--eggshell);
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.1s ease, background-color 0.2s ease;
-}
-
-.rating-box:hover {
-  transform: translateY(2px);
-}
-
-.rating-box .star {
-  font-size: 1.5rem;
-  color: var(--twilight-indigo);
-  opacity: 0.3;
-  line-height: 1.2;
-  display: block;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.rating-box .rating-number {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--twilight-indigo);
-  margin-top: 0.1rem;
-  transition: transform 0.1s ease;
-}
-
-.rating-box:hover .rating-number {
-  transform: translateY(-2px);
-}
-
-.rating-group .form-check-input:checked + .rating-box .star {
-  color: var(--burnt-peach);
-  opacity: 1;
-}
-
-.rating-group .rating-box.rating-overall {
-  /* Computed overall rating styling */
-  background-color: var(--twilight-indigo);
-  border: var(--border-width-thin) solid var(--twilight-indigo);
-}
-
-.rating-group .rating-box.rating-overall .star {
-  color: var(--burnt-peach);
-  opacity: 1;
-}
-
-.rating-group .rating-box.rating-overall .rating-number {
-  color: var(--twilight-indigo);
-  font-weight: bold;
-}
 
 /* Rating info container - positioned icon in top right */
 .rating-info-container {
@@ -791,6 +723,47 @@ body .btn-dimmed:hover {
 }
 .post-settings-items:hover {
   transform: translateY(2px);
+}
+
+/* 
+   Star Rating Input (Create/Edit Post) 
+   Uses flex-direction: row-reverse to handle "hover selects previous siblings" logic
+*/
+.star-rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+.star-rating-input .star-label {
+  color: var(--twilight-indigo);
+  opacity: 0.3; /* Default dimmed state */
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.1s ease, transform 0.1s ease;
+  padding: 0 0.1rem;
+}
+
+/* Hover effects (Reverse logic because of flex-reverse) */
+/* When hovering a star, select IT and all visually-LEFT siblings (technically subsequent siblings in DOM) */
+.star-rating-input .star-label:hover,
+.star-rating-input .star-label:hover ~ .star-label {
+  color: var(--burnt-peach); /* Highlight color */
+  opacity: 1;
+}
+
+/* Checked state logic */
+/* If a radio is checked, highlight its corresponding label and subsequent labels */
+/* Note: We use the general sibling combinator ~ to target the label linked to specific inputs */
+.star-rating-input input:checked ~ .star-label {
+  color: var(--burnt-peach);
+  opacity: 1;
+}
+
+/* Animation on hover */
+.star-rating-input .star-label:hover {
+  transform: scale(1.1);
 }
 
 /* Modal Content Override */
