@@ -1,5 +1,5 @@
 :root {
-  --main-bg: rgb(246, 246, 230); /* originally (244, 242, 227) */
+  --main-bg: rgb(240, 240, 230); /* more plain now. originally (244, 242, 227) */
 
   --eggshell: rgb(255, 255, 250); /* fake eggshell color now */
   --burnt-peach: #ea9077; /* #ea9077, originally E07A5F */

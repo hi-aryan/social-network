@@ -198,14 +198,16 @@ class Post(db.Model):
             return self.rating_workload.value.capitalize()
         return None
 
-    def get_star_ratings(self):
+    def get_star_ratings(self, include_overall=True):
         """Returns list of (label, value) tuples for numeric star ratings only."""
-        return [
-            ("Overall", self.rating),
+        ratings = [
             ("Professor", self.rating_professor),
             ("Material", self.rating_material),
             ("Peers", self.rating_peers),
         ]
+        if include_overall:
+            ratings.insert(0, ("Overall", self.rating))
+        return ratings
 
     def get_content_preview(self, max_words=30):
         """
