@@ -6,7 +6,7 @@
             <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="{{ tooltip }}"></i>
         </div>
         
-        <div class="star-rating-input">
+        <div class="rating-bar interactive">
             {# Iterate in reverse order (5,4,3,2,1) for CSS sibling selector trick #}
             {% for sub in field | reverse %}
                 {{ sub(class="form-check-input visually-hidden") }}

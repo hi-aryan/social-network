@@ -47,7 +47,7 @@
                         <div class="col-6 col-md-3">
                             <div class="rating-card text-center d-flex flex-column h-100 justify-content-center">
                                 <span class="fw-bold small d-block mb-1">{{ label }}</span>
-                                <div class="star-rating-static">
+                                <div class="rating-bar static">
                                     {% for i in range(1, 6) %}
                                         {% if value >= i %}
                                             <i class="fas fa-star active"></i>
@@ -59,13 +59,20 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <!-- Workload (displayed as text badge) -->
+                    <!-- Workload -->
                     <div class="col-6 col-md-3">
                         <div class="rating-card text-center d-flex flex-column h-100 justify-content-center">
                             <span class="fw-bold small d-block mb-1">Workload</span>
-                            <span class="badge workload-badge workload-{{ post.workload_display|lower }} d-block text-center mx-auto" style="width: fit-content;">
-                                {{ post.workload_display }}
-                            </span>
+                            <!-- Uses same icon bar style as Create Post, but static and highlighted -->
+                            <div class="rating-bar static">
+                                <!-- Light -->
+                                <i class="fas fa-feather {{ 'active' if post.workload_display == 'Light' }}"></i>
+                                <!-- Medium -->
+                                <i class="fas fa-balance-scale {{ 'active' if post.workload_display == 'Medium' }}"></i>
+                                <!-- Heavy -->
+                                <i class="fas fa-weight-hanging {{ 'active' if post.workload_display == 'Heavy' }}"></i>
+                            </div>
+                            <div class="small text-muted mt-1">{{ post.workload_display }}</div>
                         </div>
                     </div>
                 </div>

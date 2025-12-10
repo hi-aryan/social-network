@@ -726,63 +726,53 @@ body .btn-dimmed:hover {
 }
 
 /* 
-   Star Rating Input (Create/Edit Post) 
-   Uses flex-direction: row-reverse to handle "hover selects previous siblings" logic
+   Unified Rating Bar System 
+   Handles both interactive (input) and static (view) states.
 */
-.star-rating-input {
+.rating-bar {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: center;
   gap: 0.1rem;
 }
 
-.star-rating-input .star-label {
+.rating-bar i {
+  font-size: 1.5rem;
   color: var(--twilight-indigo);
-  opacity: 0.3; /* Default dimmed state */
-  font-size: 2rem;
-  cursor: pointer;
-  transition: color 0.1s ease, transform 0.1s ease;
+  opacity: 0.3;
+  transition: all 0.1s ease;
   padding: 0 0.1rem;
 }
 
-/* Hover effects (Reverse logic because of flex-reverse) */
-/* When hovering a star, select IT and all visually-LEFT siblings (technically subsequent siblings in DOM) */
-.star-rating-input .star-label:hover,
-.star-rating-input .star-label:hover ~ .star-label {
-  color: var(--burnt-peach); /* Highlight color */
-  opacity: 1;
-}
-
-/* Checked state logic */
-/* If a radio is checked, highlight its corresponding label and subsequent labels */
-/* Note: We use the general sibling combinator ~ to target the label linked to specific inputs */
-.star-rating-input input:checked ~ .star-label {
+.rating-bar i.active {
   color: var(--burnt-peach);
   opacity: 1;
 }
 
-/* Animation on hover */
-.star-rating-input .star-label:hover {
+/* Interactive Input Mode (Create Post) */
+.rating-bar.interactive {
+  flex-direction: row-reverse; /* The magic trick for hover */
+  cursor: pointer;
+}
+
+.rating-bar.interactive .star-label {
+  cursor: pointer;
+}
+
+.rating-bar.interactive .star-label:hover i,
+.rating-bar.interactive .star-label:hover ~ .star-label i,
+.rating-bar.interactive input:checked ~ .star-label i {
+  color: var(--burnt-peach);
+  opacity: 1;
   transform: scale(1.1);
 }
 
-/* Static Star Rating (View Mode) */
-.star-rating-static {
-    display: flex;
-    flex-direction: row; /* Normal order */
-    justify-content: center;
-    gap: 0.1rem;
+/* Static View Mode (Post Details) */
+.rating-bar.static {
+  flex-direction: row;
 }
 
-.star-rating-static i {
-    font-size: 1.25rem; /* Smaller than input (2rem) */
-    color: var(--twilight-indigo);
-    opacity: 0.3;
-}
-
-.star-rating-static i.active {
-    color: var(--burnt-peach);
-    opacity: 1;
+.rating-bar.static i {
+  font-size: 1.25rem; /* Slightly smaller for view mode */
 }
 
 /* Modal Content Override */
