@@ -109,6 +109,8 @@ def api_search():
         return jsonify({'error': 'Database error occurred'}), 500
 
 
+from flasknetwork.main.utils import get_sorted_posts
+
 @courses.route('/course/<int:course_id>')
 def course_detail(course_id):
     """
@@ -119,15 +121,20 @@ def course_detail(course_id):
         
     Query Parameters:
         page (int): Page number for pagination (default: 1)
+        sort (str): Sort order for reviews (default: newest)
     """
     try:
         page = request.args.get('page', 1, type=int)
+        sort_by = request.args.get('sort', 'newest')
         course = Course.query.get_or_404(course_id)
         
-        # Get paginated reviews for this course, ordered by date (most recent first)
-        reviews = Post.query.filter_by(course=course).order_by(Post.date_posted.desc()).paginate(
-            page=page, per_page=5
-        )
+        # Base Query: Get reviews for this course
+        query = Post.query.filter_by(course=course)
+        
+        # Apply sorting
+        query = get_sorted_posts(query, sort_by)
+        
+        reviews = query.paginate(page=page, per_page=5)
 
         # Get course statistics efficiently
         avg_rating = course.get_average_rating()
@@ -153,7 +160,8 @@ def course_detail(course_id):
                              avg_rating=avg_rating,
                              auth_can_review=auth_can_review,
                              already_reviewed=already_reviewed,
-                             not_in_program=not_in_program)
+                             not_in_program=not_in_program,
+                             sort_by=sort_by)
 
     except SQLAlchemyError as e:
         current_app.logger.error(f"Database error loading course {course_id}: {str(e)}")

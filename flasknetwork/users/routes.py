@@ -119,12 +119,23 @@ def account():
 
 
 
+from flasknetwork.main.utils import get_sorted_posts
+
 @users.route('/user/<string:username>')
 def user_posts(username):
     page=request.args.get('page', 1, type=int)
+    sort_by = request.args.get('sort', 'newest')
+    
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('user_posts.html', posts=posts, user=user)
+    
+    # Filter by author first
+    query = Post.query.filter_by(author=user)
+    
+    # Apply sorting
+    query = get_sorted_posts(query, sort_by)
+    
+    posts = query.paginate(page=page, per_page=5)
+    return render_template('user_posts.html', posts=posts, user=user, sort_by=sort_by)
 
 
 

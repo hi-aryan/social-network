@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 {% from "components/post_card.html" import render_post_card %}
+{% from "components/sort_bar.html" import render_sort_bar %}
 {% block content %}
 <div class="row justify-content-center">
    <div class="col-12 col-lg-10 col-xl-8">
+
+<!-- Sort Bar -->
+    {{ render_sort_bar(posts, sort_by, 'main.home') }}
 
     {% for post in posts.items %}
         {{ render_post_card(post) }}
@@ -13,9 +17,9 @@
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
             {% if page_num %}
                 {% if posts.page == page_num %}
-                    <a class="btn btn-primary mx-1" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                    <a class="btn btn-primary mx-1" href="{{ url_for('main.home', page=page_num, sort=sort_by) }}">{{ page_num }}</a>
                 {% else %}
-                    <a class="btn btn-outline-primary mx-1" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                    <a class="btn btn-outline-primary mx-1" href="{{ url_for('main.home', page=page_num, sort=sort_by) }}">{{ page_num }}</a>
                 {% endif %}
             {% else %}
                 <span class="btn btn-outline-primary disabled mx-1">...</span>

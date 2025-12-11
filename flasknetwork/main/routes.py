@@ -7,12 +7,22 @@ from flasknetwork import mail
 main = Blueprint('main', __name__)
 
 
+from flasknetwork.main.utils import get_sorted_posts
+
 @main.route('/')
 @main.route('/home')
 def home():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('home.html', title='Home Page', posts=posts)
+    sort_by = request.args.get('sort', 'newest')
+    
+    # Base query
+    query = Post.query
+    
+    # Apply sorting using our separated concern utility
+    query = get_sorted_posts(query, sort_by)
+    
+    posts = query.paginate(page=page, per_page=5)
+    return render_template('home.html', title='Home Page', posts=posts, sort_by=sort_by)
 
 
 @main.route('/feedback', methods=['GET', 'POST'])

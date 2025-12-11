@@ -1,0 +1,69 @@
+{% macro render_sort_bar(posts, sort_by, endpoint) %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <small class="text-muted">Showing {{ posts.total }} reviews</small>
+    
+    <div class="dropdown">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort: 
+            {% if sort_by == 'top' %} Top Rated
+            {% elif sort_by == 'professor' %} Professor
+            {% elif sort_by == 'material' %} Material
+            {% elif sort_by == 'peers' %} Peer Rating
+            {% elif sort_by == 'workload' %} Workload (Light first)
+            {% else %} Newest
+            {% endif %}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
+            <!-- Newest -->
+            <li>
+                <a class="dropdown-item {% if sort_by == 'newest' %}active{% endif %}" 
+                   href="{{ url_for(endpoint, sort='newest', page=1, **kwargs) }}">
+                   Newest
+                </a>
+            </li>
+            <!-- Top Rated -->
+            <li>
+                <a class="dropdown-item {% if sort_by == 'top' %}active{% endif %}" 
+                   href="{{ url_for(endpoint, sort='top', page=1, **kwargs) }}">
+                   Top Rated
+                </a>
+            </li>
+            
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">By Category</h6></li>
+            
+            <!-- Professor -->
+            <li>
+                <a class="dropdown-item {% if sort_by == 'professor' %}active{% endif %}" 
+                   href="{{ url_for(endpoint, sort='professor', page=1, **kwargs) }}">
+                   Professor Quality
+                </a>
+            </li>
+            <!-- Material -->
+            <li>
+                <a class="dropdown-item {% if sort_by == 'material' %}active{% endif %}" 
+                   href="{{ url_for(endpoint, sort='material', page=1, **kwargs) }}">
+                   Material Quality
+                </a>
+            </li>
+            <!-- Peers -->
+            <li>
+                <a class="dropdown-item {% if sort_by == 'peers' %}active{% endif %}" 
+                   href="{{ url_for(endpoint, sort='peers', page=1, **kwargs) }}">
+                   Peer Quality
+                </a>
+            </li>
+            
+            <li><hr class="dropdown-divider"></li>
+            
+            <!-- Workload -->
+            <li>
+                <a class="dropdown-item {% if sort_by == 'workload' %}active{% endif %}" 
+                   href="{{ url_for(endpoint, sort='workload', page=1, **kwargs) }}">
+                   Workload (Lightest)
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endmacro %}
