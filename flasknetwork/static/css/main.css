@@ -699,3 +699,77 @@ body .btn-dimmed:hover {
     .feedback-btn { width: 36px; height: 36px; bottom: 12px; left: 12px; }
     .feedback-btn i { font-size: 0.85rem; }
 }
+
+/* --- Custom Sort Dropdown --- */
+.custom-sort-dropdown .dropdown-menu {
+    background-color: var(--theme-surface);
+    border: var(--theme-border-thin) solid var(--theme-border-color);
+    border-radius: var(--theme-radius);
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.custom-sort-dropdown .dropdown-header {
+    color: var(--theme-text);
+    opacity: 0.6;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-sort-dropdown .dropdown-divider {
+    border-top: var(--theme-border-thin) solid var(--theme-border-color);
+    opacity: 0.3;
+}
+
+.custom-sort-dropdown .dropdown-item {
+    color: var(--theme-text);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+/* Hover State (Non-Active Only) */
+.custom-sort-dropdown .dropdown-item:not(.active):hover,
+.custom-sort-dropdown .dropdown-item:not(.active):focus {
+    background-color: transparent;
+    color: var(--brand-accent);
+    padding-left: 1.25rem;
+}
+
+/* Active State */
+.custom-sort-dropdown .dropdown-item.active,
+.custom-sort-dropdown .dropdown-item:active {
+    background-color: var(--brand-primary);
+    color: var(--theme-text);
+    font-weight: 600;
+}
+
+/* Custom Sort Button (Clean Implementation) */
+/* We define our own class .btn-sort to avoid fighting Bootstrap's defaults */
+.custom-sort-dropdown .btn-sort {
+    color: var(--theme-text);
+    border: var(--theme-border-thin) solid var(--theme-border-color);
+    background-color: transparent;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* Hover & Open States */
+.custom-sort-dropdown .btn-sort:hover,
+.custom-sort-dropdown .show > .btn-sort.dropdown-toggle {
+    background-color: var(--theme-surface);
+    color: var(--theme-text);
+    border-color: var(--theme-border-color);
+    transform: none; /* Disable global button movement */
+}
+
+/* Focus State (Seamless) */
+.custom-sort-dropdown .btn-sort:focus,
+.custom-sort-dropdown .show > .btn-sort.dropdown-toggle:focus {
+    box-shadow: none;
+    background-color: var(--theme-surface);
+    color: var(--theme-text);
+}
