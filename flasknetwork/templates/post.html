@@ -61,7 +61,7 @@
                     {% endfor %}
                     <!-- Workload -->
                     <div class="col-6 col-md-3">
-                        <div class="rating-card text-center d-flex flex-column h-100 justify-content-center">
+                        <div class="rating-card text-center d-flex flex-column h-100 justify-content-center py-3">
                             <span class="fw-bold small d-block mb-1">Workload</span>
                             <!-- Uses same icon bar style as Create Post, but static and highlighted -->
                             <div class="rating-bar static">
@@ -72,7 +72,6 @@
                                 <!-- Heavy -->
                                 <i class="fas fa-weight-hanging {{ 'active' if post.workload_display == 'Heavy' }}"></i>
                             </div>
-                            <div class="small text-muted mt-1">{{ post.workload_display }}</div>
                         </div>
                     </div>
                 </div>

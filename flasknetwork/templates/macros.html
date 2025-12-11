@@ -12,11 +12,11 @@
                 {{ sub(class="form-check-input visually-hidden") }}
                 <label for="{{ sub.id }}" class="star-label">
                     {% if is_workload %}
-                        {% if sub.data == 'Light' %}
+                        {% if sub.data == 'light' %}
                             <i class="fas fa-feather"></i>
-                        {% elif sub.data == 'Medium' %}
+                        {% elif sub.data == 'medium' %}
                             <i class="fas fa-balance-scale"></i>
-                        {% else %} {# Heavy #}
+                        {% else %} {# heavy #}
                             <i class="fas fa-weight-hanging"></i>
                         {% endif %}
                     {% else %}

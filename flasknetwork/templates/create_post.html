@@ -41,11 +41,11 @@
                     <!-- Material Rating -->
                     {{ render_rating_input(form.rating_material, form.rating_material.label.text, "1 = Boring course, 5 = Very interesting") }}
 
-                    <!-- Workload Rating -->
-                    {{ render_rating_input(form.rating_workload, form.rating_workload.label.text, "How demanding is this course?", is_workload=True) }}
-
                     <!-- Peers Rating -->
                     {{ render_rating_input(form.rating_peers, form.rating_peers.label.text, "1 = Not my usual crowd, 5 = Great classmates") }}
+
+                    <!-- Workload Rating -->
+                    {{ render_rating_input(form.rating_workload, form.rating_workload.label.text, "How demanding is this course?", is_workload=True) }}
                 </div>
 
                 <!-- Overall Rating (computed, not selectable) -->
