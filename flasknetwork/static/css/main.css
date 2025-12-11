@@ -179,6 +179,12 @@ body .btn-dimmed:hover {
   opacity: 0.6;
 }
 
+/* Fix: Ensure feedback is visible when used pending an input-group */
+.input-group + .invalid-feedback,
+.input-group ~ .invalid-feedback {
+    display: block;
+}
+
 /* --- Alerts --- */
 .alert {
   display: inline-block;
