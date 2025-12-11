@@ -421,8 +421,8 @@ body .btn-dimmed:hover {
 }
 
 /* Static View Mode */
-.rating-bar.static { flexDirection: row; }
-.rating-bar.static i { fontSize: 1.25rem; }
+.rating-bar.static { flex-direction: row; }
+.rating-bar.static i { font-size: 1.25rem; }
 
 /* Rating Card */
 .rating-card {
