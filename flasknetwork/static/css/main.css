@@ -195,7 +195,7 @@ body .btn-dimmed:hover {
 .alert-danger { background-color: var(--brand-accent); }
 
 .center-alert { text-align: center; }
-.alert-inline { display: inline-block; padding: 0.5rem 1rem; }
+
 
 /* Custom Text Utilities */
 .text-danger-custom,
@@ -316,7 +316,7 @@ body .btn-dimmed:hover {
   color: var(--brand-accent);
   text-decoration: none;
 }
-.review-title, .author-link { text-decoration: none; }
+.author-link { text-decoration: none; }
 .article-content { white-space: pre-line; }
 
 /* Course Card Specifics */
