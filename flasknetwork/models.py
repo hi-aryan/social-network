@@ -167,7 +167,7 @@ post_tags = db.Table('post_tags',
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, index=True)
     year_taken = db.Column(db.Integer, nullable=False)
     
     # Rating categories (professor, material, peers: 1-5 scale; workload: enum)
@@ -180,7 +180,7 @@ class Post(db.Model):
     # Single general comment field
     content = db.Column(db.Text, nullable=True)
     
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False, index=True)
 
     __table_args__ = (db.UniqueConstraint('user_id', 'course_id', name='one_review_per_course'),)
