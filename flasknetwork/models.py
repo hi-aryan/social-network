@@ -78,6 +78,23 @@ class User(db.Model, UserMixin): # the *table* name is 'user' by default, not 'U
             return None
         return User.query.get(user_id)
 
+    def get_email_change_token(self, new_email):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id, 'new_email': new_email, 'action': 'change_email'})
+
+    @staticmethod
+    def verify_email_change_token(token, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token, max_age=expires_sec)
+            if data.get('action') != 'change_email':
+                return None
+            user_id = data['user_id']
+            new_email = data['new_email']
+        except:
+            return None
+        return User.query.get(user_id), new_email
+
     @classmethod
     def generate_username(cls, program_code, user_id):
         """

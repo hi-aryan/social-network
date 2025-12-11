@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flasknetwork import db, bcrypt
 from flasknetwork.models import User, Post, Program
 from flasknetwork.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, RequestVerificationForm
-from flasknetwork.users.utils import send_reset_email, send_verification_email, validate_profile_picture
+from flasknetwork.users.utils import send_reset_email, send_verification_email, validate_profile_picture, send_email_change_email
 
 users = Blueprint('users', __name__)
 
@@ -95,7 +95,11 @@ def account():
             current_user.image_file = 'default1.png'
             flash('Selected profile picture was not available. Using default.', 'warning')
         
-        current_user.email = form.email.data
+        if form.email.data != current_user.email:
+            send_email_change_email(current_user, form.email.data)
+            flash('A verification email has been sent to your new email. Your email will be updated once you click the link.', 'info')
+            return redirect(url_for('users.account'))
+
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account')) # post-get-redirect pattern
@@ -168,6 +172,33 @@ def verify_email(token):
     db.session.commit()
     flash('Your account has been verified! You can now log in.', 'success')
     return redirect(url_for('users.login'))
+
+
+@users.route('/verify_change_email/<token>')
+def verify_change_email(token):
+    if current_user.is_authenticated:
+        # If user is logged in, that's fine, we update them.
+        # If not, verify_email_change_token loads the user from ID so it still works.
+        pass
+
+    result = User.verify_email_change_token(token)
+    if result is None:
+        flash('That is an invalid or expired token.', 'warning')
+        return redirect(url_for('users.account'))
+    
+    user, new_email = result
+    
+    # Check if email is already taken (race condition edge case)
+    existing_user = User.query.filter_by(email=new_email).first()
+    if existing_user:
+        flash('That email is already in use by another account.', 'danger')
+        return redirect(url_for('users.account'))
+        
+    user.email = new_email
+    user.email_verified = True
+    db.session.commit()
+    flash('Your email has been updated and verified!', 'success')
+    return redirect(url_for('users.account'))
 
 
 @users.route('/request_verification', methods=['GET', 'POST'])

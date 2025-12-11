@@ -87,3 +87,14 @@ def send_verification_email(user):
 If you did not make this request, ignore this email.
 '''
     mail.send(msg)
+
+
+def send_email_change_email(user, new_email):
+    token = user.get_email_change_token(new_email)
+    msg = Message('Confirm Email Change', sender='ratekth@noreply.com', recipients=[new_email])
+    msg.body = f'''To confirm your email change to {new_email}, visit the following link:
+{ url_for('users.verify_change_email', token=token, _external=True) }
+
+If you did not make this request, ignore this email and your email will remain unchanged.
+'''
+    mail.send(msg)
