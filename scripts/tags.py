@@ -5,7 +5,13 @@
 # ran this on both prod db and local db
 
 from dotenv import load_dotenv
-load_dotenv()
+import sys
+import os
+
+# Add parent directory to path to allow importing flasknetwork
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+load_dotenv(os.path.join(os.path.dirname(__file__), '../.env'))
   # seeding after migration
 from flasknetwork import db, create_app
 from flasknetwork.models import Tag, TagSentiment

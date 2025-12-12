@@ -1,5 +1,11 @@
 from dotenv import load_dotenv
-load_dotenv()  # Load environment variables from .env
+import sys
+import os
+
+# Add parent directory to path to allow importing flasknetwork
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+load_dotenv(os.path.join(os.path.dirname(__file__), '../.env')) # Load environment variables from .env
 
 from flasknetwork import create_app, db, bcrypt
 from flasknetwork.models import User, Post, Program, Course, WorkloadLevel

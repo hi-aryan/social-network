@@ -7,7 +7,13 @@
 # ^ not added to requirements.txt !
 
 from dotenv import load_dotenv
-load_dotenv()
+import sys
+import os
+
+# Add parent directory to path to allow importing flasknetwork
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+load_dotenv(os.path.join(os.path.dirname(__file__), '../.env'))
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
