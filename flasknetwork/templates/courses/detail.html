@@ -57,7 +57,7 @@
             {{ render_sort_bar(reviews, sort_by, 'courses.course_detail', course_id=course.id) }}
 
             {% for review in reviews.items %}
-                {{ render_post_card(review, show_course_badge=False, return_to=course_return_to) }}
+                {{ render_post_card(review, is_detail_view=True, return_to=course_return_to) }}
             {% endfor %}
             
             <!-- Pagination -->

@@ -520,6 +520,10 @@ body .btn-dimmed:hover {
     color: var(--theme-text);
     transform: none;
 }
+/* Detail view specific overrides */
+.post-section.post-card-detail .tag-chip-static {
+    opacity: 0.9; /* Slightly higher opacity for detail view as requested */
+}
 .post-tag-list .tag-chip-static.tag-positive {
     background-color: rgba(154, 199, 177, 0.7);
 }
