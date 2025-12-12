@@ -200,8 +200,6 @@ body .btn-dimmed:hover {
 .alert-success, .alert-info { background-color: var(--brand-primary); }
 .alert-danger { background-color: var(--brand-accent); }
 
-.center-alert { text-align: center; }
-
 
 /* Custom Text Utilities */
 .text-danger-custom,
@@ -789,4 +787,104 @@ body .btn-dimmed:hover {
     box-shadow: none;
     background-color: var(--theme-surface);
     color: var(--theme-text);
+}
+
+/* ----------------------------------------------------------- */
+/* 7. FOCUS MODAL ALERTS (Toast/Flash System)                  */
+/* ----------------------------------------------------------- */
+
+/* The Overlay: Fixed, full screen, blurred background */
+.flash-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Dimmed bg */
+    backdrop-filter: blur(8px);           /* The Blur Effect */
+    -webkit-backdrop-filter: blur(8px);   /* Safari support */
+    z-index: 9999;                        /* Top of everything */
+    display: flex;
+    flex-direction: column;               /* Stack multiple alerts */
+    gap: 1.5rem;                          /* Space between stacked alerts */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: flashFadeIn 0.3s forwards ease-out;
+    padding: 1rem;                        /* Prevent edge touching on small screens */
+}
+
+/* The Modal Card */
+.flash-modal {
+    background-color: var(--brand-eggshell); /* Theme Surface */
+    border: var(--theme-border-thin) solid var(--theme-border-color);
+    border-radius: var(--theme-radius);
+    padding: 2rem;
+    width: 100%;                          /* Fluid width ... */
+    max-width: 400px;                     /* ... up to 400px */
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden; /* For the progress bar */
+    transform: scale(0.95);
+    animation: flashPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Bouncy pop */
+}
+
+/* Modal Content Styling */
+.flash-modal-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--theme-text);
+}
+
+.flash-modal-message {
+    font-size: 1rem;
+    color: var(--theme-text);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* Success/Error Variants (Optional color accents) */
+.flash-modal.category-success .flash-modal-title { color: var(--brand-primary); }
+.flash-modal.category-danger .flash-modal-title  { color: var(--brand-accent); }
+
+/* The Timer Bar */
+.flash-timer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: var(--brand-primary);
+    width: 100%;
+    transform-origin: left;
+    /* We animate width from 100% to 0% */
+    animation: shrinkWidth 4s linear forwards; 
+}
+.flash-modal.category-danger .flash-timer-bar {
+    background-color: var(--brand-accent);
+}
+
+/* Hiding State (Triggered by JS) */
+.flash-overlay.hiding {
+    animation: flashFadeOut 0.3s forwards ease-in;
+    pointer-events: none;
+}
+
+/* Keyframes */
+@keyframes flashFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes flashFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes flashPopIn {
+    from { transform: scale(0.9); }
+    to { transform: scale(1); }
+}
+@keyframes shrinkWidth {
+    from { width: 100%; }
+    to { width: 0%; }
 }
