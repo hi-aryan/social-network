@@ -831,23 +831,18 @@ body .btn-dimmed:hover {
 }
 
 /* Modal Content Styling */
-.flash-modal-title {
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: var(--theme-text);
-}
-
 .flash-modal-message {
     font-size: 1rem;
     color: var(--theme-text);
     margin-bottom: 0;
     line-height: 1.5;
+    font-weight: 500; /* Making message slightly bolder since title is gone */
 }
 
 /* Success/Error Variants (Optional color accents) */
-.flash-modal.category-success .flash-modal-title { color: var(--brand-primary); }
-.flash-modal.category-danger .flash-modal-title  { color: var(--brand-accent); }
+/* (Currently unused without title, but good to keep for future targeting of borders/icons) */
+/* .flash-modal.category-success .flash-modal-message { color: var(--brand-primary); } */
+
 
 /* The Timer Bar */
 .flash-timer-bar {
