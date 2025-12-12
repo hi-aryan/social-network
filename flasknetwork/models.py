@@ -166,7 +166,7 @@ post_tags = db.Table('post_tags',
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
+
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, index=True)
     year_taken = db.Column(db.Integer, nullable=False)
     
@@ -251,7 +251,7 @@ class Post(db.Model):
     def __repr__(self):
         author = self.author.username if self.author else "None"
         course = self.course.name if self.course else "None"
-        return f"Post(id={self.id}, title='{self.title}', author='{author}', course='{course}', rating={self.rating})"
+        return f"Post(id={self.id}, author='{author}', course='{course}', rating={self.rating})"
 
 class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True) # or int??

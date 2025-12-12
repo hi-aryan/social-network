@@ -105,20 +105,7 @@
                     {% endif %}
                 </div>
 
-                <!-- Title Section -->
-                <div class="mb-4">
-                    <label class="form-label fw-bold">{{ form.title.label.text }}</label>
-                    {% if form.title.errors %}
-                        {{ form.title(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.title.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.title(class="form-control form-control-lg", placeholder="displayed in the feed!") }}
-                    {% endif %}
-                </div>
+
 
                 <!-- Year Taken Section -->
                 <div class="mb-4">

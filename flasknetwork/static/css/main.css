@@ -379,7 +379,9 @@ body .btn-dimmed:hover {
     line-height: 1.4;
     text-decoration: none;
     transition: border-color 0.2s ease, color 0.2s ease;
-    opacity: 0.6;
+    opacity: 0.9;
+    font-weight: 500;
+    font-size: 1rem; /* TODO: possibly change to 0.9rem... */
 }
 .badge-course:hover {
     color: var(--brand-accent);
@@ -702,7 +704,7 @@ body .btn-dimmed:hover {
     .course-item .d-md-none { opacity: 0.6; }
     
     /* Layout Adjustments */
-    .post-section .badge-course { margin-right: 2rem; }
+    .post-section .badge-course { margin-right: 3rem; }
     .post-section .article-title,
     .post-section .author-link,
     .post-section .badge-course {

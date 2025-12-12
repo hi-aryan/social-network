@@ -46,7 +46,7 @@ def new_post():
             existing_review_id = existing_review.id
         else:
             post = Post(
-                title=form.title.data,
+
                 author=current_user,
                 course_id=form.course.data,
                 year_taken=form.year_taken.data,
@@ -89,7 +89,7 @@ def test_alerts():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     back_url = BackLinkResolver.get_back_url(request, url_for('main.home'))
-    return render_template('post.html', title=post.title, post=post, back_url=back_url)
+    return render_template('post.html', title=f"{post.course.code} Review", post=post, back_url=back_url)
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
@@ -106,7 +106,7 @@ def update_post(post_id):
             form.course.errors.append("You've already reviewed this course.")
         else:
             post.course_id = form.course.data
-            post.title = form.title.data
+
             post.year_taken = form.year_taken.data
             # rating is computed from professor, material, and peers ratings
             post.rating_professor = form.rating_professor.data
@@ -126,7 +126,7 @@ def update_post(post_id):
             return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.course.data = post.course_id
-        form.title.data = post.title
+
         form.year_taken.data = post.year_taken
         # rating is computed, no need to set form.rating.data
         form.rating_professor.data = post.rating_professor
