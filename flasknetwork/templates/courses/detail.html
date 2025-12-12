@@ -65,12 +65,12 @@
                 {% for page_num in reviews.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
                     {% if page_num %}
                         {% if reviews.page == page_num %}
-                            <a class="btn btn-primary mx-1" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num, sort=sort_by) }}">{{ page_num }}</a>
+                            <a class="btn btn-primary btn-xs mx-1" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num, sort=sort_by) }}">{{ page_num }}</a>
                         {% else %}
-                            <a class="btn btn-outline-primary mx-1" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num, sort=sort_by) }}">{{ page_num }}</a>
+                            <a class="btn btn-outline-primary btn-xs mx-1" href="{{ url_for('courses.course_detail', course_id=course.id, page=page_num, sort=sort_by) }}">{{ page_num }}</a>
                         {% endif %}
                     {% else %}
-                        <span class="btn btn-outline-primary disabled mx-1">...</span>
+                        <span class="btn btn-outline-primary btn-xs disabled mx-1">...</span>
                     {% endif %}
                 {% endfor %}
             </div>
