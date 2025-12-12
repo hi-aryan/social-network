@@ -43,7 +43,7 @@
                         </div>
                     {% endif %}
                     {% if auth_can_review %}
-                        <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary btn-sm">
+                        <a href="{{ url_for('posts.new_post') }}?course_id={{ course.id }}" class="btn btn-primary btn-xs mt-1 d-md-none">
                             <i class="fas fa-edit"></i> Review
                         </a>
                     {% endif %}

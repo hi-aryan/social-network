@@ -55,7 +55,8 @@
 
                         {% if current_user.is_authenticated %}
                             {% if request.endpoint not in ['posts.new_post', 'posts.update_post'] %}
-                                <a class="btn btn-sm btn-primary nav-action-btn" href="{{ url_for('posts.new_post') }}">
+                                {% set new_review_url = url_for('posts.new_post', course_id=course.id) if (request.endpoint == 'courses.course_detail' and course is defined) else url_for('posts.new_post') %}
+                                <a class="btn btn-sm btn-primary nav-action-btn" href="{{ new_review_url }}">
                                     <i class="fas fa-edit"></i> New Review
                                 </a>
                             {% endif %}
