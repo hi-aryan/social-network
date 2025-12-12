@@ -97,7 +97,7 @@
                 <!-- Content/Comment Section -->
                 <div class="mb-4">
                     {{ form.content.label(class="form-label fw-bold") }}
-                    {{ form.content(class="form-control", rows="6", placeholder="share what you liked, what was challenging, gossip about the professor, or advice for future students. be as serious, unserious or detailed as you wish :)") }}
+                    {{ form.content(class="form-control", rows="6", placeholder="what do you want other students to know about this course?") }}
                     {% if form.content.errors %}
                         <div class="invalid-feedback">
                             {% for e in form.content.errors %}{{ e }}{% endfor %}
