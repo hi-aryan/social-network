@@ -6,12 +6,12 @@
             <i class="fas fa-info-circle info-tooltip" data-bs-toggle="tooltip" title="{{ tooltip }}"></i>
         </div>
         
-        <div class="rating-bar interactive">
-            {# Iterate in reverse order (5,4,3,2,1) for CSS sibling selector trick #}
-            {% for sub in field | reverse %}
-                {{ sub(class="form-check-input visually-hidden") }}
-                <label for="{{ sub.id }}" class="star-label">
-                    {% if is_workload %}
+        {% if is_workload %}
+            {# Workload: Single Select (Categorical) - Normal Order #}
+            <div class="rating-bar single-select">
+                {% for sub in field %}
+                    {{ sub(class="form-check-input visually-hidden") }}
+                    <label for="{{ sub.id }}" class="star-label">
                         {% if sub.data == 'light' %}
                             <i class="fas fa-feather"></i>
                         {% elif sub.data == 'medium' %}
@@ -19,13 +19,20 @@
                         {% else %} {# heavy #}
                             <i class="fas fa-weight-hanging"></i>
                         {% endif %}
-                    {% else %}
-                        {# Normal Star Rating #}
+                    </label>
+                {% endfor %}
+            </div>
+        {% else %}
+            {# Star Rating: Cumulative (Ordinal) - Reverse Order for CSS Trick #}
+            <div class="rating-bar interactive">
+                {% for sub in field | reverse %}
+                    {{ sub(class="form-check-input visually-hidden") }}
+                    <label for="{{ sub.id }}" class="star-label">
                         <i class="fas fa-star"></i>
-                    {% endif %}
-                </label>
-            {% endfor %}
-        </div>
+                    </label>
+                {% endfor %}
+            </div>
+        {% endif %}
 
         {% if field.errors %}
             <div class="text-danger-custom mt-2">

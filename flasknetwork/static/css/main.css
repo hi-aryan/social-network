@@ -426,6 +426,21 @@ body .btn-dimmed:hover {
   transform: scale(1.1);
 }
 
+/* Single Select Mode (Categorical) used for Workload */
+.rating-bar.single-select {
+    flex-direction: row; /* Normal order */
+    cursor: pointer;
+}
+.rating-bar.single-select .star-label { 
+    cursor: pointer; 
+}
+.rating-bar.single-select .star-label:hover i,
+.rating-bar.single-select input:checked + .star-label i {
+    color: var(--brand-accent);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
 /* Static View Mode */
 .rating-bar.static { flex-direction: row; }
 .rating-bar.static i { font-size: 1.25rem; }
